@@ -1,0 +1,5 @@
+enabled: true
+active: true
+active_admin: true
+load_fontawesome: true
+
