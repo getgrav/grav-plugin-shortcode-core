@@ -165,39 +165,48 @@ class ShortcodeSafeEmailPlugin extends Plugin
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
         ];
     }
-
-    private function addSafeEmailHandler()
+    
+    /**
+     * Shortcode Event 
+     *
+     * @param Event $e
+     */
+    public function onShortcodeHandlers(Event $e)
     {
+        // Set handlers and assets from event
+        $this->handlers = $e['handlers'];
+        $this->assets = $e['assets'];
+
         $this->handlers->add('safe-email', function(ShortcodeInterface $shortcode) {
             // Load assets if required
             if ($this->config->get('plugins.shortcode-safe-eamil.load_fontawesome', false)) {
                 $this->assets->add('css', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
             }
-
+    
             // Get shortcode content and parameters
             $str = $shortcode->getContent();
             $icon = $shortcode->getParameter('icon', false);
             $autolink = $shortcode->getParameter('autolink', false);
-
+    
             // Encode email
             $email = '';
             $str_len = strlen($str);
             for ($i = 0; $i < $str_len; $i++) {
                 $email .= "&#" . ord($str[$i]). ";";
             }
-
+    
             // Handle autolinking
             if ($autolink) {
                 $output = '<a href="mailto:'.$email.'">'.$email.'</a>';
             } else {
                 $output = $email;
             }
-
+    
             // Handle icon option
             if ($icon) {
                 $output = '<i class="fa fa-'.$icon.'"></i> ' . $output;
             }
-
+    
             return $output;
         });
     }
