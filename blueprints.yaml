@@ -38,7 +38,7 @@ form:
       validate:
         type: bool
 
-    enabled_active:
+    active_admin:
       type: toggle
       label: Activated in admin
       highlight: 1
