@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 1.0.0
+version: 1.0.1
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -38,7 +38,7 @@ form:
       validate:
         type: bool
 
-    enabled_active:
+    active_admin:
       type: toggle
       label: Activated in admin
       highlight: 1
