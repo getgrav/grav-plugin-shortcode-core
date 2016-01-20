@@ -1,5 +1,11 @@
 {
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/rhukster/Shortcode"
+        }
+    ],
     "require": {
-        "thunderer/shortcode": "^0.5.1"
+        "thunderer/shortcode": "dev-master"
     }
 }

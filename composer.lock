@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b11b4de87555c4b485b365c0df2ec0a6",
-    "content-hash": "1d12f07ade26fd5c00a84940088b614f",
+    "hash": "d979fc01b6e52c0c063aa398e312cb9b",
+    "content-hash": "5a6c496c1ad09b6c685022b121bb8469",
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "v0.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "745110c4ef490ba84a910abf7d3a2f26830df541"
+                "url": "https://github.com/rhukster/Shortcode.git",
+                "reference": "6db67219983fa73e1a46856c353f38c612fa97e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/745110c4ef490ba84a910abf7d3a2f26830df541",
-                "reference": "745110c4ef490ba84a910abf7d3a2f26830df541",
+                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/6db67219983fa73e1a46856c353f38c612fa97e3",
+                "reference": "6db67219983fa73e1a46856c353f38c612fa97e3",
                 "shasum": ""
             },
             "require": {
@@ -39,7 +39,6 @@
                     "Thunder\\Shortcode\\Tests\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -57,13 +56,18 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2015-11-12 13:00:02"
+            "support": {
+                "source": "https://github.com/rhukster/Shortcode/tree/master"
+            },
+            "time": "2016-01-20 03:44:14"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "thunderer/shortcode": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

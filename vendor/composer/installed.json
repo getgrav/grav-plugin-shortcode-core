@@ -1,17 +1,17 @@
 [
     {
         "name": "thunderer/shortcode",
-        "version": "v0.5.1",
-        "version_normalized": "0.5.1.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/thunderer/Shortcode.git",
-            "reference": "745110c4ef490ba84a910abf7d3a2f26830df541"
+            "url": "https://github.com/rhukster/Shortcode.git",
+            "reference": "6db67219983fa73e1a46856c353f38c612fa97e3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/745110c4ef490ba84a910abf7d3a2f26830df541",
-            "reference": "745110c4ef490ba84a910abf7d3a2f26830df541",
+            "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/6db67219983fa73e1a46856c353f38c612fa97e3",
+            "reference": "6db67219983fa73e1a46856c353f38c612fa97e3",
             "shasum": ""
         },
         "require": {
@@ -25,16 +25,15 @@
             "ext-json": "if you want to use JSON serializer",
             "symfony/yaml": "if you want to use YAML serializer"
         },
-        "time": "2015-11-12 13:00:02",
+        "time": "2016-01-20 03:44:14",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Thunder\\Shortcode\\": "src/",
                 "Thunder\\Shortcode\\Tests\\": "tests/"
             }
         },
-        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -51,6 +50,9 @@
             "library",
             "parser",
             "shortcode"
-        ]
+        ],
+        "support": {
+            "source": "https://github.com/rhukster/Shortcode/tree/master"
+        }
     }
 ]
