@@ -5,13 +5,13 @@
         "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
-            "url": "https://github.com/rhukster/Shortcode.git",
-            "reference": "6db67219983fa73e1a46856c353f38c612fa97e3"
+            "url": "https://github.com/thunderer/Shortcode.git",
+            "reference": "235228d65435a518164c4c83ad2652914194300f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/6db67219983fa73e1a46856c353f38c612fa97e3",
-            "reference": "6db67219983fa73e1a46856c353f38c612fa97e3",
+            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/235228d65435a518164c4c83ad2652914194300f",
+            "reference": "235228d65435a518164c4c83ad2652914194300f",
             "shasum": ""
         },
         "require": {
@@ -25,7 +25,7 @@
             "ext-json": "if you want to use JSON serializer",
             "symfony/yaml": "if you want to use YAML serializer"
         },
-        "time": "2016-01-20 03:44:14",
+        "time": "2016-01-20 12:32:22",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -34,6 +34,7 @@
                 "Thunder\\Shortcode\\Tests\\": "tests/"
             }
         },
+        "notification-url": "https://packagist.org/downloads/",
         "license": [
             "MIT"
         ],
@@ -50,9 +51,6 @@
             "library",
             "parser",
             "shortcode"
-        ],
-        "support": {
-            "source": "https://github.com/rhukster/Shortcode/tree/master"
-        }
+        ]
     }
 ]

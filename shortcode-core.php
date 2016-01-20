@@ -4,7 +4,7 @@ namespace Grav\Plugin;
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
-use Thunder\Shortcode\Parser\RegexParser;
+use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
@@ -72,7 +72,7 @@ class ShortcodeCorePlugin extends Plugin
 
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
-            $processor = new Processor(new RegexParser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new RegularParser(new CommonSyntax()), $this->handlers);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);
