@@ -73,7 +73,7 @@ class ShortcodeCorePlugin extends Plugin
 
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
-            $processor = new Processor(new WordpressParser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new RegexParser(new CommonSyntax()), $this->handlers);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);
