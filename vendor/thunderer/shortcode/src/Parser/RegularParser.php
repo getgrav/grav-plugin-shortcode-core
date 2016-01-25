@@ -11,9 +11,10 @@ use Thunder\Shortcode\Syntax\SyntaxInterface;
  */
 final class RegularParser implements ParserInterface
 {
-    private $lexerRules;
-    /** @var \SplStack */
+    private $lexerRegex;
     private $tokens;
+    private $tokensCount;
+    private $position;
     private $backtracks;
 
     const TOKEN_OPEN = 1;
@@ -26,19 +27,7 @@ final class RegularParser implements ParserInterface
 
     public function __construct(SyntaxInterface $syntax = null)
     {
-        $syntax = $syntax ?: new CommonSyntax();
-
-        $quote = function($text) { return '~^('.preg_replace('/(.)/us', '\\\\$0', $text).')~us'; };
-
-        $this->lexerRules = array(
-            self::TOKEN_OPEN => $quote($syntax->getOpeningTag()),
-            self::TOKEN_CLOSE => $quote($syntax->getClosingTag()),
-            self::TOKEN_MARKER => $quote($syntax->getClosingTagMarker()),
-            self::TOKEN_SEPARATOR => $quote($syntax->getParameterValueSeparator()),
-            self::TOKEN_DELIMITER => $quote($syntax->getParameterValueDelimiter()),
-            self::TOKEN_WS => '~^(\s+)~us',
-            self::TOKEN_STRING => '~^([\w-]+|\\\\.|.)~us',
-        );
+        $this->lexerRegex = $this->getTokenizerRegex($syntax ?: new CommonSyntax());
     }
 
     /**
@@ -50,13 +39,17 @@ final class RegularParser implements ParserInterface
     {
         $this->tokens = $this->tokenize($text);
         $this->backtracks = array();
+        $this->position = 0;
+        $this->tokensCount = count($this->tokens);
 
         $shortcodes = array();
-        while(false === $this->isEof()) {
-            while(!$this->isEof() && !$this->lookahead(self::TOKEN_OPEN)) {
-                $this->tokens->pop();
+        while($this->position < $this->tokensCount) {
+            while($this->position < $this->tokensCount && !$this->lookahead(self::TOKEN_OPEN)) {
+                $this->position++;
             }
-            if($shortcode = $this->shortcode(true)) {
+            $names = array();
+            $this->beginBacktrack();
+            foreach($this->shortcode($names) ?: array() as $shortcode) {
                 $shortcodes[] = $shortcode;
             }
         }
@@ -64,14 +57,14 @@ final class RegularParser implements ParserInterface
         return $shortcodes;
     }
 
-    private function getObject($name, $parameters, $bbCode, $offset, $content)
+    private function getObject($name, $parameters, $bbCode, $offset, $content, $text)
     {
-        return new ParsedShortcode(new Shortcode($name, $parameters, $content, $bbCode), $this->getBacktrack(), $offset);
+        return new ParsedShortcode(new Shortcode($name, $parameters, $content, $bbCode), $text, $offset);
     }
 
     /* --- RULES ----------------------------------------------------------- */
 
-    private function shortcode($isRoot)
+    private function shortcode(array &$names)
     {
         $name = null;
         $offset = null;
@@ -79,9 +72,11 @@ final class RegularParser implements ParserInterface
         $setName = function(array $token) use(&$name) { $name = $token[1]; };
         $setOffset = function(array $token) use(&$offset) { $offset = $token[2]; };
 
-        !$isRoot ?: $this->beginBacktrack();
         if(!$this->match(self::TOKEN_OPEN, $setOffset, true)) { return false; }
-        if(!$this->match(self::TOKEN_STRING, $setName, true)) { return false; }
+        if(!$this->match(self::TOKEN_STRING, $setName, false)) { return false; }
+        if($this->lookahead(self::TOKEN_STRING, null)) { return false; }
+        if(!preg_match_all('/^[a-zA-Z0-9-]+$/', $name, $matches)) { return false; }
+        $this->match(self::TOKEN_WS);
         if(false === ($bbCode = $this->bbCode())) { return false; }
         if(false === ($parameters = $this->parameters())) { return false; }
 
@@ -89,55 +84,78 @@ final class RegularParser implements ParserInterface
         if($this->match(self::TOKEN_MARKER, null, true)) {
             if(!$this->match(self::TOKEN_CLOSE)) { return false; }
 
-            return $isRoot ? $this->getObject($name, $parameters, $bbCode, $offset, null) : null;
+            return array($this->getObject($name, $parameters, $bbCode, $offset, null, $this->getBacktrack()));
         }
 
         // just-closed or with-content
         if(!$this->match(self::TOKEN_CLOSE)) { return false; }
         $this->beginBacktrack();
-        if(false === ($content = $this->content($name))) {
-            $this->backtrack();
+        $names[] = $name;
+        list($content, $shortcodes, $closingName) = $this->content($names);
+        if(null !== $closingName && $closingName !== $name) {
+            array_pop($names);
+            array_pop($this->backtracks);
+            array_pop($this->backtracks);
 
-            return $isRoot ? $this->getObject($name, $parameters, $bbCode, $offset, null) : null;
+            return $closingName;
         }
-        $this->discardBacktrack();
-        if(!$this->close($name)) { return false; }
+        if(false === $content || $closingName !== $name) {
+            $this->backtrack(false);
+            $text = $this->backtrack(false);
 
-        return $isRoot ? $this->getObject($name, $parameters, $bbCode, $offset, $content) : null;
+            return array_merge(array($this->getObject($name, $parameters, $bbCode, $offset, null, $text)), $shortcodes);
+        }
+        $content = $this->getBacktrack();
+        if(!$this->close($names)) { return false; }
+
+        return array($this->getObject($name, $parameters, $bbCode, $offset, $content, $this->getBacktrack()));
     }
 
-    private function content($name)
+    private function content(array &$names)
     {
         $content = null;
+        $shortcodes = array();
+        $closingName = null;
         $appendContent = function(array $token) use(&$content) { $content .= $token[1]; };
 
-        while(!$this->isEof()) {
+        while($this->position < $this->tokensCount) {
             while($this->match(array(self::TOKEN_STRING, self::TOKEN_WS), $appendContent)) {
                 continue;
             }
 
             $this->beginBacktrack();
-            if(false !== $this->shortcode(false)) {
-                $content .= $this->getBacktrack();
+            $matchedShortcodes = $this->shortcode($names);
+            if(is_string($matchedShortcodes)) {
+                $closingName = $matchedShortcodes;
+                break;
+            }
+            if(false !== $matchedShortcodes) {
+                $shortcodes = array_merge($shortcodes, $matchedShortcodes);
                 continue;
             }
             $this->backtrack();
 
             $this->beginBacktrack();
-            if(false !== $this->close($name)) {
+            if(false !== ($closingName = $this->close($names))) {
                 if(null === $content) { $content = ''; }
                 $this->backtrack();
+                $shortcodes = array();
                 break;
             }
+            $closingName = null;
             $this->backtrack();
+            if($this->position < $this->tokensCount) {
+                $shortcodes = array();
+                break;
+            }
 
             $this->match(null, $appendContent);
         }
 
-        return $this->isEof() ? false : $content;
+        return array($this->position < $this->tokensCount ? $content : false, $shortcodes, $closingName);
     }
 
-    private function close($openingName)
+    private function close(array &$names)
     {
         $closingName = null;
         $setName = function(array $token) use(&$closingName) { $closingName = $token[1]; };
@@ -147,7 +165,7 @@ final class RegularParser implements ParserInterface
         if(!$this->match(self::TOKEN_STRING, $setName, true)) { return false; }
         if(!$this->match(self::TOKEN_CLOSE)) { return false; }
 
-        return $openingName === $closingName;
+        return in_array($closingName, $names) ? $closingName : false;
     }
 
     private function bbCode()
@@ -182,7 +200,7 @@ final class RegularParser implements ParserInterface
         $appendValue = function(array $token) use(&$value) { $value .= $token[1]; };
 
         if($this->match(self::TOKEN_DELIMITER)) {
-            while(!$this->isEof() && !$this->lookahead(self::TOKEN_DELIMITER)) {
+            while($this->position < $this->tokensCount && !$this->lookahead(self::TOKEN_DELIMITER)) {
                 $this->match(null, $appendValue);
             }
 
@@ -194,76 +212,87 @@ final class RegularParser implements ParserInterface
 
     /* --- PARSER ---------------------------------------------------------- */
 
-    private function discardBacktrack()
+    /**
+     * This method is used only for debugging purposes. DO NOT DELETE.
+     *
+     * @return array
+     */
+    private function listBacktracks()
     {
-        return array_pop($this->backtracks);
+        return array_map(function(array $backtrack) {
+            return implode('', array_column($backtrack, 1));
+        }, $this->backtracks);
     }
 
     private function beginBacktrack()
     {
-        array_push($this->backtracks, array());
+        $this->backtracks[] = array();
     }
 
     private function getBacktrack()
     {
-        return implode('', array_map(function(array $token) { return $token[1]; }, $this->discardBacktrack()));
+        // switch from array_map() to array_column() when dropping support for PHP <5.5
+        return implode('', array_map(function(array $token) { return $token[1]; }, array_pop($this->backtracks)));
     }
 
-    private function backtrack()
+    private function backtrack($modifyPosition = true)
     {
-        foreach(array_reverse($this->discardBacktrack()) as $token) {
-            $this->tokens->push($token);
+        $tokens = array_pop($this->backtracks);
+        $count = count($tokens);
+        if($modifyPosition) {
+            $this->position -= $count;
+        }
 
-            foreach($this->backtracks as &$backtrack) {
+        foreach($this->backtracks as &$backtrack) {
+            // array_pop() in loop is much faster than array_slice() because
+            // it operates directly on the passed array
+            for($i = 0; $i < $count; $i++) {
                 array_pop($backtrack);
             }
         }
-    }
 
-    private function isEof()
-    {
-        return $this->tokens->isEmpty();
+        return implode('', array_map(function(array $token) { return $token[1]; }, $tokens));
     }
 
     private function lookahead($type, $callback = null)
     {
-        if($this->isEof()) {
+        if($this->position >= $this->tokensCount) {
             return false;
         }
 
         $type = (array)$type;
-        $token = $this->tokens->top();
+        $token = $this->tokens[$this->position];
         if(!empty($type) && !in_array($token[0], $type)) {
             return false;
         }
 
         /** @var $callback callable */
-        !$callback ?: $callback($token);
+        $callback && $callback($token);
 
         return true;
     }
 
     private function match($type, $callbacks = null, $ws = false)
     {
-        if($this->isEof()) {
+        if($this->position >= $this->tokensCount) {
             return false;
         }
 
         $type = (array)$type;
-        $token = $this->tokens->top();
+        $token = $this->tokens[$this->position];
         if(!empty($type) && !in_array($token[0], $type)) {
             return false;
         }
         foreach($this->backtracks as &$backtrack) {
-            array_push($backtrack, $token);
+            $backtrack[] = $token;
         }
 
-        $this->tokens->pop();
+        $this->position++;
         foreach((array)$callbacks as $callback) {
             $callback($token);
         }
 
-        !$ws ?: $this->match(self::TOKEN_WS);
+        $ws && $this->match(self::TOKEN_WS);
 
         return true;
     }
@@ -272,20 +301,44 @@ final class RegularParser implements ParserInterface
 
     private function tokenize($text)
     {
-        $tokens = new \SplStack();
+        preg_match_all($this->lexerRegex, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        $tokens = array();
         $position = 0;
-
-        while(mb_strlen($text) > 0) {
-            foreach($this->lexerRules as $token => $regex) {
-                if(preg_match($regex, $text, $matches)) {
-                    $tokens->unshift(array($token, $matches[0], $position));
-                    $text = mb_substr($text, mb_strlen($matches[0]));
-                    $position += mb_strlen($matches[0]);
-                    break;
-                }
+        $type = null;
+        $token = null;
+        foreach($matches as $match) {
+            switch(true) {
+                case -1 !== $match['open'][1]: $token = $match['open'][0]; $type = self::TOKEN_OPEN; break;
+                case -1 !== $match['close'][1]: $token = $match['close'][0]; $type = self::TOKEN_CLOSE; break;
+                case -1 !== $match['marker'][1]: $token = $match['marker'][0]; $type = self::TOKEN_MARKER; break;
+                case -1 !== $match['separator'][1]: $token = $match['separator'][0]; $type = self::TOKEN_SEPARATOR; break;
+                case -1 !== $match['delimiter'][1]: $token = $match['delimiter'][0]; $type = self::TOKEN_DELIMITER; break;
+                case -1 !== $match['ws'][1]: $token = $match['ws'][0]; $type = self::TOKEN_WS; break;
+                case -1 !== $match['string'][1]: $token = $match['string'][0]; $type = self::TOKEN_STRING; break;
             }
+            $tokens[] = array($type, $token, $position);
+            $position += mb_strlen($token, 'utf-8');
         }
 
         return $tokens;
+    }
+
+    private function getTokenizerRegex(SyntaxInterface $syntax)
+    {
+        $quote = function($text, $group) {
+            return '(?<'.$group.'>'.preg_replace('/(.)/us', '\\\\$0', $text).')';
+        };
+
+        $rules = array(
+            $quote($syntax->getOpeningTag(), 'open'),
+            $quote($syntax->getClosingTag(), 'close'),
+            $quote($syntax->getClosingTagMarker(), 'marker'),
+            $quote($syntax->getParameterValueSeparator(), 'separator'),
+            $quote($syntax->getParameterValueDelimiter(), 'delimiter'),
+            '(?<ws>\s+)',
+            '(?<string>[\w-]+|\\\\.|.)',
+        );
+
+        return '~('.implode('|', $rules).')~us';
     }
 }

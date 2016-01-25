@@ -4,28 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b11b4de87555c4b485b365c0df2ec0a6",
-    "content-hash": "1d12f07ade26fd5c00a84940088b614f",
+    "hash": "eb180cb91eb66859e9dfd6a6e1b9aca2",
+    "content-hash": "265993203f878acbe77e0060b2f0e8d1",
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "v0.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "745110c4ef490ba84a910abf7d3a2f26830df541"
+                "reference": "8330b63649453a14afce49b575f65e954781c9d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/745110c4ef490ba84a910abf7d3a2f26830df541",
-                "reference": "745110c4ef490ba84a910abf7d3a2f26830df541",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/8330b63649453a14afce49b575f65e954781c9d7",
+                "reference": "8330b63649453a14afce49b575f65e954781c9d7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4.1|~5"
             },
             "suggest": {
                 "ext-dom": "if you want to use XML serializer",
@@ -57,13 +57,15 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2015-11-12 13:00:02"
+            "time": "2016-01-25 00:22:40"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "thunderer/shortcode": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
