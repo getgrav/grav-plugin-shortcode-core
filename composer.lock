@@ -13,19 +13,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "235228d65435a518164c4c83ad2652914194300f"
+                "reference": "8330b63649453a14afce49b575f65e954781c9d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/235228d65435a518164c4c83ad2652914194300f",
-                "reference": "235228d65435a518164c4c83ad2652914194300f",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/8330b63649453a14afce49b575f65e954781c9d7",
+                "reference": "8330b63649453a14afce49b575f65e954781c9d7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "~4.1|~5"
             },
             "suggest": {
                 "ext-dom": "if you want to use XML serializer",
@@ -57,7 +57,7 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2016-01-20 12:32:22"
+            "time": "2016-01-25 00:22:40"
         }
     ],
     "packages-dev": [],

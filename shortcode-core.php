@@ -4,7 +4,9 @@ namespace Grav\Plugin;
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
+use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Parser\RegularParser;
+use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
@@ -50,7 +52,6 @@ class ShortcodeCorePlugin extends Plugin
 
         $this->grav->fireEvent('onShortcodeHandlers', new Event(['handlers' => &$this->handlers, 'assets' => &$this->assets]));
 
-
     }
 
     /**
@@ -72,7 +73,7 @@ class ShortcodeCorePlugin extends Plugin
 
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
-            $processor = new Processor(new RegularParser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new WordpressParser(new CommonSyntax()), $this->handlers);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);
@@ -171,7 +172,7 @@ class ShortcodeCorePlugin extends Plugin
     private function addColorHandler()
     {
         $this->handlers->add('color', function(ShortcodeInterface $shortcode) {
-            $color = $shortcode->getParameter('color', $shortcode->getParameterAt(0));
+            $color = trim($shortcode->getParameter('color', $shortcode->getParameterAt(0)), '=');
             return '<span style="color: '.$color.';">'.$shortcode->getContent().'</span>';
         });
     }

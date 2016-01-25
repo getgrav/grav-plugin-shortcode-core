@@ -45,6 +45,7 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
         $tests = array(
             // invalid
             array($s, '', array()),
+            array($s, '[]', array()),
             array($s, '![](image.jpg)', array()),
             array($s, 'x html([a. title][, alt][, classes]) x', array()),
             array($s, '[/y]', array()),
@@ -152,6 +153,29 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
             array(new Syntax('^', '$', '&', '!!!', '@@'), '^code a!!!@@\"\"@@ b!!!@@x\"y@@ c$cnt^&code$', array(
                 new ParsedShortcode(new Shortcode('code', array('a' => '\"\"', 'b' => 'x\"y', 'c' => null), 'cnt'), '^code a!!!@@\"\"@@ b!!!@@x\"y@@ c$cnt^&code$', 0),
             )),
+
+            // UTF-8 sequences
+            array($s, '’’’’[sc]’’[sc]', array(
+                new ParsedShortcode(new Shortcode('sc', array(), null), '[sc]', 4),
+                new ParsedShortcode(new Shortcode('sc', array(), null), '[sc]', 10),
+            )),
+
+            // performance
+//            array($s, 'x [[aa]] y', array()),
+            array($s, str_repeat('[a]', 20), array_map(function($offset) { // 20
+                return new ParsedShortcode(new Shortcode('a', array(), null), '[a]', $offset);
+            }, range(0, 57, 3))),
+            array($s, '[b][a]x[a][/a][/a][/b] [b][a][a][/a]y[/a][/b]', array(
+                new ParsedShortcode(new Shortcode('b', array(), '[a]x[a][/a][/a]'), '[b][a]x[a][/a][/a][/b]', 0),
+                new ParsedShortcode(new Shortcode('b', array(), '[a][a][/a]y[/a]'), '[b][a][a][/a]y[/a][/b]', 23),
+            )),
+            array($s, '[b] [a][a][a] [/b] [b] [a][a][a] [/b]', array(
+                new ParsedShortcode(new Shortcode('b', array(), ' [a][a][a] '), '[b] [a][a][a] [/b]', 0),
+                new ParsedShortcode(new Shortcode('b', array(), ' [a][a][a] '), '[b] [a][a][a] [/b]', 19),
+            )),
+            array($s, '[name]random[/other]', array(
+                new ParsedShortcode(new Shortcode('name', array(), null), '[name]', 0),
+            )),
         );
 
         /**
@@ -165,7 +189,7 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
          *
          * Tests cases from array above with identifiers in the array below must be skipped.
          */
-        $wordpressSkip = array(2, 5, 15, 20, 21, 22, 24, 31, 32, 33);
+        $wordpressSkip = array(3, 6, 16, 21, 22, 23, 25, 32, 33, 34);
         $result = array();
         foreach($tests as $key => $test) {
             $syntax = array_shift($test);
