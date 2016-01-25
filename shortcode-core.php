@@ -164,7 +164,7 @@ class ShortcodeCorePlugin extends Plugin
     private function addSizeHandler()
     {
         $this->handlers->add('size', function(ShortcodeInterface $shortcode) {
-            $size = $shortcode->getParameter('size', $shortcode->getParameterAt(0));
+            $size = $shortcode->getParameter('size', trim($shortcode->getParameterAt(0), '='));
             return '<span style="font-size: '.$size.'px;">'.$shortcode->getContent().'</span>';
         });
     }
@@ -172,7 +172,7 @@ class ShortcodeCorePlugin extends Plugin
     private function addColorHandler()
     {
         $this->handlers->add('color', function(ShortcodeInterface $shortcode) {
-            $color = trim($shortcode->getParameter('color', $shortcode->getParameterAt(0)), '=');
+            $color = $shortcode->getParameter('color', trim($shortcode->getParameterAt(0), '='));
             return '<span style="color: '.$color.';">'.$shortcode->getContent().'</span>';
         });
     }
