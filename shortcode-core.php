@@ -8,6 +8,7 @@ use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Processor\Processor;
+use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
 
@@ -213,9 +214,8 @@ class ShortcodeCorePlugin extends Plugin
 
     private function addRawHandler()
     {
-        $this->handlers->add('raw', function(ShortcodeInterface $shortcode) {
-            $raw = trim(preg_replace('/\[raw\](.*?)\[\/raw\]/is','${1}', $shortcode->getShortcodeText()));
-            return $raw;
+        $this->handlers->add('raw', function(ProcessedShortcode $shortcode) {
+            return trim($shortcode->getTextContent());
         });
     }
 
