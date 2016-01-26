@@ -71,9 +71,22 @@ class ShortcodeCorePlugin extends Plugin
             return;
         }
 
+        switch($config->get('parser'))
+        {
+            case 'regular':
+                $parser = 'Thunder\Shortcode\Parser\RegularParser';
+                break;
+            case 'wordpress':
+                $parser = 'Thunder\Shortcode\Parser\WordpressParser';
+                break;
+            default:
+                $parser = 'Thunder\Shortcode\Parser\RegexParser';
+                break;
+        }
+
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
-            $processor = new Processor(new WordpressParser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);
@@ -164,7 +177,7 @@ class ShortcodeCorePlugin extends Plugin
     private function addSizeHandler()
     {
         $this->handlers->add('size', function(ShortcodeInterface $shortcode) {
-            $size = $shortcode->getParameter('size', $shortcode->getParameterAt(0));
+            $size = $shortcode->getParameter('size', trim($shortcode->getParameterAt(0), '='));
             return '<span style="font-size: '.$size.'px;">'.$shortcode->getContent().'</span>';
         });
     }
@@ -172,7 +185,7 @@ class ShortcodeCorePlugin extends Plugin
     private function addColorHandler()
     {
         $this->handlers->add('color', function(ShortcodeInterface $shortcode) {
-            $color = trim($shortcode->getParameter('color', $shortcode->getParameterAt(0)), '=');
+            $color = $shortcode->getParameter('color', trim($shortcode->getParameterAt(0), '='));
             return '<span style="color: '.$color.';">'.$shortcode->getContent().'</span>';
         });
     }
