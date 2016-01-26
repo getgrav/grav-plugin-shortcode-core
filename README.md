@@ -43,13 +43,15 @@ The **Shortcode Core** plugin only has a few options to configure.  The default 
 ```yaml
 enabled: true
 active: true
-enabled_admin: true
+active_admin: true
+parser: wordpress
 load_fontawesome: false
 ```
 
 * `enabled: true|false` toggles if the shortcodes plugin is turned on or off
 * `active: true|false` toggles if shortcodes will be enabled site-wide or not
 * `active_admin: true|false` toggles if shortcodes will be processed in the admin plugin
+* `parser: wordpress|regex|regular` let's you configure the parser to use. 
 * `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
 
 ## Configuration Modifications
@@ -75,6 +77,13 @@ shortcode-core:
 ```
 
 This will ensure the shortcodes are processed on this page only.
+
+You can also change the parser on a particular page with the following:
+
+```yaml
+shortcode-core:
+    parser: regex
+```
 
 ## Available Shortcodes
 
