@@ -71,9 +71,22 @@ class ShortcodeCorePlugin extends Plugin
             return;
         }
 
+        switch($config->get('parser'))
+        {
+            case 'regular':
+                $parser = 'Thunder\Shortcode\Parser\RegularParser';
+                break;
+            case 'wordpress':
+                $parser = 'Thunder\Shortcode\Parser\WordpressParser';
+                break;
+            default:
+                $parser = 'Thunder\Shortcode\Parser\RegexParser';
+                break;
+        }
+
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
-            $processor = new Processor(new RegexParser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);

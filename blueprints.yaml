@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 1.1.0
+version: 1.2.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -48,6 +48,17 @@ form:
         0: Disabled
       validate:
         type: bool
+
+    parser:
+      type: select
+      size: medium
+      classes: fancy
+      label: Processor
+      help: Which built-in processor to use. WordPress (fastest), Regular (customizable), Regex (solid)
+      options:
+          wordpress: WordpressParser
+          regex: RegexParser
+          regular: RegularParser
 
     load_fontawesome:
       type: toggle
