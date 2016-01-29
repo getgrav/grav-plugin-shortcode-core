@@ -1,3 +1,11 @@
+# v1.3.0
+## 01/29/2016
+
+1. [](#improved)
+    * Added markdown-shortcode-block support to the plugin
+1. [](#bugfix)
+    * Updated Core Thunderer Shortcode library with some important fixes
+
 # v1.2.0
 ## 01/25/2016
 

@@ -8,6 +8,7 @@ use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Processor\Processor;
+use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
 
@@ -42,6 +43,7 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         $this->enable([
+            'onMarkdownInitialized' => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onPageInitialized' => ['onPageInitialized', 0],
@@ -51,6 +53,28 @@ class ShortcodeCorePlugin extends Plugin
         $this->assets = new AssetContainer();
 
         $this->grav->fireEvent('onShortcodeHandlers', new Event(['handlers' => &$this->handlers, 'assets' => &$this->assets]));
+
+    }
+
+    public function onMarkdownInitialized(Event $event)
+    {
+        $markdown = $event['markdown'];
+
+        $markdown->addBlockType('[', 'ShortCodes', true, false);
+
+
+
+        $markdown->blockShortCodes = function($Line) {
+            $valid_shortcodes = implode('|', $this->handlers->getNames());
+            $regex = '/^(?:\[\/?(?:'.$valid_shortcodes.'))(.*)(?:\])$/';
+
+            if (preg_match($regex, $Line['body'], $matches)) {
+                $Block = array(
+                    'markup' => $Line['body'],
+                );
+                return $Block;
+            }
+        };
 
     }
 
@@ -192,7 +216,7 @@ class ShortcodeCorePlugin extends Plugin
 
     private function addCenterHandler()
     {
-        $this->handlers->add('center', function(ShortcodeInterface $shortcode) {
+        $this->handlers->add('center', function(ProcessedShortcode $shortcode) {
             return '<div style="text-align: center;">'.$shortcode->getContent().'</div>';
         });
     }
@@ -213,9 +237,8 @@ class ShortcodeCorePlugin extends Plugin
 
     private function addRawHandler()
     {
-        $this->handlers->add('raw', function(ShortcodeInterface $shortcode) {
-            $raw = trim(preg_replace('/\[raw\](.*?)\[\/raw\]/is','${1}', $shortcode->getShortcodeText()));
-            return $raw;
+        $this->handlers->add('raw', function(ProcessedShortcode $shortcode) {
+            return trim($shortcode->getTextContent());
         });
     }
 
