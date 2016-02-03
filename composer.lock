@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "3a8d53780dc4c2cd823ba0c7c25f1131045337d8"
+                "reference": "0dbe84f45eedfa9d1d406946c9e176ff00ef4364"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/3a8d53780dc4c2cd823ba0c7c25f1131045337d8",
-                "reference": "3a8d53780dc4c2cd823ba0c7c25f1131045337d8",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/0dbe84f45eedfa9d1d406946c9e176ff00ef4364",
+                "reference": "0dbe84f45eedfa9d1d406946c9e176ff00ef4364",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2016-01-26 09:36:46"
+            "time": "2016-01-29 22:20:08"
         }
     ],
     "packages-dev": [],

@@ -3,10 +3,10 @@ namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
+use Thunder\Shortcode\EventContainer\EventContainer;
+use Thunder\Shortcode\EventHandler\FilterRawEventHandler;
+use Thunder\Shortcode\Events;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
-use Thunder\Shortcode\Parser\WordpressParser;
-use Thunder\Shortcode\Parser\RegularParser;
-use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
@@ -14,8 +14,14 @@ use Thunder\Shortcode\Syntax\CommonSyntax;
 
 class ShortcodeCorePlugin extends Plugin
 {
+    /** @var  HandlerContainer $handlers */
     protected $handlers;
+
+    /** @var  AssetContainer $assets */
     protected $assets;
+
+    /** @var  EventContainer $events */
+    protected $events;
 
     /**
      * @return array
@@ -51,6 +57,7 @@ class ShortcodeCorePlugin extends Plugin
 
         $this->handlers = new HandlerContainer();
         $this->assets = new AssetContainer();
+        $this->events = new EventContainer();
 
         $this->grav->fireEvent('onShortcodeHandlers', new Event(['handlers' => &$this->handlers, 'assets' => &$this->assets]));
 
@@ -59,10 +66,7 @@ class ShortcodeCorePlugin extends Plugin
     public function onMarkdownInitialized(Event $event)
     {
         $markdown = $event['markdown'];
-
         $markdown->addBlockType('[', 'ShortCodes', true, false);
-
-
 
         $markdown->blockShortCodes = function($Line) {
             $valid_shortcodes = implode('|', $this->handlers->getNames());
@@ -75,7 +79,6 @@ class ShortcodeCorePlugin extends Plugin
                 return $Block;
             }
         };
-
     }
 
     /**
@@ -111,6 +114,7 @@ class ShortcodeCorePlugin extends Plugin
         if ($page && $config->get('enabled')) {
             $content = $e['page']->getRawContent();
             $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
+            $processor = $processor->withEventContainer($this->events);
             $processed_content = $processor->process($content);
 
             $e['page']->setRawContent($processed_content);
@@ -237,9 +241,11 @@ class ShortcodeCorePlugin extends Plugin
 
     private function addRawHandler()
     {
-        $this->handlers->add('raw', function(ProcessedShortcode $shortcode) {
-            return trim($shortcode->getTextContent());
+        $this->handlers->add('raw', function(ShortcodeInterface $shortcode) {
+            return trim($shortcode->getContent());
         });
+
+        $this->events->addListener(Events::FILTER_SHORTCODES, new FilterRawEventHandler(array('raw')));
     }
 
     private function addSafeEmailHandler()

@@ -1,3 +1,11 @@
+# v1.4.0
+## 02/03/2016
+
+1. [](#improved)
+    * Updated Shortcode to latest `dev-master` that includes Events
+1. [](#bugfix)
+    * Fixed `raw` shortcode to use new `FilterRawEventHandler` so it doesn't process shortcodes at all
+
 # v1.3.0
 ## 01/29/2016
 
