@@ -6,6 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Thunder\\Shortcode\\EventContainer\\EventContainer' => $vendorDir . '/thunderer/shortcode/src/EventContainer/EventContainer.php',
+    'Thunder\\Shortcode\\EventContainer\\EventContainerInterface' => $vendorDir . '/thunderer/shortcode/src/EventContainer/EventContainerInterface.php',
+    'Thunder\\Shortcode\\EventHandler\\FilterRawEventHandler' => $vendorDir . '/thunderer/shortcode/src/EventHandler/FilterRawEventHandler.php',
+    'Thunder\\Shortcode\\EventHandler\\ReplaceJoinEventHandler' => $vendorDir . '/thunderer/shortcode/src/EventHandler/ReplaceJoinEventHandler.php',
+    'Thunder\\Shortcode\\Event\\FilterShortcodesEvent' => $vendorDir . '/thunderer/shortcode/src/Event/FilterShortcodesEvent.php',
+    'Thunder\\Shortcode\\Event\\ReplaceShortcodesEvent' => $vendorDir . '/thunderer/shortcode/src/Event/ReplaceShortcodesEvent.php',
+    'Thunder\\Shortcode\\Events' => $vendorDir . '/thunderer/shortcode/src/Events.php',
     'Thunder\\Shortcode\\HandlerContainer\\HandlerContainer' => $vendorDir . '/thunderer/shortcode/src/HandlerContainer/HandlerContainer.php',
     'Thunder\\Shortcode\\HandlerContainer\\HandlerContainerInterface' => $vendorDir . '/thunderer/shortcode/src/HandlerContainer/HandlerContainerInterface.php',
     'Thunder\\Shortcode\\HandlerContainer\\ImmutableHandlerContainer' => $vendorDir . '/thunderer/shortcode/src/HandlerContainer/ImmutableHandlerContainer.php',
@@ -26,12 +33,14 @@ return array(
     'Thunder\\Shortcode\\Shortcode\\ParsedShortcode' => $vendorDir . '/thunderer/shortcode/src/Shortcode/ParsedShortcode.php',
     'Thunder\\Shortcode\\Shortcode\\ParsedShortcodeInterface' => $vendorDir . '/thunderer/shortcode/src/Shortcode/ParsedShortcodeInterface.php',
     'Thunder\\Shortcode\\Shortcode\\ProcessedShortcode' => $vendorDir . '/thunderer/shortcode/src/Shortcode/ProcessedShortcode.php',
+    'Thunder\\Shortcode\\Shortcode\\ReplacedShortcode' => $vendorDir . '/thunderer/shortcode/src/Shortcode/ReplacedShortcode.php',
     'Thunder\\Shortcode\\Shortcode\\Shortcode' => $vendorDir . '/thunderer/shortcode/src/Shortcode/Shortcode.php',
     'Thunder\\Shortcode\\Shortcode\\ShortcodeInterface' => $vendorDir . '/thunderer/shortcode/src/Shortcode/ShortcodeInterface.php',
     'Thunder\\Shortcode\\Syntax\\CommonSyntax' => $vendorDir . '/thunderer/shortcode/src/Syntax/CommonSyntax.php',
     'Thunder\\Shortcode\\Syntax\\Syntax' => $vendorDir . '/thunderer/shortcode/src/Syntax/Syntax.php',
     'Thunder\\Shortcode\\Syntax\\SyntaxBuilder' => $vendorDir . '/thunderer/shortcode/src/Syntax/SyntaxBuilder.php',
     'Thunder\\Shortcode\\Syntax\\SyntaxInterface' => $vendorDir . '/thunderer/shortcode/src/Syntax/SyntaxInterface.php',
+    'Thunder\\Shortcode\\Tests\\EventsTest' => $vendorDir . '/thunderer/shortcode/tests/EventsTest.php',
     'Thunder\\Shortcode\\Tests\\FacadeTest' => $vendorDir . '/thunderer/shortcode/tests/FacadeTest.php',
     'Thunder\\Shortcode\\Tests\\Fake\\ReverseShortcode' => $vendorDir . '/thunderer/shortcode/tests/Fake/ReverseShortcode.php',
     'Thunder\\Shortcode\\Tests\\HandlerContainerTest' => $vendorDir . '/thunderer/shortcode/tests/HandlerContainerTest.php',
