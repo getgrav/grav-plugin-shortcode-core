@@ -30,6 +30,11 @@ class ShortcodeCorePlugin extends Plugin
     {
         require_once(__DIR__.'/vendor/autoload.php');
         require_once(__DIR__.'/classes/assetcontainer.php');
+        require_once(__DIR__.'/classes/GravShortcode/GravShortcodeInterface.php');
+        require_once(__DIR__.'/classes/GravShortcode/BaseShortcode.php');
+        require_once(__DIR__.'/classes/GravShortcode/RegisteredShortcodes.php');
+        require_once(__DIR__.'/classes/Shortcode/Raw.php');
+        require_once(__DIR__.'/classes/Shortcode/Center.php');
 
         return [
             'onPluginsInitialized' => ['onPluginsInitialized', 0],
@@ -188,11 +193,89 @@ class ShortcodeCorePlugin extends Plugin
         $this->addUnderlineHandler();
         $this->addSizeHandler();
         $this->addColorHandler();
-        $this->addCenterHandler();
         $this->addLeftHandler();
         $this->addRightHandler();
-        $this->addRawHandler();
-        $this->addSafeEmailHandler();
+        $this->addSafeEmailHandler();        
+        
+        // Registers the shortcodes under the classes/Shortcode directory, within the Shortcode namespace
+        $this->register('Shortcode', __DIR__ . '/classes/Shortcode');
+    }
+    
+    /**
+     * Registers the shortcodes placed under the given directory, within the given namespace
+     * 
+     * @param type $namespace
+     * @param type $directory
+     */
+    public function register($namespace, $directory)
+    {
+        $files = $this->scanDir($directory);
+        foreach($files as $file) {
+            $file = str_replace($directory . '/', '', $file);
+            $file = str_replace('/', '\\', $file);
+            $class = $namespace . '\\' . str_replace('.php', '', $file);
+            // Make sure to initialize only objects that implements the GravShortcodeInterface
+            if (!in_array('GravShortcode\\GravShortcodeInterface', class_implements($class))) {
+                continue;
+            }
+            
+            // Excludes abstract classes and interfaces
+            $reflectionClass = new \ReflectionClass($class);
+            if(!$reflectionClass->IsInstantiable()) {
+                continue;
+            }
+            
+            $this->registerShortcode($class);
+        }
+    }
+
+    /**
+     * Registers the shortcode from its class name
+     * 
+     * @param string $className
+     */
+    private function registerShortcode($className)
+    {
+        $class = new \ReflectionClass($className);
+        $shortcodeObject = $class->newInstanceArgs(array($this->grav));
+        $this->handlers->add($shortcodeObject->shortcode(), function(ShortcodeInterface $shortcode) use($shortcodeObject) {
+            $this->grav["assets"]->add($shortcodeObject->assets());
+            
+            return  $shortcodeObject->processShortcode($shortcode);
+        });
+        
+        foreach($shortcodeObject->events() as $eventName => $event) {            
+            $this->events->addListener($eventName, $event);
+        }
+    }
+
+    /**
+     * Scans a directory recursively and returns files found
+     * 
+     * @param string $dir
+     * @param array $allowedExtensions
+     * @return array
+     */
+    private function scanDir($dir, $allowedExtensions = array('php'))
+    {
+        $files = array();
+        $dh  = opendir($dir);
+        while (false !== ($filename = readdir($dh))) {
+            $filePath = $dir . '/' . $filename;
+            if ($filename != '.' && $filename != '..' && is_dir($filePath)) {
+                $files = array_merge($files, $this->scanDir($filePath));
+
+                continue;
+            }
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            if ( ! in_array($ext, $allowedExtensions)) {
+                continue;
+            }
+
+            $files[] = $filePath;
+        }
+
+        return $files;
     }
 
     private function addUnderlineHandler()
@@ -218,13 +301,6 @@ class ShortcodeCorePlugin extends Plugin
         });
     }
 
-    private function addCenterHandler()
-    {
-        $this->handlers->add('center', function(ProcessedShortcode $shortcode) {
-            return '<div style="text-align: center;">'.$shortcode->getContent().'</div>';
-        });
-    }
-
     private function addLeftHandler()
     {
         $this->handlers->add('left', function(ShortcodeInterface $shortcode) {
@@ -237,15 +313,6 @@ class ShortcodeCorePlugin extends Plugin
         $this->handlers->add('right', function(ShortcodeInterface $shortcode) {
             return '<div style="text-align: right;">'.$shortcode->getContent().'</div>';
         });
-    }
-
-    private function addRawHandler()
-    {
-        $this->handlers->add('raw', function(ShortcodeInterface $shortcode) {
-            return trim($shortcode->getContent());
-        });
-
-        $this->events->addListener(Events::FILTER_SHORTCODES, new FilterRawEventHandler(array('raw')));
     }
 
     private function addSafeEmailHandler()
@@ -284,6 +351,4 @@ class ShortcodeCorePlugin extends Plugin
         });
 
     }
-
-
 }
