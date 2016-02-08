@@ -149,7 +149,7 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         // Get and set the cache as required
-        $cache_id = md5('shortcode-core'.$page->path().$cache->getKey());
+        $cache_id = md5('shortcode-core'.$page->path());
 
         if (empty($this->assets->get())) {
             $this->assets = $cache->fetch($cache_id);
