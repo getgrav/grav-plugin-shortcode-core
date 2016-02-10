@@ -25,6 +25,8 @@ class ShortcodeManager {
 
     protected $states;
 
+    protected $objects;
+
     /**
      * initialize some internal instance variables
      */
@@ -35,6 +37,7 @@ class ShortcodeManager {
         $this->handlers = new HandlerContainer();
         $this->events = new EventContainer();
         $this->assets = [];
+        $this->objects = [];
     }
 
     /**
@@ -63,8 +66,44 @@ class ShortcodeManager {
      * 
      * @return array the assets array
      */
-    public function getAssets() {
+    public function getAssets()
+    {
         return $this->assets;
+    }
+
+    /**
+     * adds ad object
+     * @param $key the key to look up the object
+     * @param $object the object to store
+     */
+    public function addObject($key, $subkey, $object)
+    {
+        $new = [$subkey => $object];
+        if (array_key_exists($key, $this->objects)) {
+            $current = (array)$this->objects[$key];
+            $this->objects[$key] = $current + $new;
+        } else {
+            $this->objects[$key] = $new;
+        }
+
+    }
+
+    /**
+     * sets all the objects
+     * @param $object the objects array
+     */
+    public function setObjects($objects)
+    {
+        $this->objects = $objects;
+    }
+
+    /**
+     * return all the objects
+     *
+     * @return array the objects array
+     */
+    public function getObjects() {
+        return $this->objects;
     }
 
     /**

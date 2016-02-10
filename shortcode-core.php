@@ -11,8 +11,6 @@ class ShortcodeCorePlugin extends Plugin
     protected $shortcodes;
 
     /**
-     * Register the events that the plugin subscribes to
-     * 
      * @return array
      */
     public static function getSubscribedEvents()
@@ -43,6 +41,7 @@ class ShortcodeCorePlugin extends Plugin
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onPageInitialized' => ['onPageInitialized', 0],
+            'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
@@ -53,7 +52,7 @@ class ShortcodeCorePlugin extends Plugin
 
     /**
      * Handle the markdown Initialized event by setting up shortcode block tags
-     * 
+     *
      * @param  Event  $event the event containing the markdown parser
      */
     public function onMarkdownInitialized(Event $event)
@@ -109,9 +108,18 @@ class ShortcodeCorePlugin extends Plugin
             $page->content();
         }
 
-        // Get and set the cache as required
-        $cache_id = md5('shortcode-core-'.$page->path());
+        // cache or retrieve objects as required
+        $cache_id = md5('shortcode-objects-'.$page->path());
+        $shortcode_objects = $this->shortcodes->getObjects();
+        if (empty($shortcode_objects)) {
+            $this->shortcodes->setObjects($cache->fetch($cache_id));
+        } else {
+            $cache->save($cache_id, $shortcode_objects);
+        }
 
+
+        // cache or retrieve assets as required
+        $cache_id = md5('shortcode-assets-'.$page->path());
         $shortcode_assets = $this->shortcodes->getAssets();
 
         if (empty($shortcode_assets)) {
@@ -141,6 +149,21 @@ class ShortcodeCorePlugin extends Plugin
     public function onShortcodeHandlers()
     {
         $this->shortcodes->registerAllShortcodes(__DIR__.'/shortcodes');
+    }
+
+    /**
+     * set any objects stored in the shortcodes manager as twig variables
+     */
+    public function onTwigSiteVariables()
+    {
+        $objects = $this->shortcodes->getObjects();
+        $twig = $this->grav['twig'];
+
+        if (!empty($objects)) {
+            foreach ($objects as $key => $object) {
+               $twig->twig_vars['shortcode'][$key] = $object;
+            }
+        }
     }
 
 }
