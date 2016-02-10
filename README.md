@@ -149,75 +149,9 @@ Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.co
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build 3rd party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
 
-I think examples are the best way to show functionality.  Let's take the `safe-email` shortcode that is included in the core, and use it to document how you could create a standalone plugin with this functionality.  If you have not already done so, I suggest reading the [Grav Plugin Tutorial](http://learn.getgrav.org/plugins/plugin-tutorial) first to gain a full understanding of what you need to develop a Grav plugin: 
+> If you have not already done so, I suggest reading the [Grav Plugin Tutorial](http://learn.getgrav.org/plugins/plugin-tutorial) first to gain a full understanding of what you need to develop a Grav plugin.
 
-```
-<?php
-namespace Grav\Plugin;
+The best way to see how to create a new shortcode-based plugin is to look at the **Shortcode UI** plugin that extends the **Shortcode Core** by adding more shortcodes.  It also makes use of Twig to handle processing and has some more advanced shortcode techniques.
 
-use Grav\Common\Plugin;
-use RocketTheme\Toolbox\Event\Event;
-use Thunder\Shortcode\Shortcode\ShortcodeInterface;
-
-
-class ShortcodeSafeEmailPlugin extends Plugin
-{
-    protected $handlers;
-    protected $assets;
-
-    /**
-     * @return array
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
-        ];
-    }
-    
-    /**
-     * Shortcode Event 
-     *
-     * @param Event $e
-     */
-    public function onShortcodeHandlers(Event $e)
-    {
-        // Set handlers and assets from event
-        $this->handlers = $e['handlers'];
-        $this->assets = $e['assets'];
-
-        $this->handlers->add('safe-email', function(ShortcodeInterface $shortcode) {
-            // Load assets if required
-            if ($this->config->get('plugins.shortcode-safe-eamil.load_fontawesome', false)) {
-                $this->assets->add('css', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
-            }
-    
-            // Get shortcode content and parameters
-            $str = $shortcode->getContent();
-            $icon = $shortcode->getParameter('icon', false);
-            $autolink = $shortcode->getParameter('autolink', false);
-    
-            // Encode email
-            $email = '';
-            $str_len = strlen($str);
-            for ($i = 0; $i < $str_len; $i++) {
-                $email .= "&#" . ord($str[$i]). ";";
-            }
-    
-            // Handle autolinking
-            if ($autolink) {
-                $output = '<a href="mailto:'.$email.'">'.$email.'</a>';
-            } else {
-                $output = $email;
-            }
-    
-            // Handle icon option
-            if ($icon) {
-                $output = '<i class="fa fa-'.$icon.'"></i> ' . $output;
-            }
-    
-            return $output;
-        });
-    }
-}
-```
+* Core Plugin: https://github.com/getgrav/grav-plugin-shortcode-ui/blob/develop/shortcode-ui.php
+* Tabs Shortcode Example: https://github.com/getgrav/grav-plugin-shortcode-ui/blob/develop/shortcodes/TabsShortcode.php
