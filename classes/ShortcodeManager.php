@@ -25,6 +25,9 @@ class ShortcodeManager {
 
     protected $states;
 
+    /**
+     * initialize some internal instance variables
+     */
     public function __construct()
     {
         $this->grav = Grav::instance();
@@ -34,6 +37,13 @@ class ShortcodeManager {
         $this->assets = [];
     }
 
+    /**
+     * add CSS and JS assets to the Manager so that they can be saved to cache
+     * for subsequent cached pages
+     * 
+     * @param mixed  $action the type of asset, JS or CSS, or an array of stuff
+     * @param string $asset  the asset path in question
+     */
     public function addAssets($action, $asset)
     {
         if (is_array($action)) {
@@ -48,20 +58,42 @@ class ShortcodeManager {
         }
     }
 
+    /**
+     * return a multi-dimensional array of all the assets
+     * 
+     * @return array the assets array
+     */
     public function getAssets() {
         return $this->assets;
     }
 
+    /**
+     * returns the current handler container object
+     * 
+     * @return HandlerContainer
+     */
     public function getHandlers()
     {
         return $this->handlers;
     }
 
+    /**
+     * returns the current event container object
+     *         
+     * @return EventContainer
+     */
     public function getEvents()
     {
         return $this->events;
     }
 
+    /**
+     * register an individual shortcode with the manager so it can be
+     * operated on by the Shortcode library
+     * 
+     * @param  string $name      the name of the shortcode (should match the classname)
+     * @param  string $directory directory where the shortcode is located
+      */
     public function registerShortcode($name, $directory)
     {
         $path = rtrim($directory, '/').'/'.$name;
@@ -75,6 +107,10 @@ class ShortcodeManager {
         }
     }
 
+    /**
+     * register all files as shortcodes in a particular directory
+     * @param  string $directory directory where the shortcodes are located
+     */
     public function registerAllShortcodes($directory)
     {
         foreach (new \DirectoryIterator($directory) as $file) {
@@ -85,8 +121,11 @@ class ShortcodeManager {
         }
     }
 
-
-
+    /**
+     * setup the markdown parser to handle shortcodes properly
+     * 
+     * @param  mixed $markdown the markdown parser object
+     */
     public function setupMarkdown($markdown)
     {
         $markdown->addBlockType('[', 'ShortCodes', true, false);
@@ -104,6 +143,13 @@ class ShortcodeManager {
         };
     }
 
+    /**
+     * process the content by running over all the known shortcodes with the
+     * chosen parser
+     * 
+     * @param  Page   $page   the page to work on
+     * @param  Data   $config configuration merged with the page config
+     */
     public function processContent(Page $page, Data $config)
     {
         switch($config->get('parser'))
@@ -129,6 +175,23 @@ class ShortcodeManager {
         }
     }
 
+    /**
+     * set a state of a particular shortcode with a hash for retrieval later
+     * 
+     * @param string             $hash      a unique hash code
+     * @param ShortcodeInterface $shortcode the shortcode to store
+     */
+    public function setStates($hash, ShortcodeInterface $shortcode)
+    {
+        $this->states[$hash][] = $shortcode;
+    }
+
+    /**
+     * returns the shortcode of a specific hash
+     * 
+     * @param  string $hash       unique id of state
+     * @return ShortcodeInterface shortcode stored for this hash
+     */
     public function getStates($hash)
     {
         if (array_key_exists($hash, $this->states)) {
@@ -136,11 +199,12 @@ class ShortcodeManager {
         }
     }
 
-    public function setStates($hash, ShortcodeInterface $shortcode)
-    {
-        $this->states[$hash][] = $shortcode;
-    }
-
+    /**
+     * helper method to create a unique shortcode based on the content
+     * 
+     * @param  ShortcodeInterface $shortcode
+     * @return string             
+     */
     public function getId(ShortcodeInterface $shortcode)
     {
         return substr(md5($shortcode->getShortcodeText()), -10);

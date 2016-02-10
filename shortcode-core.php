@@ -11,6 +11,8 @@ class ShortcodeCorePlugin extends Plugin
     protected $shortcodes;
 
     /**
+     * Register the events that the plugin subscribes to
+     * 
      * @return array
      */
     public static function getSubscribedEvents()
@@ -49,6 +51,11 @@ class ShortcodeCorePlugin extends Plugin
 
     }
 
+    /**
+     * Handle the markdown Initialized event by setting up shortcode block tags
+     * 
+     * @param  Event  $event the event containing the markdown parser
+     */
     public function onMarkdownInitialized(Event $event)
     {
         $this->shortcodes->setupMarkdown($event['markdown']);

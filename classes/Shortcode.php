@@ -12,6 +12,9 @@ class Shortcode
     protected $config;
     protected $twig;
 
+    /**
+     * set some instance variable states
+     */
     public function __construct()
     {
         $this->grav = Grav::instance();
@@ -20,6 +23,9 @@ class Shortcode
         $this->twig = $this->grav['twig'];
     }
 
+    /**
+     * do some work
+     */
     public function init()
     {
         $this->shortcode->handlers->add('u', function(ShortcodeInterface $shortcode) {
@@ -27,6 +33,11 @@ class Shortcode
         });
     }
 
+    /**
+     * returns the name of the class if required
+     * 
+     * @return string the name of the class
+     */
     public function getName()
     {
         return get_class($this);
