@@ -79,8 +79,24 @@ class ShortcodeCorePlugin extends Plugin
             return;
         }
 
-        $e['page']->setRawContent($this->shortcodes->processContent($page, $config));
+        // reset objects and assets for the page
+        $this->shortcodes->resetObjects();
+        $this->shortcodes->resetAssets();
 
+        // process the content for shortcodes
+        $page->setRawContent($this->shortcodes->processContent($page, $config));
+
+        // if objects found set them as page content meta
+        $shortcode_objects = $this->shortcodes->getObjects();
+        if (!empty($shortcode_objects)) {
+            $page->addContentMeta('shortcode-objects', $shortcode_objects);
+        }
+
+        // if assets founds set them as page content meta
+        $shortcode_assets = $this->shortcodes->getAssets();
+        if (!empty($shortcode_assets)) {
+            $page->addContentMeta('shortcode-assets', $shortcode_assets);
+        }
     }
 
     /**
@@ -99,7 +115,6 @@ class ShortcodeCorePlugin extends Plugin
 
         $page = $this->grav['page'];
         $assets = $this->grav['assets'];
-        $cache = $this->grav['cache'];
 
         // Initialize all page content up front before Twig happens
         if (isset($page->header()->content['items'])) {
@@ -110,41 +125,27 @@ class ShortcodeCorePlugin extends Plugin
             $page->content();
         }
 
-        // cache or retrieve objects as required
+        // get the meta and check for assets
+        $meta = $page->getContentMeta();
 
-        // Page level objects
-        $cache_id = md5('shortcode-objects-'.$page->path());
-        $shortcode_objects = $this->shortcodes->getObjects();
-        if (empty($shortcode_objects)) {
-            $this->shortcodes->setObjects($cache->fetch($cache_id));
-        } else {
-            $cache->save($cache_id, $shortcode_objects);
-        }
-
-
-        // cache or retrieve assets as required
-        $cache_id = md5('shortcode-assets-'.$page->path());
-        $shortcode_assets = $this->shortcodes->getAssets();
-
-        if (empty($shortcode_assets)) {
-            $shortcode_assets = $cache->fetch($cache_id);
-        } else {
-            $cache->save($cache_id, $shortcode_assets);
-        }
-
-        if (!empty($shortcode_assets)) {
-            // if we actually have data now, add it to asset manager
-            foreach ($shortcode_assets as $type => $asset) {
-                foreach ($asset as $item) {
-                    $method = 'add'.ucfirst($type);
-                    if (is_array($item)) {
-                        $assets->add($item[0], $item[1]);
-                    } else {
-                        $assets->$method($item);
+        // if assets found, add them to Assets manager
+        if (isset($meta['shortcode-assets'])) {
+            $page_assets = (array) $meta['shortcode-assets'];
+            if (!empty($page_assets)) {
+                // if we actually have data now, add it to asset manager
+                foreach ($page_assets as $type => $asset) {
+                    foreach ($asset as $item) {
+                        $method = 'add'.ucfirst($type);
+                        if (is_array($item)) {
+                            $assets->add($item[0], $item[1]);
+                        } else {
+                            $assets->$method($item);
+                        }
                     }
                 }
             }
         }
+
     }
 
     /**
@@ -160,14 +161,18 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
-        $objects = $this->shortcodes->getObjects();
-        $twig = $this->grav['twig'];
+        // check content meta for objects, and if found as them as twig variables
+        $meta = $this->grav['page']->getContentMeta();
+        if (isset($meta['shortcode-objects'])) {
+            $objects = $meta['shortcode-objects'];
+            $twig = $this->grav['twig'];
 
-        if (!empty($objects)) {
-            foreach ($objects as $key => $object) {
-               $twig->twig_vars['shortcode'][$key] = $object;
+            if (!empty($objects)) {
+                foreach ($objects as $key => $object) {
+                    $twig->twig_vars['shortcode'][$key] = $object;
+                }
             }
         }
-    }
+     }
 
 }
