@@ -76,9 +76,9 @@ class ShortcodeManager {
      * @param $key the key to look up the object
      * @param $object the object to store
      */
-    public function addObject($key, $subkey, $object)
+    public function addObject($key, $object)
     {
-        $new = [$subkey => $object];
+        $new = [$object->name() => $object];
         if (array_key_exists($key, $this->objects)) {
             $current = (array)$this->objects[$key];
             $this->objects[$key] = $current + $new;
@@ -99,7 +99,6 @@ class ShortcodeManager {
 
     /**
      * return all the objects
-     *
      * @return array the objects array
      */
     public function getObjects() {

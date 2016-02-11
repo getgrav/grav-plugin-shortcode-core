@@ -145,6 +145,41 @@ Encode an email address so that it's not so easily 'scrapable' by nefarious scri
 Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.com[/safe-email] 
 ```
 
+#### Section
+
+The **section** shortcode is a powerful way to encompass some text in your markdown page with a `[section][/section]` tag and then this is cached by Grav so it can be accessed later.  For example you could have a page with a variety of sections described in it that let you create many **chunks** of data. These are then added to Twig as an array of shortcode objects.  An example of this would be the following markdown:
+
+```
+[section name="author"]
+![](author.jpg?cropResize=100,100&classes=left)
+### Johnny Appleseed
+Johnny Appleseed was an American pioneer nurseryman who introduced apple trees to large parts of Pennsylvania, Ontario, Ohio, Indiana, and Illinois, as well as the northern counties of present-day West Virginia. He became an American legend while still alive, due to his kind, generous ways, his leadership in conservation, and the symbolic importance he attributed to apples.
+[/section]
+
+[section name="quote"]
+> Some are born great, some achieve greatness, and some have greatness thrust upon them.
+  Read more at http://www.brainyquote.com/quotes/topics/topic_great.html#tdqt3strtEYBCH43.99
+> <cite>William Shakespeare</cite>
+
+Regular **Markdown** content that will be output as `page.content`
+[/section]
+```
+
+This we be removed from the page content and made available in Twig variables so you could insert these into custom HTML structures, for example:
+
+```
+<div id="author">{{ shortcode.section.author }}</div>
+
+<div id="article">
+    <div class="left">
+        {{ page.content }}
+    </div>
+    <div class="right">
+        {{ shortcode.section.quote }}
+    </div>
+</div>
+```
+    
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build 3rd party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.

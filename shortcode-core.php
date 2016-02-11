@@ -2,6 +2,7 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Grav\Plugin\Shortcodes\ShortCodeObject;
 use RocketTheme\Toolbox\Event\Event;
 
 class ShortcodeCorePlugin extends Plugin
@@ -17,6 +18,7 @@ class ShortcodeCorePlugin extends Plugin
     {
         require_once(__DIR__.'/vendor/autoload.php');
         require_once(__DIR__.'/classes/Shortcode.php');
+        require_once(__DIR__.'/classes/ShortcodeObject.php');
         require_once(__DIR__.'/classes/ShortcodeManager.php');
 
         return [
@@ -109,6 +111,8 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         // cache or retrieve objects as required
+
+        // Page level objects
         $cache_id = md5('shortcode-objects-'.$page->path());
         $shortcode_objects = $this->shortcodes->getObjects();
         if (empty($shortcode_objects)) {
