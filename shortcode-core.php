@@ -89,7 +89,7 @@ class ShortcodeCorePlugin extends Plugin
         // if objects found set them as page content meta
         $shortcode_objects = $this->shortcodes->getObjects();
         if (!empty($shortcode_objects)) {
-            $page->addContentMeta('shortcode-objects', $shortcode_objects);
+            $page->addContentMeta('shortcode', $shortcode_objects);
         }
 
         // if assets founds set them as page content meta
@@ -163,8 +163,8 @@ class ShortcodeCorePlugin extends Plugin
     {
         // check content meta for objects, and if found as them as twig variables
         $meta = $this->grav['page']->getContentMeta();
-        if (isset($meta['shortcode-objects'])) {
-            $objects = $meta['shortcode-objects'];
+        if (isset($meta['shortcode'])) {
+            $objects = $meta['shortcode'];
             $twig = $this->grav['twig'];
 
             if (!empty($objects)) {
