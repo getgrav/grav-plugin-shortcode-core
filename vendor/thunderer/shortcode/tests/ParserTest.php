@@ -1,6 +1,7 @@
 <?php
 namespace Thunder\Shortcode\Tests;
 
+use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Parser\ParserInterface;
 use Thunder\Shortcode\Parser\RegexParser;
@@ -182,7 +183,14 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
                 new ParsedShortcode(new Shortcode('2', array(), null), '[2]', 6),
                 new ParsedShortcode(new Shortcode('3', array(), null), '[3]', 9),
             )),
-            array($s, '[_][na_me][_name][name_][n_am_e][_n_]', array()),
+            array($s, '[_][na_me][_name][name_][n_am_e][_n_]', array(
+                new ParsedShortcode(new Shortcode('_', array(), null), '[_]', 0),
+                new ParsedShortcode(new Shortcode('na_me', array(), null), '[na_me]', 3),
+                new ParsedShortcode(new Shortcode('_name', array(), null), '[_name]', 10),
+                new ParsedShortcode(new Shortcode('name_', array(), null), '[name_]', 17),
+                new ParsedShortcode(new Shortcode('n_am_e', array(), null), '[n_am_e]', 24),
+                new ParsedShortcode(new Shortcode('_n_', array(), null), '[_n_]', 32),
+            )),
         );
 
         /**
@@ -197,7 +205,7 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
          *
          * Tests cases from array above with identifiers in the array below must be skipped.
          */
-        $wordpressSkip = array(3, 6, 16, 21, 22, 23, 25, 32, 33, 34, 40);
+        $wordpressSkip = array(3, 6, 16, 21, 22, 23, 25, 32, 33, 34);
         $result = array();
         foreach($tests as $key => $test) {
             $syntax = array_shift($test);
@@ -222,6 +230,27 @@ final class ParserTest extends \PHPUnit_Framework_TestCase
         $this->testParser($parser, '[code "xxx"]', array(
             new ParsedShortcode(new Shortcode('code', array('xxx' => null), null, null), '[code "xxx"]', 0)
         ));
+
+        $handlers = new HandlerContainer();
+        $handlers->add('_', function() {});
+        $handlers->add('na_me', function() {});
+        $handlers->add('_n_', function() {});
+        $this->testParser(WordpressParser::createFromHandlers($handlers), '[_][na_me][_name][name_][n_am_e][_n_]', array(
+            new ParsedShortcode(new Shortcode('_', array(), null), '[_]', 0),
+            new ParsedShortcode(new Shortcode('na_me', array(), null), '[na_me]', 3),
+            new ParsedShortcode(new Shortcode('_n_', array(), null), '[_n_]', 32),
+        ));
+        $this->testParser(WordpressParser::createFromNames(array('_', 'na_me', '_n_')), '[_][na_me][_name][name_][n_am_e][_n_]', array(
+            new ParsedShortcode(new Shortcode('_', array(), null), '[_]', 0),
+            new ParsedShortcode(new Shortcode('na_me', array(), null), '[na_me]', 3),
+            new ParsedShortcode(new Shortcode('_n_', array(), null), '[_n_]', 32),
+        ));
+    }
+
+    public function testWordpressInvalidNamesException()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        WordpressParser::createFromNames(array('string', new \stdClass()));
     }
 
     public function testInstances()

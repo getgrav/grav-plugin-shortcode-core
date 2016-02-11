@@ -2,26 +2,14 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
+use Grav\Plugin\Shortcodes\ShortCodeObject;
 use RocketTheme\Toolbox\Event\Event;
-use Thunder\Shortcode\EventContainer\EventContainer;
-use Thunder\Shortcode\EventHandler\FilterRawEventHandler;
-use Thunder\Shortcode\Events;
-use Thunder\Shortcode\HandlerContainer\HandlerContainer;
-use Thunder\Shortcode\Processor\Processor;
-use Thunder\Shortcode\Shortcode\ProcessedShortcode;
-use Thunder\Shortcode\Shortcode\ShortcodeInterface;
-use Thunder\Shortcode\Syntax\CommonSyntax;
 
 class ShortcodeCorePlugin extends Plugin
 {
-    /** @var  HandlerContainer $handlers */
-    protected $handlers;
 
-    /** @var  AssetContainer $assets */
-    protected $assets;
-
-    /** @var  EventContainer $events */
-    protected $events;
+    /** @var  ShortcodeManager $shortcodes */
+    protected $shortcodes;
 
     /**
      * @return array
@@ -29,7 +17,9 @@ class ShortcodeCorePlugin extends Plugin
     public static function getSubscribedEvents()
     {
         require_once(__DIR__.'/vendor/autoload.php');
-        require_once(__DIR__.'/classes/assetcontainer.php');
+        require_once(__DIR__.'/classes/Shortcode.php');
+        require_once(__DIR__.'/classes/ShortcodeObject.php');
+        require_once(__DIR__.'/classes/ShortcodeManager.php');
 
         return [
             'onPluginsInitialized' => ['onPluginsInitialized', 0],
@@ -53,32 +43,23 @@ class ShortcodeCorePlugin extends Plugin
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onPageInitialized' => ['onPageInitialized', 0],
+            'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
         ]);
 
-        $this->handlers = new HandlerContainer();
-        $this->assets = new AssetContainer();
-        $this->events = new EventContainer();
+        $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
 
-        $this->grav->fireEvent('onShortcodeHandlers', new Event(['handlers' => &$this->handlers, 'assets' => &$this->assets]));
+        $this->grav->fireEvent('onShortcodeHandlers');
 
     }
 
+    /**
+     * Handle the markdown Initialized event by setting up shortcode block tags
+     *
+     * @param  Event  $event the event containing the markdown parser
+     */
     public function onMarkdownInitialized(Event $event)
     {
-        $markdown = $event['markdown'];
-        $markdown->addBlockType('[', 'ShortCodes', true, false);
-
-        $markdown->blockShortCodes = function($Line) {
-            $valid_shortcodes = implode('|', $this->handlers->getNames());
-            $regex = '/^(?:\[\/?(?:'.$valid_shortcodes.'))(.*)(?:\])$/';
-
-            if (preg_match($regex, $Line['body'], $matches)) {
-                $Block = array(
-                    'markup' => $Line['body'],
-                );
-                return $Block;
-            }
-        };
+        $this->shortcodes->setupMarkdown($event['markdown']);
     }
 
     /**
@@ -98,26 +79,23 @@ class ShortcodeCorePlugin extends Plugin
             return;
         }
 
-        switch($config->get('parser'))
-        {
-            case 'regular':
-                $parser = 'Thunder\Shortcode\Parser\RegularParser';
-                break;
-            case 'wordpress':
-                $parser = 'Thunder\Shortcode\Parser\WordpressParser';
-                break;
-            default:
-                $parser = 'Thunder\Shortcode\Parser\RegexParser';
-                break;
+        // reset objects and assets for the page
+        $this->shortcodes->resetObjects();
+        $this->shortcodes->resetAssets();
+
+        // process the content for shortcodes
+        $page->setRawContent($this->shortcodes->processContent($page, $config));
+
+        // if objects found set them as page content meta
+        $shortcode_objects = $this->shortcodes->getObjects();
+        if (!empty($shortcode_objects)) {
+            $page->addContentMeta('shortcode', $shortcode_objects);
         }
 
-        if ($page && $config->get('enabled')) {
-            $content = $e['page']->getRawContent();
-            $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
-            $processor = $processor->withEventContainer($this->events);
-            $processed_content = $processor->process($content);
-
-            $e['page']->setRawContent($processed_content);
+        // if assets founds set them as page content meta
+        $shortcode_assets = $this->shortcodes->getAssets();
+        if (!empty($shortcode_assets)) {
+            $page->addContentMeta('shortcode-assets', $shortcode_assets);
         }
     }
 
@@ -137,7 +115,6 @@ class ShortcodeCorePlugin extends Plugin
 
         $page = $this->grav['page'];
         $assets = $this->grav['assets'];
-        $cache = $this->grav['cache'];
 
         // Initialize all page content up front before Twig happens
         if (isset($page->header()->content['items'])) {
@@ -148,27 +125,23 @@ class ShortcodeCorePlugin extends Plugin
             $page->content();
         }
 
-        // Get and set the cache as required
-        $cache_id = md5('shortcode-core'.$page->path().$cache->getKey());
+        // get the meta and check for assets
+        $meta = $page->getContentMeta();
 
-        if (empty($this->assets->get())) {
-            $this->assets = $cache->fetch($cache_id);
-        } else {
-            $cache->save($cache_id, $this->assets);
-        }
-
-        if (!$this->assets) {
-            return;
-        }
-
-        // if we actually have data now, add it to asset manager
-        foreach ($this->assets->get() as $type => $asset) {
-            foreach ($asset as $item) {
-                if (is_array($item)) {
-                    $assets->add($item[0], $item[1]);
-                } else {
-                    $method = 'add'.ucfirst($type);
-                    $assets->$method($item);
+        // if assets found, add them to Assets manager
+        if (isset($meta['shortcode-assets'])) {
+            $page_assets = (array) $meta['shortcode-assets'];
+            if (!empty($page_assets)) {
+                // if we actually have data now, add it to asset manager
+                foreach ($page_assets as $type => $asset) {
+                    foreach ($asset as $item) {
+                        $method = 'add'.ucfirst($type);
+                        if (is_array($item)) {
+                            $assets->add($item[0], $item[1]);
+                        } else {
+                            $assets->$method($item);
+                        }
+                    }
                 }
             }
         }
@@ -176,114 +149,30 @@ class ShortcodeCorePlugin extends Plugin
     }
 
     /**
-     * Event that handles registering hanlder for shortcodes
-     *
-     * @param Event $e
+     * Event that handles registering handler for shortcodes
      */
-    public function onShortcodeHandlers(Event $e)
+    public function onShortcodeHandlers()
     {
-        $this->handlers = $e['handlers'];
-        $this->assets = $e['assets'];
-
-        $this->addUnderlineHandler();
-        $this->addSizeHandler();
-        $this->addColorHandler();
-        $this->addCenterHandler();
-        $this->addLeftHandler();
-        $this->addRightHandler();
-        $this->addRawHandler();
-        $this->addSafeEmailHandler();
+        $this->shortcodes->registerAllShortcodes(__DIR__.'/shortcodes');
     }
 
-    private function addUnderlineHandler()
+    /**
+     * set any objects stored in the shortcodes manager as twig variables
+     */
+    public function onTwigSiteVariables()
     {
-        $this->handlers->add('u', function(ShortcodeInterface $shortcode) {
-            return '<span style="text-decoration: underline;">'.$shortcode->getContent().'</span>';
-        });
-    }
+        // check content meta for objects, and if found as them as twig variables
+        $meta = $this->grav['page']->getContentMeta();
+        if (isset($meta['shortcode'])) {
+            $objects = $meta['shortcode'];
+            $twig = $this->grav['twig'];
 
-    private function addSizeHandler()
-    {
-        $this->handlers->add('size', function(ShortcodeInterface $shortcode) {
-            $size = $shortcode->getParameter('size', trim($shortcode->getParameterAt(0), '='));
-            return '<span style="font-size: '.$size.'px;">'.$shortcode->getContent().'</span>';
-        });
-    }
-
-    private function addColorHandler()
-    {
-        $this->handlers->add('color', function(ShortcodeInterface $shortcode) {
-            $color = $shortcode->getParameter('color', trim($shortcode->getParameterAt(0), '='));
-            return '<span style="color: '.$color.';">'.$shortcode->getContent().'</span>';
-        });
-    }
-
-    private function addCenterHandler()
-    {
-        $this->handlers->add('center', function(ProcessedShortcode $shortcode) {
-            return '<div style="text-align: center;">'.$shortcode->getContent().'</div>';
-        });
-    }
-
-    private function addLeftHandler()
-    {
-        $this->handlers->add('left', function(ShortcodeInterface $shortcode) {
-            return '<div style="text-align: left;">'.$shortcode->getContent().'</div>';
-        });
-    }
-
-    private function addRightHandler()
-    {
-        $this->handlers->add('right', function(ShortcodeInterface $shortcode) {
-            return '<div style="text-align: right;">'.$shortcode->getContent().'</div>';
-        });
-    }
-
-    private function addRawHandler()
-    {
-        $this->handlers->add('raw', function(ShortcodeInterface $shortcode) {
-            return trim($shortcode->getContent());
-        });
-
-        $this->events->addListener(Events::FILTER_SHORTCODES, new FilterRawEventHandler(array('raw')));
-    }
-
-    private function addSafeEmailHandler()
-    {
-        $this->handlers->add('safe-email', function(ShortcodeInterface $shortcode) {
-            // Load assets if required
-            if ($this->config->get('plugins.shortcode-core.load_fontawesome', false)) {
-                $this->assets->add('css', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+            if (!empty($objects)) {
+                foreach ($objects as $key => $object) {
+                    $twig->twig_vars['shortcode'][$key] = $object;
+                }
             }
-
-            // Get shortcode content and parameters
-            $str = $shortcode->getContent();
-            $icon = $shortcode->getParameter('icon', false);
-            $autolink = $shortcode->getParameter('autolink', false);
-
-            // Encode email
-            $email = '';
-            $str_len = strlen($str);
-            for ($i = 0; $i < $str_len; $i++) {
-                $email .= "&#" . ord($str[$i]). ";";
-            }
-
-            // Handle autolinking
-            if ($autolink) {
-                $output = '<a href="mailto:'.$email.'">'.$email.'</a>';
-            } else {
-                $output = $email;
-            }
-
-            // Handle icon option
-            if ($icon) {
-                $output = '<i class="fa fa-'.$icon.'"></i> ' . $output;
-            }
-
-            return $output;
-        });
-
-    }
-
+        }
+     }
 
 }
