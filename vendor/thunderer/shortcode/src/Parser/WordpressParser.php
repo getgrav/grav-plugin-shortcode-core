@@ -1,8 +1,10 @@
 <?php
 namespace Thunder\Shortcode\Parser;
 
+use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Shortcode\ParsedShortcode;
 use Thunder\Shortcode\Shortcode\Shortcode;
+use Thunder\Shortcode\Utility\RegexBuilderUtility;
 
 /**
  * IMPORTANT NOTE: USE THIS PARSER **ONLY** IF YOU WANT THE FULL COMPATIBILITY
@@ -24,8 +26,29 @@ use Thunder\Shortcode\Shortcode\Shortcode;
  */
 final class WordpressParser implements ParserInterface
 {
-    private static $shortcodeRegex = '/\\[(\\[?)([a-zA-Z-]+)(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)/s';
+    private static $shortcodeRegex = '/\\[(\\[?)(<NAMES>)(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)/s';
     private static $argumentsRegex = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
+
+    private $names;
+
+    public static function createFromHandlers(HandlerContainer $handlers)
+    {
+        return static::createFromNames($handlers->getNames());
+    }
+
+    public static function createFromNames(array $names)
+    {
+        foreach($names as $name) {
+            if(false === is_string($name)) {
+                throw new \InvalidArgumentException('Shortcode name must be a string!');
+            }
+        }
+
+        $self = new self();
+        $self->names = $names;
+
+        return $self;
+    }
 
     /**
      * @param string $text
@@ -34,7 +57,11 @@ final class WordpressParser implements ParserInterface
      */
     public function parse($text)
     {
-        preg_match_all(static::$shortcodeRegex, $text, $matches, PREG_OFFSET_CAPTURE);
+        $names = $this->names
+            ? implode('|', array_map('preg_quote', $this->names))
+            : RegexBuilderUtility::buildNameRegex();
+        $regex = str_replace('<NAMES>', $names, static::$shortcodeRegex);
+        preg_match_all($regex, $text, $matches, PREG_OFFSET_CAPTURE);
 
         $shortcodes = array();
         $count = count($matches[0]);
