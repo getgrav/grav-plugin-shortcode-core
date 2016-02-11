@@ -10,7 +10,8 @@ use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
 
-class ShortcodeManager {
+class ShortcodeManager
+{
 
     /** @var Grav $grav */
     protected $grav;
@@ -43,32 +44,40 @@ class ShortcodeManager {
     /**
      * add CSS and JS assets to the Manager so that they can be saved to cache
      * for subsequent cached pages
-     * 
-     * @param mixed  $action the type of asset, JS or CSS, or an array of stuff
-     * @param string $asset  the asset path in question
+     *
+     * @param mixed $action the type of asset, JS or CSS, or an array of stuff
+     * @param string $asset the asset path in question
      */
     public function addAssets($action, $asset)
     {
         if (is_array($action)) {
-            $this->assets['add'] []= $action;
+            $this->assets['add'] [] = $action;
         } else {
             if (isset($this->assets[$action])) {
                 if (in_array($asset, $this->assets[$action])) {
                     return;
                 }
             }
-            $this->assets[$action] []= $asset;
+            $this->assets[$action] [] = $asset;
         }
     }
 
     /**
      * return a multi-dimensional array of all the assets
-     * 
+     *
      * @return array the assets array
      */
     public function getAssets()
     {
         return $this->assets;
+    }
+
+    /**
+     * reset the assets
+     */
+    public function resetAssets()
+    {
+        $this->assets = [];
     }
 
     /**
@@ -103,6 +112,14 @@ class ShortcodeManager {
      */
     public function getObjects() {
         return $this->objects;
+    }
+
+    /**
+     * reset the objects
+     */
+    public function resetObjects()
+    {
+        $this->objects = [];
     }
 
     /**
