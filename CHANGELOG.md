@@ -1,3 +1,13 @@
+# v2.0.0
+## 02/11/2016
+
+1. [](#new)
+    * Added new `section` shortcode
+    * Use new `contentMeta` mechanism for storing/caching objects and assets per page
+    * Added new `ShortcodeManager::reset()` methods
+1. [](#improved)
+    * Completely refactored the plugin to use a new extensible mechanism that makes it easier to manage multiple shortcodes
+    
 # v1.4.0
 ## 02/03/2016
 
