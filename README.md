@@ -184,6 +184,7 @@ You can even retrieve a section from another page utilizing the shortcodes as th
     
 ```
 <div id="author">{{ page.find('/my/custom/page').contentMeta.shortcode.section.author }}</div>
+```
  
 ## Developing Shortcode Plugins
 
