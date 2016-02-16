@@ -1,3 +1,11 @@
+# v2.0.1
+## 02/16/2016
+
+1. [](#improved)
+    * Support **modular** pages by populating Twig variables in `onTwigPageVariables()` event #8
+1. [](#bugfix)
+    * Better more flexible regex in the Markdown **block** definition for more reliable markdown in shortcodes. #3
+    
 # v2.0.0
 ## 02/11/2016
 
