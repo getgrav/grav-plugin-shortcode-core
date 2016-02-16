@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
 use Grav\Plugin\Shortcodes\ShortCodeObject;
 use RocketTheme\Toolbox\Event\Event;
@@ -43,6 +44,7 @@ class ShortcodeCorePlugin extends Plugin
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
             'onPageInitialized' => ['onPageInitialized', 0],
+            'onTwigPageVariables' => ['onTwigPageVariables', 0],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
         ]);
 
@@ -69,6 +71,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onPageContentProcessed(Event $e)
     {
+        /** @var Page $page */
         $page = $e['page'];
         $config = $this->mergeConfig($page);
 
@@ -157,12 +160,37 @@ class ShortcodeCorePlugin extends Plugin
     }
 
     /**
-     * set any objects stored in the shortcodes manager as twig variables
+     * set any objects stored in the shortcodes manager as page twig variables
+     *
+     * @param Event $e
+     */
+    public function onTwigPageVariables(Event $e)
+    {
+        // check current event's page content meta for objects, and if found as them as twig variables
+        $meta = $e['page']->getContentMeta();
+
+        $this->mergeTwigVars($meta);
+    }
+
+    /**
+     * set any objects stored in the shortcodes manager as site twig variables
      */
     public function onTwigSiteVariables()
     {
-        // check content meta for objects, and if found as them as twig variables
+        // check current page content meta for objects, and if found as them as twig variables
         $meta = $this->grav['page']->getContentMeta();
+
+        $this->mergeTwigVars($meta);
+    }
+
+    /**
+     * Helper method that merges the content meta shortcode data with twig variables
+     *
+     * @param $meta
+     */
+    private function mergeTwigVars($meta)
+    {
+        // check content meta for objects, and if found as them as twig variables
         if (isset($meta['shortcode'])) {
             $objects = $meta['shortcode'];
             $twig = $this->grav['twig'];
@@ -173,6 +201,8 @@ class ShortcodeCorePlugin extends Plugin
                 }
             }
         }
-     }
+    }
+
+
 
 }
