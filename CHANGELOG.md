@@ -1,3 +1,21 @@
+# v2.0.1
+## 02/16/2016
+
+1. [](#improved)
+    * Support **modular** pages by populating Twig variables in `onTwigPageVariables()` event #8
+1. [](#bugfix)
+    * Better more flexible regex in the Markdown **block** definition for more reliable markdown in shortcodes. #3
+    
+# v2.0.0
+## 02/11/2016
+
+1. [](#new)
+    * Added new `section` shortcode
+    * Use new `contentMeta` mechanism for storing/caching objects and assets per page
+    * Added new `ShortcodeManager::reset()` methods
+1. [](#improved)
+    * Completely refactored the plugin to use a new extensible mechanism that makes it easier to manage multiple shortcodes
+    
 # v1.4.0
 ## 02/03/2016
 
