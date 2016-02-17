@@ -37,6 +37,7 @@ class ShortcodeManager
         $this->config = $this->grav['config'];
         $this->handlers = new HandlerContainer();
         $this->events = new EventContainer();
+        $this->states = [];
         $this->assets = [];
         $this->objects = [];
     }
