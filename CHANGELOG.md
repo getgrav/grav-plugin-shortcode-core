@@ -1,3 +1,9 @@
+# v2.0.2
+## 02/17/2016
+
+1. [](#bugfix)
+    * Initialized states in constructor
+
 # v2.0.1
 ## 02/16/2016
 
