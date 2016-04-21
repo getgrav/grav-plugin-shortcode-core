@@ -188,6 +188,24 @@ You can even retrieve a section from another page utilizing the shortcodes as th
 <div id="author">{{ page.find('/my/custom/page').contentMeta.shortcode.section.author }}</div>
 ```
 
+#### Notice
+
+A useful shortcode that performs a similar job to the [markdown-notices](https://github.com/getgrav/grav-plugin-markdown-notices) plugins, allows you to easily create simple notice blocks as seen on http://learn.getgrav.org and http://getgrav.org.  To use simply use the following syntax:
+
+```
+[notice]
+Your **Markdown** text that will appear in the notice
+[/notice]
+```
+
+You can also specifically choose from `note`, `info`, `warning`, `tip` types which provide unique color options:
+
+```
+[notice=warning]
+Danger Will Robinson! Danger, Will Robinson!
+[/notice]
+```
+
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.

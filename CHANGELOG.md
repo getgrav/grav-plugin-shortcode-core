@@ -1,3 +1,10 @@
+# v2.0.3
+## 04/21/2016
+
+1. [](#new)
+    * Added `notice` shortcode
+    * Updated to latest Shortcode library version
+
 # v2.0.2
 ## 02/17/2016
 
