@@ -10,7 +10,6 @@ use Thunder\Shortcode\Parser\ParserInterface;
 use Thunder\Shortcode\Shortcode\ReplacedShortcode;
 use Thunder\Shortcode\Shortcode\ParsedShortcodeInterface;
 use Thunder\Shortcode\Shortcode\ProcessedShortcode;
-use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
@@ -75,7 +74,7 @@ final class Processor implements ProcessorInterface
         return $event;
     }
 
-    private function processIteration($text, ProcessorContext $context, ShortcodeInterface $parent = null)
+    private function processIteration($text, ProcessorContext $context, ProcessedShortcode $parent = null)
     {
         if (null !== $this->recursionDepth && $context->recursionLevel > $this->recursionDepth) {
             return $text;
@@ -87,8 +86,20 @@ final class Processor implements ProcessorInterface
         $this->dispatchEvent(Events::FILTER_SHORTCODES, $filterEvent);
         $shortcodes = $filterEvent->getShortcodes();
         $replaces = array();
+        $baseOffset = $parent && $shortcodes
+            ? mb_strpos($parent->getShortcodeText(), $shortcodes[0]->getText(), null, 'utf-8') - $shortcodes[0]->getOffset() + $parent->getOffset()
+            : 0;
         foreach ($shortcodes as $shortcode) {
-            $this->prepareHandlerContext($shortcode, $context);
+            $hasNamePosition = array_key_exists($shortcode->getName(), $context->namePosition);
+
+            $context->baseOffset = $baseOffset + $shortcode->getOffset();
+            $context->position++;
+            $context->namePosition[$shortcode->getName()] = $hasNamePosition ? $context->namePosition[$shortcode->getName()] + 1 : 1;
+            $context->shortcodeText = $shortcode->getText();
+            $context->offset = $shortcode->getOffset();
+            $context->shortcode = $shortcode;
+            $context->textContent = $shortcode->getContent();
+
             $handler = $this->handlers->get($shortcode->getName());
             $replace = $this->processHandler($shortcode, $context, $handler);
 
@@ -106,22 +117,11 @@ final class Processor implements ProcessorInterface
     {
         return array_reduce(array_reverse($replaces), function($state, ReplacedShortcode $s) {
             $offset = $s->getOffset();
-            $length = mb_strlen($s->getText());
+            $length = mb_strlen($s->getText(), 'utf-8');
+            $textLength = mb_strlen($state, 'utf-8');
 
-            return mb_substr($state, 0, $offset).$s->getReplacement().mb_substr($state, $offset + $length);
+            return mb_substr($state, 0, $offset, 'utf-8').$s->getReplacement().mb_substr($state, $offset + $length, $textLength, 'utf-8');
         }, $text);
-    }
-
-    private function prepareHandlerContext(ParsedShortcodeInterface $shortcode, ProcessorContext $context)
-    {
-        $context->position++;
-        $hasNamePosition = array_key_exists($shortcode->getName(), $context->namePosition);
-        $context->namePosition[$shortcode->getName()] = $hasNamePosition ? $context->namePosition[$shortcode->getName()] + 1 : 1;
-
-        $context->shortcodeText = $shortcode->getText();
-        $context->offset = $shortcode->getOffset();
-        $context->shortcode = $shortcode;
-        $context->textContent = $shortcode->getContent();
     }
 
     private function processHandler(ParsedShortcodeInterface $parsed, ProcessorContext $context, $handler)

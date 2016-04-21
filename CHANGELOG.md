@@ -1,3 +1,11 @@
+# v2.1.0
+## 04/21/2016
+
+1. [](#new)
+    * Added **new** `notice` shortcode
+1. [](#improved)    
+    * Updated to latest Shortcode library version
+
 # v2.0.2
 ## 02/17/2016
 
@@ -16,7 +24,7 @@
 ## 02/11/2016
 
 1. [](#new)
-    * Added new `section` shortcode
+    * Added **new** `section` shortcode
     * Use new `contentMeta` mechanism for storing/caching objects and assets per page
     * Added new `ShortcodeManager::reset()` methods
 1. [](#improved)
