@@ -20,6 +20,7 @@ use Thunder\Shortcode\Serializer\JsonSerializer;
 use Thunder\Shortcode\Serializer\TextSerializer;
 use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
+use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Tests\Fake\ReverseShortcode;
 
 /**
@@ -108,6 +109,15 @@ final class ProcessorTest extends \PHPUnit_Framework_TestCase
         $result = 'x root[a outer[c inner[x] d] b] y';
         $this->assertSame($result, $processor->process($text));
         $this->assertSame($result.$result, $processor->process($text.$text));
+    }
+
+    public function testReplacesLongerThanInputText()
+    {
+        $handlers = new HandlerContainer();
+        $handlers->add('x', function() { return '<length>'; });
+        $processor = new Processor(new RegularParser(), $handlers);
+
+        $this->assertSame('<length><length><length>', $processor->process('[x][x][x]'));
     }
 
     public function testProcessorWithoutRecursion()
@@ -218,6 +228,17 @@ final class ProcessorTest extends \PHPUnit_Framework_TestCase
             [declare age]You are %age% years old.[/declare]
             [age age=18]
             ')));
+    }
+
+    public function testBaseOffset()
+    {
+        $handlers = new HandlerContainer();
+        $handlers->setDefault(function(ProcessedShortcode $s) {
+            return '['.$s->getBaseOffset().']'.$s->getContent();
+        });
+        $processor = new Processor(new RegularParser(new CommonSyntax()), $handlers);
+
+        $this->assertSame('[0][3] ’[8][11]’ [20]', $processor->process('[a][b] ’[c][d]’ [/b][e]'));
     }
 
     public function testProcessorIterative()
