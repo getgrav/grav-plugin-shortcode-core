@@ -206,6 +206,20 @@ Danger Will Robinson! Danger, Will Robinson!
 [/notice]
 ```
 
+#### FontAwesome
+
+[FontAwesome](https://fortawesome.github.io/Font-Awesome/) is a powerful library of font-based icons.  This shortcode makes it simple to add fontawesome icons to your page content without using HTML.
+
+[fa=cog /] Simplest Format
+
+[fa=fa-cog /] Format using `fa-` prefix
+
+[fa icon=fa-camera-retro /] Explicit format
+
+[fa icon=fa-camera-retro extras=fa-4x /] Explicit format with extras - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
+
+[fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
+
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
