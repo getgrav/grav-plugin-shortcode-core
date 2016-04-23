@@ -1,10 +1,8 @@
 <?php
-
 namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Shortcode\ProcessedShortcode;
-
 
 class AlignShortcode extends Shortcode
 {

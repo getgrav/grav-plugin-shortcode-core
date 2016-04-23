@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 2.1.0
+version: 2.2.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -60,15 +60,20 @@ form:
           regex: RegexParser
           regular: RegularParser
 
-    load_fontawesome:
+    fontawesome.load:
       type: toggle
       label: Load Fontawesome Library
       help: Used by the `safe-email` shortcode if your theme doesn't already load it
-      highlight: 0
-      default: 0
+      highlight: 1
+      default: 1
       options:
         1: Enabled
         0: Disabled
       validate:
         type: bool
 
+    fontawesome.url:
+      type: text
+      label: Fontawesome URL
+      help: You can change the location of fontawesome by changing this URL
+      size: large
