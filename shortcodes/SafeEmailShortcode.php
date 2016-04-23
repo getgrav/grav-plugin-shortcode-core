@@ -1,7 +1,5 @@
 <?php
-
 namespace Grav\Plugin\Shortcodes;
-
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
@@ -11,8 +9,8 @@ class SafeEmailShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('safe-email', function(ShortcodeInterface $sc) {
             // Load assets if required
-            if ($this->config->get('plugins.shortcode-core.load_fontawesome', false)) {
-                $this->shortcode->addAssets('css', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
+            if ($this->config->get('plugins.shortcode-core.fontawesome.load', false)) {
+                $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
             }
 
             // Get shortcode content and parameters

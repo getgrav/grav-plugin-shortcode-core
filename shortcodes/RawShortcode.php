@@ -1,7 +1,5 @@
 <?php
-
 namespace Grav\Plugin\Shortcodes;
-
 
 use Thunder\Shortcode\EventHandler\FilterRawEventHandler;
 use Thunder\Shortcode\Events;
