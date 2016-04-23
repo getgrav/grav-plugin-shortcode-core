@@ -1,4 +1,10 @@
 # v2.1.0
+## 04/23/2016
+
+1. [](#new)
+    * Added **new** `fa` FontAwesome shortcode
+
+# v2.1.0
 ## 04/21/2016
 
 1. [](#new)
