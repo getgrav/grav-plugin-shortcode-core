@@ -124,9 +124,10 @@ class ShortcodeCorePlugin extends Plugin
             foreach ($page->collection() as $item) {
                 $item->content();
             }
-        } else {
-            $page->content();
         }
+
+        // Always initialize current page
+        $page->content();
 
         // get the meta and check for assets
         $meta = $page->getContentMeta();
