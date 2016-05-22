@@ -1,5 +1,6 @@
 name: Shortcode Core
-version: 2.2.1
+version: 2.3.0
+testing: true
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -11,6 +12,9 @@ demo: http://learn.getgrav.org
 keywords: gui, plugin, tabs, twig
 bugs: https://github.com/getgrav/grav-plugin-shortcode-core/issues
 license: MIT
+
+dependencies:
+    - { name: grav, version: '~1.1' }
 
 form:
   validation: strict

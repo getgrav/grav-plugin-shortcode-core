@@ -74,6 +74,7 @@ class ShortcodeCorePlugin extends Plugin
         /** @var Page $page */
         $page = $e['page'];
         $config = $this->mergeConfig($page);
+        $meta = [];
 
         $this->active = $config->get('active', true);
 
@@ -92,13 +93,18 @@ class ShortcodeCorePlugin extends Plugin
         // if objects found set them as page content meta
         $shortcode_objects = $this->shortcodes->getObjects();
         if (!empty($shortcode_objects)) {
-            $page->addContentMeta('shortcode', $shortcode_objects);
+            $meta['shortcode'] = $shortcode_objects;
         }
 
         // if assets founds set them as page content meta
         $shortcode_assets = $this->shortcodes->getAssets();
         if (!empty($shortcode_assets)) {
-            $page->addContentMeta('shortcode-assets', $shortcode_assets);
+            $meta['shortcode-assets'] = $shortcode_assets;
+        }
+
+        // if we have meta set, let's add it to the content meta
+        if (!empty($meta)) {
+            $page->addContentMeta('shortcode-meta', $meta);
         }
     }
 
@@ -130,7 +136,7 @@ class ShortcodeCorePlugin extends Plugin
         $page->content();
 
         // get the meta and check for assets
-        $meta = $page->getContentMeta();
+        $meta = $page->getContentMeta('shortcode-meta');
 
         // if assets found, add them to Assets manager
         if (isset($meta['shortcode-assets'])) {
@@ -168,7 +174,7 @@ class ShortcodeCorePlugin extends Plugin
     public function onTwigPageVariables(Event $e)
     {
         // check current event's page content meta for objects, and if found as them as twig variables
-        $meta = $e['page']->getContentMeta();
+        $meta = $e['page']->getContentMeta('shortcode-meta');
 
         $this->mergeTwigVars($meta);
     }
@@ -179,7 +185,7 @@ class ShortcodeCorePlugin extends Plugin
     public function onTwigSiteVariables()
     {
         // check current page content meta for objects, and if found as them as twig variables
-        $meta = $this->grav['page']->getContentMeta();
+        $meta = $this->grav['page']->getContentMeta('shortcode-meta');
 
         $this->mergeTwigVars($meta);
     }
