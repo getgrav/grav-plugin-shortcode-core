@@ -220,6 +220,18 @@ Danger Will Robinson! Danger, Will Robinson!
 
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 
+#### Columns
+
+You can split your content in adjacent columns by using the `col-left` (left aligned) and `col-right` (right aligned) shortcodes, which simply introduce a float style to the container.
+The last column should be either a `col-left-last` or `col-right-last` in order to clear the float attribute.
+
+These shortcodes also accept a `class` attribute, to add a css class, and a `style` attribute, to specify inline styling options.
+
+```
+[col-left style='padding: 2px']![](image1.jpg)[/col-left]
+[col-left-last style='padding: 2px']![](image2.jpg)[/col-left-last]
+```
+
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
