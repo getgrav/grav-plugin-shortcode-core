@@ -220,6 +220,14 @@ Danger Will Robinson! Danger, Will Robinson!
 
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 
+#### Image Caption
+
+Add an image with a caption.
+
+```
+[imgcaption src="image.jpg" alt="Image description" title="Image title" width="400" height="200"]This is an image caption.[/imgcaption]
+```
+
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
