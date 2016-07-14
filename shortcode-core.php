@@ -74,6 +74,7 @@ class ShortcodeCorePlugin extends Plugin
         /** @var Page $page */
         $page = $e['page'];
         $config = $this->mergeConfig($page);
+        $meta = [];
 
         $this->active = $config->get('active', true);
 
@@ -92,13 +93,18 @@ class ShortcodeCorePlugin extends Plugin
         // if objects found set them as page content meta
         $shortcode_objects = $this->shortcodes->getObjects();
         if (!empty($shortcode_objects)) {
-            $page->addContentMeta('shortcode', $shortcode_objects);
+            $meta['shortcode'] = $shortcode_objects;
         }
 
         // if assets founds set them as page content meta
         $shortcode_assets = $this->shortcodes->getAssets();
         if (!empty($shortcode_assets)) {
-            $page->addContentMeta('shortcode-assets', $shortcode_assets);
+            $meta['shortcodeAssets'] = $shortcode_assets;
+        }
+
+        // if we have meta set, let's add it to the content meta
+        if (!empty($meta)) {
+            $page->addContentMeta('shortcodeMeta', $meta);
         }
     }
 
@@ -130,11 +136,11 @@ class ShortcodeCorePlugin extends Plugin
         $page->content();
 
         // get the meta and check for assets
-        $meta = $page->getContentMeta();
+        $meta = $page->getContentMeta('shortcodeMeta');
 
         // if assets found, add them to Assets manager
-        if (isset($meta['shortcode-assets'])) {
-            $page_assets = (array) $meta['shortcode-assets'];
+        if (isset($meta['shortcodeAssets'])) {
+            $page_assets = (array) $meta['shortcodeAssets'];
             if (!empty($page_assets)) {
                 // if we actually have data now, add it to asset manager
                 foreach ($page_assets as $type => $asset) {
@@ -168,7 +174,7 @@ class ShortcodeCorePlugin extends Plugin
     public function onTwigPageVariables(Event $e)
     {
         // check current event's page content meta for objects, and if found as them as twig variables
-        $meta = $e['page']->getContentMeta();
+        $meta = $e['page']->getContentMeta('shortcodeMeta');
 
         $this->mergeTwigVars($meta);
     }
@@ -179,7 +185,7 @@ class ShortcodeCorePlugin extends Plugin
     public function onTwigSiteVariables()
     {
         // check current page content meta for objects, and if found as them as twig variables
-        $meta = $this->grav['page']->getContentMeta();
+        $meta = $this->grav['page']->getContentMeta('shortcodeMeta');
 
         $this->mergeTwigVars($meta);
     }

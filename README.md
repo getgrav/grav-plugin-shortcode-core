@@ -185,7 +185,7 @@ This we be removed from the page content and made available in Twig variables so
 You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this syntax:
     
 ```
-<div id="author">{{ page.find('/my/custom/page').contentMeta.shortcode.section.author }}</div>
+<div id="author">{{ page.find('/my/custom/page').contentMeta.shortcodeMeta.shortcode.section.author }}</div>
 ```
 
 #### Notice

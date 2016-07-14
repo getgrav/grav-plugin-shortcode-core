@@ -1,3 +1,16 @@
+# v2.3.1
+## 07/14/2016
+
+1. [](#improved)
+    * renamed internal `contentMeta` variables to `shortcodeMeta` and `shortcodeAssets`
+    * Update to latest Shortcode library
+    
+# v2.3.0
+## 05/20/2016
+
+1. [](#improved)
+    * Use new conentmeta approach from Grav 1.1
+
 # v2.2.1
 ## 05/09/2016
 
