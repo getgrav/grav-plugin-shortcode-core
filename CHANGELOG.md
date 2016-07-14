@@ -2,7 +2,7 @@
 ## 07/14/2016
 
 1. [](#improved)
-    * renamed internal `contenMeta` variables to `shortcodeMeta` and `shortcodeAssets`
+    * renamed internal `contentMeta` variables to `shortcodeMeta` and `shortcodeAssets`
     * Update to latest Shortcode library
     
 # v2.3.0
