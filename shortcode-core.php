@@ -42,7 +42,7 @@ class ShortcodeCorePlugin extends Plugin
         $this->enable([
             'onMarkdownInitialized' => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
-            'onPageContentProcessed' => ['onPageContentProcessed', 0],
+            'onPageContentRaw' => ['onPageContentRaw', 0],
             'onPageInitialized' => ['onPageInitialized', 0],
             'onTwigPageVariables' => ['onTwigPageVariables', 0],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
@@ -69,7 +69,7 @@ class ShortcodeCorePlugin extends Plugin
      *
      * @param Event $e
      */
-    public function onPageContentProcessed(Event $e)
+    public function onPageContentRaw(Event $e)
     {
         /** @var Page $page */
         $page = $e['page'];
