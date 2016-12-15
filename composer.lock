@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eb180cb91eb66859e9dfd6a6e1b9aca2",
-    "content-hash": "265993203f878acbe77e0060b2f0e8d1",
+    "hash": "6796085518554c512f039484f81cc85f",
+    "content-hash": "b7c3d5b1af5f1d5aab1d266c69a81e4a",
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "dev-master",
+            "version": "v0.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "8f915c0b5269b4235342e78ffa28daee96b3b2a4"
+                "reference": "63bf941b575281729637551b733cfda2148c8646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/8f915c0b5269b4235342e78ffa28daee96b3b2a4",
-                "reference": "8f915c0b5269b4235342e78ffa28daee96b3b2a4",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/63bf941b575281729637551b733cfda2148c8646",
+                "reference": "63bf941b575281729637551b733cfda2148c8646",
                 "shasum": ""
             },
             "require": {
@@ -57,15 +57,13 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2016-04-25 21:22:52"
+            "time": "2016-12-13 22:16:30"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "thunderer/shortcode": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

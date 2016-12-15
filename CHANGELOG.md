@@ -1,3 +1,9 @@
+# v2.3.2
+## 12/15/2016
+
+1. [](#improved)
+    * Update to latest Shortcode library v0.6.4 to address a parser bug [#25](https://github.com/getgrav/grav-plugin-shortcode-core/issues/25)
+
 # v2.3.1
 ## 07/14/2016
 
