@@ -25,11 +25,69 @@ class ComposerStaticInit2cf349c922a7b41fbf854d37089a07a4
         ),
     );
 
+    public static $classMap = array (
+        'Thunder\\Shortcode\\EventContainer\\EventContainer' => __DIR__ . '/..' . '/thunderer/shortcode/src/EventContainer/EventContainer.php',
+        'Thunder\\Shortcode\\EventContainer\\EventContainerInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/EventContainer/EventContainerInterface.php',
+        'Thunder\\Shortcode\\EventHandler\\FilterRawEventHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/EventHandler/FilterRawEventHandler.php',
+        'Thunder\\Shortcode\\EventHandler\\ReplaceJoinEventHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/EventHandler/ReplaceJoinEventHandler.php',
+        'Thunder\\Shortcode\\Event\\FilterShortcodesEvent' => __DIR__ . '/..' . '/thunderer/shortcode/src/Event/FilterShortcodesEvent.php',
+        'Thunder\\Shortcode\\Event\\ReplaceShortcodesEvent' => __DIR__ . '/..' . '/thunderer/shortcode/src/Event/ReplaceShortcodesEvent.php',
+        'Thunder\\Shortcode\\Events' => __DIR__ . '/..' . '/thunderer/shortcode/src/Events.php',
+        'Thunder\\Shortcode\\HandlerContainer\\HandlerContainer' => __DIR__ . '/..' . '/thunderer/shortcode/src/HandlerContainer/HandlerContainer.php',
+        'Thunder\\Shortcode\\HandlerContainer\\HandlerContainerInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/HandlerContainer/HandlerContainerInterface.php',
+        'Thunder\\Shortcode\\HandlerContainer\\ImmutableHandlerContainer' => __DIR__ . '/..' . '/thunderer/shortcode/src/HandlerContainer/ImmutableHandlerContainer.php',
+        'Thunder\\Shortcode\\Handler\\ContentHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/ContentHandler.php',
+        'Thunder\\Shortcode\\Handler\\DeclareHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/DeclareHandler.php',
+        'Thunder\\Shortcode\\Handler\\EmailHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/EmailHandler.php',
+        'Thunder\\Shortcode\\Handler\\NameHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/NameHandler.php',
+        'Thunder\\Shortcode\\Handler\\NullHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/NullHandler.php',
+        'Thunder\\Shortcode\\Handler\\PlaceholderHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/PlaceholderHandler.php',
+        'Thunder\\Shortcode\\Handler\\RawHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/RawHandler.php',
+        'Thunder\\Shortcode\\Handler\\SerializerHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/SerializerHandler.php',
+        'Thunder\\Shortcode\\Handler\\UrlHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/UrlHandler.php',
+        'Thunder\\Shortcode\\Handler\\WrapHandler' => __DIR__ . '/..' . '/thunderer/shortcode/src/Handler/WrapHandler.php',
+        'Thunder\\Shortcode\\Parser\\ParserInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Parser/ParserInterface.php',
+        'Thunder\\Shortcode\\Parser\\RegexParser' => __DIR__ . '/..' . '/thunderer/shortcode/src/Parser/RegexParser.php',
+        'Thunder\\Shortcode\\Parser\\RegularParser' => __DIR__ . '/..' . '/thunderer/shortcode/src/Parser/RegularParser.php',
+        'Thunder\\Shortcode\\Parser\\WordpressParser' => __DIR__ . '/..' . '/thunderer/shortcode/src/Parser/WordpressParser.php',
+        'Thunder\\Shortcode\\Processor\\Processor' => __DIR__ . '/..' . '/thunderer/shortcode/src/Processor/Processor.php',
+        'Thunder\\Shortcode\\Processor\\ProcessorContext' => __DIR__ . '/..' . '/thunderer/shortcode/src/Processor/ProcessorContext.php',
+        'Thunder\\Shortcode\\Processor\\ProcessorInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Processor/ProcessorInterface.php',
+        'Thunder\\Shortcode\\Serializer\\JsonSerializer' => __DIR__ . '/..' . '/thunderer/shortcode/src/Serializer/JsonSerializer.php',
+        'Thunder\\Shortcode\\Serializer\\SerializerInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Serializer/SerializerInterface.php',
+        'Thunder\\Shortcode\\Serializer\\TextSerializer' => __DIR__ . '/..' . '/thunderer/shortcode/src/Serializer/TextSerializer.php',
+        'Thunder\\Shortcode\\Serializer\\XmlSerializer' => __DIR__ . '/..' . '/thunderer/shortcode/src/Serializer/XmlSerializer.php',
+        'Thunder\\Shortcode\\Serializer\\YamlSerializer' => __DIR__ . '/..' . '/thunderer/shortcode/src/Serializer/YamlSerializer.php',
+        'Thunder\\Shortcode\\ShortcodeFacade' => __DIR__ . '/..' . '/thunderer/shortcode/src/ShortcodeFacade.php',
+        'Thunder\\Shortcode\\Shortcode\\AbstractShortcode' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/AbstractShortcode.php',
+        'Thunder\\Shortcode\\Shortcode\\ParsedShortcode' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/ParsedShortcode.php',
+        'Thunder\\Shortcode\\Shortcode\\ParsedShortcodeInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/ParsedShortcodeInterface.php',
+        'Thunder\\Shortcode\\Shortcode\\ProcessedShortcode' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/ProcessedShortcode.php',
+        'Thunder\\Shortcode\\Shortcode\\ReplacedShortcode' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/ReplacedShortcode.php',
+        'Thunder\\Shortcode\\Shortcode\\Shortcode' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/Shortcode.php',
+        'Thunder\\Shortcode\\Shortcode\\ShortcodeInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Shortcode/ShortcodeInterface.php',
+        'Thunder\\Shortcode\\Syntax\\CommonSyntax' => __DIR__ . '/..' . '/thunderer/shortcode/src/Syntax/CommonSyntax.php',
+        'Thunder\\Shortcode\\Syntax\\Syntax' => __DIR__ . '/..' . '/thunderer/shortcode/src/Syntax/Syntax.php',
+        'Thunder\\Shortcode\\Syntax\\SyntaxBuilder' => __DIR__ . '/..' . '/thunderer/shortcode/src/Syntax/SyntaxBuilder.php',
+        'Thunder\\Shortcode\\Syntax\\SyntaxInterface' => __DIR__ . '/..' . '/thunderer/shortcode/src/Syntax/SyntaxInterface.php',
+        'Thunder\\Shortcode\\Tests\\EventsTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/EventsTest.php',
+        'Thunder\\Shortcode\\Tests\\FacadeTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/FacadeTest.php',
+        'Thunder\\Shortcode\\Tests\\Fake\\ReverseShortcode' => __DIR__ . '/..' . '/thunderer/shortcode/tests/Fake/ReverseShortcode.php',
+        'Thunder\\Shortcode\\Tests\\HandlerContainerTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/HandlerContainerTest.php',
+        'Thunder\\Shortcode\\Tests\\ParserTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/ParserTest.php',
+        'Thunder\\Shortcode\\Tests\\ProcessorTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/ProcessorTest.php',
+        'Thunder\\Shortcode\\Tests\\SerializerTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/SerializerTest.php',
+        'Thunder\\Shortcode\\Tests\\ShortcodeTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/ShortcodeTest.php',
+        'Thunder\\Shortcode\\Tests\\SyntaxTest' => __DIR__ . '/..' . '/thunderer/shortcode/tests/SyntaxTest.php',
+        'Thunder\\Shortcode\\Utility\\RegexBuilderUtility' => __DIR__ . '/..' . '/thunderer/shortcode/src/Utility/RegexBuilderUtility.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2cf349c922a7b41fbf854d37089a07a4::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2cf349c922a7b41fbf854d37089a07a4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2cf349c922a7b41fbf854d37089a07a4::$classMap;
 
         }, null, ClassLoader::class);
     }
