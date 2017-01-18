@@ -9,7 +9,7 @@ class NoticeShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('notice', function(ShortcodeInterface $sc) {
             $this->shortcode->addAssets('css', 'plugin://shortcode-core/css/shortcode-notice.css');
-            $type = $sc->getParameter('notice', trim($sc->getParameterAt(0), '=')) ?: 'info';
+            $type = $sc->getParameter('notice', $sc->getBbCode()) ?: 'info';
             return '<div class="sc-notice '.$type.'"><div>'.$sc->getContent().'</div></div>';
         });
     }

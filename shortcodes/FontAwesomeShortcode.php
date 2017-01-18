@@ -16,29 +16,28 @@ class FontAwesomeShortcode extends Shortcode
 
             // Get shortcode content and parameters
             $str = $sc->getContent();
-            $icon = $sc->getParameter('icon', false);
-
-            if (!$icon) {
-                $icon = $sc->getParameter('fa', trim($sc->getParameterAt(0), '='));
-            }
+            $icon = $sc->getParameter('icon', $sc->getParameter('fa', $sc->getBbCode()));
 
             if (!Utils::startsWith($icon, 'fa-')) {
                 $icon = 'fa-'.$icon;
             }
 
-            $extras = explode(',',$sc->getParameter('extras', ''));
-            foreach ($extras as $extra) {
-                if (!empty($extra)) {
-                    if (!Utils::startsWith($extra, 'fa-')) {
-                        $extra = 'fa-'.$extra;
+            if ($icon) {
+                $extras = explode(',',$sc->getParameter('extras', ''));
+                foreach ($extras as $extra) {
+                    if (!empty($extra)) {
+                        if (!Utils::startsWith($extra, 'fa-')) {
+                            $extra = 'fa-'.$extra;
+                        }
+                        $icon .= ' '.$extra;
                     }
-                    $icon .= ' '.$extra;
                 }
+
+                $output = '<i class="fa '.$icon.'">'.$str.'</i>';
+
+                return $output;
             }
 
-            $output = '<i class="fa '.$icon.'">'.$str.'</i>';
-
-            return $output;
         });
     }
 }
