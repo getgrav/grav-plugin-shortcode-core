@@ -1,3 +1,9 @@
+# v2.5.0
+## 01/25/2017
+
+1. [](#new)
+    * Added **new** `columns` shortcode for CSS columns support
+    
 # v2.4.0
 ## 01/17/2017
 
