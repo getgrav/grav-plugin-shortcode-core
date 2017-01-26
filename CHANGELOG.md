@@ -1,3 +1,9 @@
+# v2.5.1
+## 01/25/2017
+
+1. [](#improved)
+    * Added `moz-` prefix in column shortcode
+
 # v2.5.0
 ## 01/25/2017
 
