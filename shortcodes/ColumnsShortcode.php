@@ -15,11 +15,11 @@ class ColumnsShortcode extends Shortcode
             $column_gap = $sc->getParameter('gap', 'normal');
             $column_rule = $sc->getParameter('rule', false);
 
-            $css_style = 'columns:' . $column_count . ' ' . $column_width . ';';
-            $css_style .= 'column-gap:' . $column_gap . ';';
+            $css_style = 'columns:' . $column_count . ' ' . $column_width . ';moz-columns:' . $column_count . ' ' . $column_width . ';';
+            $css_style .= 'column-gap:' . $column_gap . ';moz-column-gap:' . $column_gap . ';';
 
             if ($column_rule) {
-                $css_style .= 'column-rule:' . $column_rule . ';';
+                $css_style .= 'column-rule:' . $column_rule . ';moz-column-rule:' . $column_rule . ';';
             }
 
             return '<div class="sc-columns" style="'.$css_style.'">'.$sc->getContent().'</div>';
