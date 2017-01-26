@@ -1,3 +1,9 @@
+# v2.5.2
+## 01/26/2017
+
+1. [](#bugfix)
+    * Fixed Mozilla column css prefix
+
 # v2.5.1
 ## 01/25/2017
 
