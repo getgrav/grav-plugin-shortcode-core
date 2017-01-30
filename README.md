@@ -44,7 +44,7 @@ The **Shortcode Core** plugin only has a few options to configure.  The default 
 enabled: true
 active: true
 active_admin: true
-parser: wordpress
+parser: regex
 load_fontawesome: false
 ```
 
@@ -53,6 +53,8 @@ load_fontawesome: false
 * `active_admin: true|false` toggles if shortcodes will be processed in the admin plugin
 * `parser: wordpress|regex|regular` let's you configure the parser to use. 
 * `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
+
+> NOTE: In previous versions the `wordpress` parser was preferred.  However with version `2.4.0`, the `regex` parser is now default.  If you have saved configuration, you should manually change this to `regex` or you may receive errors or bad output.
 
 ## Configuration Modifications
 

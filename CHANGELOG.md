@@ -20,7 +20,7 @@
 ## 01/17/2017
 
 1. [](#improved)
-    * Switched to Regex parser by default (previous was Regex)
+    * Switched to `Regex` parser by default (previous was Regex)
     * Update to latest Shortcode library v0.6.5
 1. [](#bugfix)
     * Removed `getParameterAt(0)` hack in favor of `getBbbCode()` that works with Regex parser
