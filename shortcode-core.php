@@ -40,6 +40,7 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         $this->enable([
+            'onTwigInitialized' => ['onTwigInitialized', 0],
             'onMarkdownInitialized' => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
             'onPageContentProcessed' => ['onPageContentProcessed', 0],
@@ -52,6 +53,19 @@ class ShortcodeCorePlugin extends Plugin
 
         $this->grav->fireEvent('onShortcodeHandlers');
 
+    }
+  
+    /**
+     * Add a twig filter for processing shortcodes in templates
+     */
+    public function onTwigInitialized()
+    {
+        $this->grav['twig']->twig()->addFilter(
+            new \Twig_SimpleFilter(
+              'shortcodes', 
+              [$this, 'processShortcodes']
+            )
+        );
     }
 
     /**
@@ -188,6 +202,33 @@ class ShortcodeCorePlugin extends Plugin
         $meta = $this->grav['page']->getContentMeta('shortcodeMeta');
 
         $this->mergeTwigVars($meta);
+    }
+  
+    /**
+     * Processes shortcodes in a string
+     *
+     * @param $str the string to parse for shortcodes
+     */
+    public function processShortcodes($str)
+    {
+      switch($this->config->get('parser'))
+      {
+          case 'regular':
+              $parser = 'Thunder\Shortcode\Parser\RegularParser';
+              break;
+          case 'wordpress':
+              $parser = 'Thunder\Shortcode\Parser\WordpressParser';
+              break;
+          default:
+              $parser = 'Thunder\Shortcode\Parser\RegexParser';
+              break;
+      }
+
+      $processor = new Processor(new $parser(new CommonSyntax()), $this->shortcodes->getHandlers());
+
+      $processed_string = $processor->process($str);
+
+      return $processed_string;
     }
 
     /**
