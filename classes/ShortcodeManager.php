@@ -16,6 +16,9 @@ class ShortcodeManager
     /** @var Grav $grav */
     protected $grav;
 
+    /** @var Page $page */
+    protected $page;
+
     /** @var  HandlerContainer $handlers */
     protected $handlers;
 
@@ -30,6 +33,7 @@ class ShortcodeManager
 
     /**
      * initialize some internal instance variables
+     * @param Page $page
      */
     public function __construct()
     {
@@ -222,6 +226,7 @@ class ShortcodeManager
         }
 
         if ($page && $config->get('enabled')) {
+            $this->page = $page;
             $content = $page->getRawContent();
             $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
             $processor = $processor->withEventContainer($this->events);
@@ -264,5 +269,21 @@ class ShortcodeManager
     public function getId(ShortcodeInterface $shortcode)
     {
         return substr(md5($shortcode->getShortcodeText()), -10);
+    }
+
+    /**
+     * Sets the current page context
+     *
+     * @param Page $page
+     */
+    public function setPage(Page $page)
+    {
+        $this->page = $page;
+    }
+
+    /** gets the current page context if set */
+    public function getPage()
+    {
+        return $this->page;
     }
 }

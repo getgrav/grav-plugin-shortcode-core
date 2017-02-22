@@ -1,3 +1,9 @@
+# v2.5.3
+## 02/21/2017
+
+1. [](#improved)
+    * Added a reference to current Page in `ShortcodeManager`
+
 # v2.5.2
 ## 01/26/2017
 
@@ -20,7 +26,7 @@
 ## 01/17/2017
 
 1. [](#improved)
-    * Switched to Regex parser by default (previous was Regex)
+    * Switched to `Regex` parser by default (previous was Regex)
     * Update to latest Shortcode library v0.6.5
 1. [](#bugfix)
     * Removed `getParameterAt(0)` hack in favor of `getBbbCode()` that works with Regex parser
