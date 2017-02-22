@@ -1,3 +1,9 @@
+# v2.5.3
+## 02/21/2017
+
+1. [](#improved)
+    * Added a reference to current Page in `ShortcodeManager`
+
 # v2.5.2
 ## 01/26/2017
 

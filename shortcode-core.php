@@ -3,7 +3,6 @@ namespace Grav\Plugin;
 
 use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
-use Grav\Plugin\Shortcodes\ShortCodeObject;
 use RocketTheme\Toolbox\Event\Event;
 
 class ShortcodeCorePlugin extends Plugin
