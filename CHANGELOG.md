@@ -1,3 +1,9 @@
+# v2.5.4
+## 02/26/2017
+
+1. [](#bugfix)
+    * Fixed issue with modular Shortcode meta was not getting processed properly (Assets, Sections, etc.)
+
 # v2.5.3
 ## 02/21/2017
 

@@ -124,10 +124,18 @@ class ShortcodeCorePlugin extends Plugin
         $page = $this->grav['page'];
         $assets = $this->grav['assets'];
 
+        $meta = [];
+
         // Initialize all page content up front before Twig happens
         if (isset($page->header()->content['items'])) {
             foreach ($page->collection() as $item) {
+                // initialize modular item content
                 $item->content();
+
+                $item_meta = $item->getContentMeta('shortcodeMeta');
+                if ($item_meta) {
+                    $meta = array_merge_recursive($meta, $item_meta);
+                }
             }
         }
 
@@ -135,7 +143,10 @@ class ShortcodeCorePlugin extends Plugin
         $page->content();
 
         // get the meta and check for assets
-        $meta = $page->getContentMeta('shortcodeMeta');
+        $page_meta = $page->getContentMeta('shortcodeMeta');
+        if ($page_meta) {
+            $meta = array_merge_recursive($meta, $page_meta);
+        }
 
         // if assets found, add them to Assets manager
         if (isset($meta['shortcodeAssets'])) {
