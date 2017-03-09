@@ -16,7 +16,7 @@ This is some [u]bb style underline[/u] and not much else
 This is [size=30]bigger text[/size] and this is [color=blue]blue text[/color]
 ```
 
-This example functionality is provided with the **Shortcode Core** plugin to provide some functionality that is not available in traditional markdown but is standard **BBCode** used in many form platforms.  You can see how the syntax is jus ta simple open and close element using square brackets.
+This example functionality is provided with the **Shortcode Core** plugin to provide some functionality that is not available in traditional markdown but is standard **BBCode** used in many form platforms.  You can see how the syntax is just a simple open and close element using square brackets.
 
 This will render:
 
