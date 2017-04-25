@@ -1,3 +1,10 @@
+# v2.6.0
+## 04/25/2017
+
+1. [](#new)
+    * Added ability to define a custom shortcode path for you own shortcodes [#36](https://github.com/getgrav/grav-plugin-shortcode-core/issues/36)
+    * Added a twig filter to allow you to use shortcodes directly in Twig templates [#33](https://github.com/getgrav/grav-plugin-shortcode-core/pull/33)
+
 # v2.5.4
 ## 02/26/2017
 

@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 2.5.4
+version: 2.6.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -62,6 +62,13 @@ form:
           wordpress: WordpressParser
           regex: RegexParser
           regular: RegularParser
+
+    custom_shortcodes:
+      type: text
+      label: Custom Shortcodes
+      help: The path to a location where you store custom shortcodes.
+      placeholder: '/user/custom/shortcodes'
+      size: large
 
     fontawesome.load:
       type: toggle
