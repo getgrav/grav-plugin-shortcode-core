@@ -45,6 +45,7 @@ enabled: true
 active: true
 active_admin: true
 parser: regex
+custom_shortcodes:
 load_fontawesome: false
 ```
 
@@ -52,6 +53,7 @@ load_fontawesome: false
 * `active: true|false` toggles if shortcodes will be enabled site-wide or not
 * `active_admin: true|false` toggles if shortcodes will be processed in the admin plugin
 * `parser: wordpress|regex|regular` let's you configure the parser to use. 
+* `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/custom/shortcodes`)
 * `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
 
 > NOTE: In previous versions the `wordpress` parser was preferred.  However with version `2.4.0`, the `regex` parser is now default.  If you have saved configuration, you should manually change this to `regex` or you may receive errors or bad output.

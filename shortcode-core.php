@@ -174,6 +174,12 @@ class ShortcodeCorePlugin extends Plugin
     public function onShortcodeHandlers()
     {
         $this->shortcodes->registerAllShortcodes(__DIR__.'/shortcodes');
+
+        // Add custom shortcodes directory if provided
+        $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');
+        if (isset($custom_shortcodes)) {
+            $this->shortcodes->registerAllShortcodes(GRAV_ROOT . $custom_shortcodes);
+        }
     }
 
     /**

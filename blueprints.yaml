@@ -63,6 +63,13 @@ form:
           regex: RegexParser
           regular: RegularParser
 
+    custom_shortcodes:
+      type: text
+      label: Custom Shortcodes
+      help: The path to a location where you store custom shortcodes.
+      placeholder: '/user/custom/shortcodes'
+      size: large
+
     fontawesome.load:
       type: toggle
       label: Load Fontawesome Library

@@ -4,6 +4,7 @@ namespace Grav\Plugin;
 use Grav\Common\Data\Data;
 use Grav\Common\Grav;
 use Grav\Common\Page\Page;
+use Guzzle\Common\Exception\UnexpectedValueException;
 use Thunder\Shortcode\EventContainer\EventContainer;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Processor\Processor;
@@ -173,11 +174,15 @@ class ShortcodeManager
      */
     public function registerAllShortcodes($directory)
     {
-        foreach (new \DirectoryIterator($directory) as $file) {
-            if($file->isDot()) {
-                continue;
+        try {
+            foreach (new \DirectoryIterator($directory) as $file) {
+                if ($file->isDot()) {
+                    continue;
+                }
+                $this->registerShortcode($file->getFilename(), $directory);
             }
-            $this->registerShortcode($file->getFilename(), $directory);
+        } catch (\UnexpectedValueException $e) {
+            Grav::instance()['log']->error('ShortcodeCore Plugin: Directory not found => ' . $directory);
         }
     }
 
