@@ -39,12 +39,13 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         $this->enable([
-            'onMarkdownInitialized' => ['onMarkdownInitialized', 0],
-            'onShortcodeHandlers' => ['onShortcodeHandlers', 0],
-            'onPageContentProcessed' => ['onPageContentProcessed', 0],
-            'onPageInitialized' => ['onPageInitialized', 0],
-            'onTwigPageVariables' => ['onTwigPageVariables', 0],
-            'onTwigSiteVariables' => ['onTwigSiteVariables', 0],
+            'onMarkdownInitialized'     => ['onMarkdownInitialized', 0],
+            'onShortcodeHandlers'       => ['onShortcodeHandlers', 0],
+            'onPageContentProcessed'    => ['onPageContentProcessed', 0],
+            'onPageInitialized'         => ['onPageInitialized', 0],
+            'onTwigInitialized'         => ['onTwigInitialized', 0],
+            'onTwigPageVariables'       => ['onTwigPageVariables', 0],
+            'onTwigSiteVariables'       => ['onTwigSiteVariables', 0],
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
@@ -165,7 +166,6 @@ class ShortcodeCorePlugin extends Plugin
                 }
             }
         }
-
     }
 
     /**
@@ -180,6 +180,19 @@ class ShortcodeCorePlugin extends Plugin
         if (isset($custom_shortcodes)) {
             $this->shortcodes->registerAllShortcodes(GRAV_ROOT . $custom_shortcodes);
         }
+    }
+
+    /**
+     * Add a twig filter for processing shortcodes in templates
+     */
+    public function onTwigInitialized()
+    {
+        $this->grav['twig']->twig()->addFilter(
+            new \Twig_SimpleFilter(
+                'shortcodes',
+                [$this->shortcodes, 'processShortcodes']
+            )
+        );
     }
 
     /**

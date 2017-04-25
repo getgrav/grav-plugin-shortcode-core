@@ -270,6 +270,15 @@ Danger Will Robinson! Danger, Will Robinson!
 
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 
+## Using Shortcodes in Twig
+
+You can now use shortcodes in Twig templates and process them with the `|shortcodes` filter. For example:
+
+```
+{% set twig_text = "This is [size=30]bigger text[/size] and this is [color=green]green text[/color]" %}
+{{ twig_text|shortcodes }}
+```
+
 ## Developing Shortcode Plugins
 
 The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.  Also we introduce a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
