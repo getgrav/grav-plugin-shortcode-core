@@ -133,6 +133,30 @@ Right align the text between this shortcode
 [right]This text is right aligned[/right]
 ```
 
+
+#### Div
+
+Allows you to wrap markdown in an HTML `div` tag that supports both `id` and `classes` attributes
+
+```
+[div class="text-center"]
+This text is **centered** aligned
+[/div]
+```
+
+or 
+
+```
+[div class="table table-striped"]
+| header 1 | header 2 |
+|----------|----------|
+| A 1      | B 1      |
+| A 2      | B 2      |
+| A 3      | B 3      |
+[/div]
+```
+
+
 #### Columns
 
 Take advantage of powerful CSS columns support by using this shortcode

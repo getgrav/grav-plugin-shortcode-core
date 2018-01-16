@@ -1,3 +1,9 @@
+# v2.7.0
+## 04/25/2017
+
+1. [](#new)
+    * Added a new `div` shortcode that supports `class` and `id` attributes
+
 # v2.6.0
 ## 04/25/2017
 
