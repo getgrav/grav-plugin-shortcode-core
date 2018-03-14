@@ -1,3 +1,9 @@
+# v2.7.1
+## mm/dd/2018
+
+1. [](#improved)
+    * Support shortcodes in theme as well as plugins [#43](https://github.com/getgrav/grav-plugin-shortcode-core/issues/43)
+
 # v2.7.0
 ## 01/16/2018
 
