@@ -39,6 +39,7 @@ class ShortcodeCorePlugin extends Plugin
         }
 
         $this->enable([
+            'onThemeInitialized'        => ['onThemeInitialized', 0],
             'onMarkdownInitialized'     => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers'       => ['onShortcodeHandlers', 0],
             'onPageContentProcessed'    => ['onPageContentProcessed', 0],
@@ -49,9 +50,14 @@ class ShortcodeCorePlugin extends Plugin
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
+    }
 
+    /**
+     * Theme initialization is best place to fire onShortcodeHandler event
+     * in order to support both plugins and themes
+     */
+    public function onThemeInitialized() {
         $this->grav->fireEvent('onShortcodeHandlers');
-
     }
 
     /**
