@@ -1,3 +1,9 @@
+# v3.0.0
+## mm/dd/2018
+
+1. [](#new)
+    * Parsedown 1.8.0 compatibility in Grav 1.4.3
+
 # v2.7.1
 ## 03/14/2018
 

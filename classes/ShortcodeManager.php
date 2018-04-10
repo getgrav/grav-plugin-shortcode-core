@@ -200,9 +200,9 @@ class ShortcodeManager
             $regex = '/^\[\/?(?:'.$valid_shortcodes.')[^\]]*\]$/';
 
             if (preg_match($regex, $Line['body'], $matches)) {
-                $Block = array(
-                    'markup' => $Line['body'],
-                );
+                $Block = ['element' => [
+                    'rawHtml' => $Line['body']
+                ]];
                 return $Block;
             }
         };
