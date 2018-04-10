@@ -193,7 +193,7 @@ class ShortcodeManager
      */
     public function setupMarkdown($markdown)
     {
-        $markdown->addBlockType('[', 'ShortCodes', true, false);
+        $markdown->addBlockType('[', 'ShortCodes', true, false, null, true);
 
         $markdown->blockShortCodes = function($Line) {
             $valid_shortcodes = implode('|', $this->handlers->getNames());
