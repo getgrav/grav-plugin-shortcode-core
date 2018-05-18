@@ -2,7 +2,7 @@
 ## XX/XX/2018
 
 1. [](#new)
-    * Added a new `class` shortcode that wraps markdown in an HTML `span` tag that supports `class` attribute
+    * Added a new `span` shortcode that supports `class` and `id` attributes
 
 # v2.7.1
 ## 03/14/2018

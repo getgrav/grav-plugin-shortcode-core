@@ -157,14 +157,14 @@ or
 ```
 
 
-#### Class
+#### Span
 
-Allows you to wrap markdown in an HTML `span` tag that supports `class` attribute
+Allows you to wrap markdown in an HTML `span` tag that supports both `id` and `classes` attributes
 
 ```
-[class="text-center background-ruby"]
-This text will be wrapped in and HTML `span` tag and will have `text-center` and `background-ruby` classes
-[/class]
+[span class="text-center"]
+This text is **centered** aligned
+[/span]
 ```
 
 
