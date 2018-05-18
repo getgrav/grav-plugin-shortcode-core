@@ -157,6 +157,17 @@ or
 ```
 
 
+#### Class
+
+Allows you to wrap markdown in an HTML `span` tag that supports `class` attribute
+
+```
+[class="text-center background-ruby"]
+This text will be wrapped in and HTML `span` tag and will have `text-center` and `background-ruby` classes
+[/class]
+```
+
+
 #### Columns
 
 Take advantage of powerful CSS columns support by using this shortcode
