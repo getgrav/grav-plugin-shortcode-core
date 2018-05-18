@@ -157,6 +157,17 @@ or
 ```
 
 
+#### Span
+
+Allows you to wrap markdown in an HTML `span` tag that supports both `id` and `classes` attributes
+
+```
+[span class="text-center"]
+This text is **centered** aligned
+[/span]
+```
+
+
 #### Columns
 
 Take advantage of powerful CSS columns support by using this shortcode
