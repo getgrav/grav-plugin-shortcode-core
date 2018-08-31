@@ -290,6 +290,13 @@ You can also specifically choose from `note`, `info`, `warning`, `tip` types whi
 Danger Will Robinson! Danger, Will Robinson!
 [/notice]
 ```
+#### Figure
+
+Figure elements are the recommended way to add self-contained units of flow content, i.e. images, charts and other visual elements that can be moved away from the main flow of the document without affecting the document's meaning. Figures may include captions through the `caption` attribute. Both `id` and `class` attributes are also available.
+
+[figure id="fig1" class="image" caption="**Fig. 1** A beautiful figure."]
+![Gorgeous image](image.png)
+[/figure]
 
 #### FontAwesome
 
