@@ -1,7 +1,7 @@
 enabled: true
 active: true
 active_admin: true
-parser: regex
+parser: regular
 custom_shortcodes:
 fontawesome:
   load: true

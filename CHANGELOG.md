@@ -1,3 +1,10 @@
+# v2.7.2
+## 03/14/2018
+
+1. [](#improved)
+    * Switched default parser to `regular`
+    * Using latest `develop-master` version which has a couple of key fixes
+
 # v2.7.1
 ## 03/14/2018
 

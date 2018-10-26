@@ -36,7 +36,7 @@ Each part is described in the dedicated section in this document.
 There are no required dependencies and all PHP versions from 5.3 up to latest 7.0 [are tested](https://travis-ci.org/thunderer/Shortcode) and supported. This library is available on Composer/Packagist as `thunderer/shortcode`, to install it execute:
 
 ```
-composer require thunderer/shortcode ^0.6
+composer require thunderer/shortcode=^0.6.5
 ```
 
 or manually update your `composer.json` with:
@@ -44,7 +44,7 @@ or manually update your `composer.json` with:
 ```
 (...)
 "require": {
-    "thunderer/shortcode": "^0.6"
+    "thunderer/shortcode": "^0.6.5"
 }
 (...)
 ```
@@ -373,7 +373,7 @@ assert($shortcode->getName() === $xmlShortcode->getName());
 
 There are several builtin shortcode handlers available in `Thunder\Shortcode\Handler` namespace. Description below assumes that given handler was registered with `xyz` name:
 
-- `NameHandler` always returns shortcode's name. `[xyz arg=val]content[/xyz]` becomes `sample`,
+- `NameHandler` always returns shortcode's name. `[xyz arg=val]content[/xyz]` becomes `xyz`,
 - `ContentHandler` always returns shortcode's content. It discards its opening and closing tag. `[xyz]code[/xyz]` becomes `code`,
 - `RawHandler` returns unprocessed shortcode content. Its behavior is different than `FilterRawEventHandler` because if content auto processing is turned on, then nested shortcodes handlers were called, just their result was discarded,
 - `NullHandler` completely removes shortcode with all nested shortcodes,

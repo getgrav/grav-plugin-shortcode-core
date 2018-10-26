@@ -1,33 +1,34 @@
 [
     {
         "name": "thunderer/shortcode",
-        "version": "v0.6.5",
-        "version_normalized": "0.6.5.0",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
         "source": {
             "type": "git",
             "url": "https://github.com/thunderer/Shortcode.git",
-            "reference": "997418e71f997de98a73a41cf102b3310372ac64"
+            "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/997418e71f997de98a73a41cf102b3310372ac64",
-            "reference": "997418e71f997de98a73a41cf102b3310372ac64",
+            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/dd33d8cd889d03a44f7a0c4731138e97c3680d67",
+            "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.1|^5.0"
+            "phpunit/phpunit": "^4.1|^5.0|^6.0",
+            "symfony/yaml": "^2.0|^3.0"
         },
         "suggest": {
             "ext-dom": "if you want to use XML serializer",
             "ext-json": "if you want to use JSON serializer",
             "symfony/yaml": "if you want to use YAML serializer"
         },
-        "time": "2017-01-08T00:22:37+00:00",
+        "time": "2018-02-01T22:42:18+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Thunder\\Shortcode\\": "src/",
