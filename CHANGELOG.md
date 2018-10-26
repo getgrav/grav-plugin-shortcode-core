@@ -1,3 +1,12 @@
+# v2.7.2
+## 10/26/2018
+
+1. [](#new)
+    * Added a new `span` shortcode that supports `class` and `id` attributes
+1. [](#improved)
+    * Switched default parser to `regular`
+    * Using latest `dev-master` version which has a couple of key fixes
+
 # v2.7.1
 ## 03/14/2018
 
