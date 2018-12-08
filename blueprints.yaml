@@ -52,6 +52,17 @@ form:
       validate:
         type: bool
 
+    admin_pages_only:
+      type: toggle
+      label: When activate, only process real-pages
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+
     parser:
       type: select
       size: medium

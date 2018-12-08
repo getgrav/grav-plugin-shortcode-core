@@ -1,3 +1,9 @@
+# v2.8.0
+## mm/dd/2018
+
+1. [](#new)
+    * Added an option `admin_pages_only` to only process actual `user/pages/` based pages and not dynamic pages
+
 # v2.7.3
 ## 12/07/2018
 
