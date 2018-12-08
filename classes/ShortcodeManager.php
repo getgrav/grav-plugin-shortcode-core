@@ -199,7 +199,7 @@ class ShortcodeManager
             $valid_shortcodes = implode('|', $this->handlers->getNames());
             $regex = '/^\[\/?(?:'.$valid_shortcodes.')[^\]]*\]$/';
 
-            if (preg_match($regex, $Line['body'], $matches)) {
+            if (preg_match($regex, trim($Line['body']), $matches)) {
                 $Block = array(
                     'markup' => $Line['body'],
                 );
