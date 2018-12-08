@@ -1,3 +1,11 @@
+# v2.7.3
+## 12/07/2018
+
+1. [](#new)
+    * Added a new `figure` shortcode [#51](https://github.com/getgrav/grav-plugin-shortcode-core/pull/51)
+1. [](#bugfix)
+    * Fix empty space at the end of a line [#54](https://github.com/getgrav/grav-plugin-shortcode-core/pull/54)
+
 # v2.7.2
 ## 10/26/2018
 
