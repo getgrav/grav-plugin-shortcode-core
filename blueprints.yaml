@@ -43,7 +43,7 @@ form:
 
     active_admin:
       type: toggle
-      label: Activated in admin
+      label: Activated in Admin
       highlight: 1
       default: 1
       options:
@@ -54,7 +54,8 @@ form:
 
     admin_pages_only:
       type: toggle
-      label: When activate, only process real-pages
+      label: Admin Real-Pages Only
+      help: When activate, only process real-pages
       highlight: 1
       default: 1
       options:
