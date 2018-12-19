@@ -1,7 +1,8 @@
-# v2.8.0
+# v3.0.0
 ## mm/dd/2018
 
 1. [](#new)
+    * Update to latest Shortcode library v0.7.0 which has over 10X performance for regular parser
     * Added an option `admin_pages_only` to only process actual `user/pages/` based pages and not dynamic pages
 
 # v2.7.3

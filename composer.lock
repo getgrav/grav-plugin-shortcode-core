@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "265993203f878acbe77e0060b2f0e8d1",
+    "content-hash": "f942dc388e20a26fe0b3e602e8626811",
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "dev-master",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67"
+                "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/dd33d8cd889d03a44f7a0c4731138e97c3680d67",
-                "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
+                "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
                 "shasum": ""
             },
             "require": {
@@ -57,15 +57,13 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2018-02-01T22:42:18+00:00"
+            "time": "2018-12-09T23:07:21+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "thunderer/shortcode": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
