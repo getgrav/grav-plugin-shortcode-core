@@ -3,7 +3,9 @@ namespace Grav\Plugin;
 
 use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
+use Grav\Common\Utils;
 use RocketTheme\Toolbox\Event\Event;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 class ShortcodeCorePlugin extends Plugin
 {
@@ -81,6 +83,14 @@ class ShortcodeCorePlugin extends Plugin
         $page = $e['page'];
         $config = $this->mergeConfig($page);
         $meta = [];
+
+        // Don't run in admin pages other than content
+        $admin_pages_only = isset($config['admin_pages_only']) ? $config['admin_pages_only'] : true;
+        if ($admin_pages_only &&
+            $this->isAdmin() &&
+            !Utils::startsWith($page->filePath(), $this->grav['locator']->findResource('page://'))) {
+            return;
+        }
 
         $this->active = $config->get('active', true);
 

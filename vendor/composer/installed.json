@@ -1,17 +1,17 @@
 [
     {
         "name": "thunderer/shortcode",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.7.0",
+        "version_normalized": "0.7.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thunderer/Shortcode.git",
-            "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67"
+            "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/dd33d8cd889d03a44f7a0c4731138e97c3680d67",
-            "reference": "dd33d8cd889d03a44f7a0c4731138e97c3680d67",
+            "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
+            "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
             "shasum": ""
         },
         "require": {
@@ -26,9 +26,9 @@
             "ext-json": "if you want to use JSON serializer",
             "symfony/yaml": "if you want to use YAML serializer"
         },
-        "time": "2018-02-01T22:42:18+00:00",
+        "time": "2018-12-09T23:07:21+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "Thunder\\Shortcode\\": "src/",

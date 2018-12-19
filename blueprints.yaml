@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 2.7.3
+version: 3.0.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -43,7 +43,19 @@ form:
 
     active_admin:
       type: toggle
-      label: Activated in admin
+      label: Activated in Admin
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+
+    admin_pages_only:
+      type: toggle
+      label: Admin Real-Pages Only
+      help: When activate, only process real-pages
       highlight: 1
       default: 1
       options:
