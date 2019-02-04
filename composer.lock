@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75"
+                "reference": "8f3a65f35de7f03e8c4a50e490c490888dc5b722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
-                "reference": "ccf16e8ebc8a8beab613356a76aca5f44a62cc75",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/8f3a65f35de7f03e8c4a50e490c490888dc5b722",
+                "reference": "8f3a65f35de7f03e8c4a50e490c490888dc5b722",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2018-12-09T23:07:21+00:00"
+            "time": "2019-02-03T22:50:59+00:00"
         }
     ],
     "packages-dev": [],

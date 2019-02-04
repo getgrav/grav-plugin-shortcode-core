@@ -1,3 +1,9 @@
+# v3.0.1
+## 02/03/2019
+
+1. [](#bugfix)
+    * Fixed issues with `0` param and `regular` parser [#14](https://github.com/getgrav/grav-plugin-shortcode-core/issues/14) [#57](https://github.com/getgrav/grav-plugin-shortcode-core/issues/57) [shortcode-ui#29](https://github.com/getgrav/grav-plugin-shortcode-ui/issues/29) [shortcode-ui#6](https://github.com/getgrav/grav-plugin-shortcode-ui/issues/26)
+
 # v3.0.0
 ## 12/19/2018
 
