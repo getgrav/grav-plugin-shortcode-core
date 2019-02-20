@@ -1,3 +1,9 @@
+# v3.0.2
+## mm/dd/2019
+
+1. [](#bugfix)
+    * New language shortcode, for example `[lang=en]...[/lang]`
+
 # v3.0.1
 ## 02/03/2019
 
