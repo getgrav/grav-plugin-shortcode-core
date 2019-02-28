@@ -24,7 +24,7 @@ class ShortcodeCorePlugin extends Plugin
         require_once(__DIR__.'/classes/ShortcodeManager.php');
 
         return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 0],
+            'onPluginsInitialized' => ['onPluginsInitialized', 10],
         ];
     }
 

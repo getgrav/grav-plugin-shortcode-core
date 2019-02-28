@@ -1,3 +1,11 @@
+# v3.1.0
+## 02/28/2019
+
+1. [](#improved)
+    * Modified priority of `onPluginsInitialized` to fire earlier
+1. [](#bugfix)
+    * New language shortcode, for example `[lang=en]...[/lang]`
+
 # v3.0.1
 ## 02/03/2019
 

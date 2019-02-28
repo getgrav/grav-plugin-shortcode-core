@@ -300,6 +300,22 @@ Figure elements are the recommended way to add self-contained units of flow cont
 ![Gorgeous image](image.png)
 [/figure]
 
+#### Language
+
+Hooks into Grav's multi-language capabilities to allow you to show certain blocks of code only for the current active language.
+
+[lang=en]
+Or kind rest bred with am shed then.
+[/lang]
+
+[lang=fr]
+Marche diable ombres net non qui.
+[/lang]
+
+[lang=de]
+Genie dahin einem ein gib geben allen.
+[/lang]
+
 #### FontAwesome
 
 [FontAwesome](https://fortawesome.github.io/Font-Awesome/) is a powerful library of font-based icons.  This shortcode makes it simple to add fontawesome icons to your page content without using HTML.
