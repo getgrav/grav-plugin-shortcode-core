@@ -1,3 +1,9 @@
+# v3.1.1
+## 03/12/2019
+
+1. [](#bugfix)
+    * Reverted accidental change of default parser.  Should be `regular`
+
 # v3.1.0
 ## 02/28/2019
 
@@ -84,7 +90,7 @@
 
 1. [](#new)
     * Added **new** `columns` shortcode for CSS columns support
-    
+
 # v2.4.0
 ## 01/17/2017
 
@@ -106,7 +112,7 @@
 1. [](#improved)
     * renamed internal `contentMeta` variables to `shortcodeMeta` and `shortcodeAssets`
     * Update to latest Shortcode library
-    
+
 # v2.3.0
 ## 05/20/2016
 
@@ -130,7 +136,7 @@
 
 1. [](#new)
     * Added **new** `notice` shortcode
-1. [](#improved)    
+1. [](#improved)
     * Updated to latest Shortcode library version
 
 # v2.0.2
@@ -146,7 +152,7 @@
     * Support **modular** pages by populating Twig variables in `onTwigPageVariables()` event #8
 1. [](#bugfix)
     * Better more flexible regex in the Markdown **block** definition for more reliable markdown in shortcodes. #3
-    
+
 # v2.0.0
 ## 02/11/2016
 
@@ -156,7 +162,7 @@
     * Added new `ShortcodeManager::reset()` methods
 1. [](#improved)
     * Completely refactored the plugin to use a new extensible mechanism that makes it easier to manage multiple shortcodes
-    
+
 # v1.4.0
 ## 02/03/2016
 
