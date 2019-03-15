@@ -61,7 +61,7 @@ class Shortcode
         } else {
             $code = $sc->getBbCode();
         }
-        return $code
+        return $code;
     }
 
 }
