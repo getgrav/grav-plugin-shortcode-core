@@ -1,3 +1,9 @@
+# v3.1.2
+## 03/15/2019
+
+1. [](#improved)
+    * Added a helper method to allow `getBbCode()` to work with `wordpress` parser
+
 # v3.1.1
 ## 03/12/2019
 

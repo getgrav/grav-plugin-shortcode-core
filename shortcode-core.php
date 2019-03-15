@@ -127,20 +127,14 @@ class ShortcodeCorePlugin extends Plugin
     /**
      * Handle the assets that might be associated with this page
      */
-    public function onPageInitialized()
+    public function onPageInitialized(Event $event)
     {
         if (!$this->active) {
             return;
         }
 
-        // if the plugin is not active (either global or on page) exit
-        if (!$this->active) {
-            return;
-        }
-
-        $page = $this->grav['page'];
+        $page = $event['page'];
         $assets = $this->grav['assets'];
-
         $meta = [];
 
         // Initialize all page content up front before Twig happens
