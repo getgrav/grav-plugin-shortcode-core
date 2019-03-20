@@ -99,3 +99,15 @@ form:
       label: Fontawesome URL
       help: You can change the location of fontawesome by changing this URL
       size: large
+
+    fontawesome.v5:
+      type: toggle
+      label: Use Fontawesome Version 5
+      help: Allows usage of the 'fab', 'fas' and other new font families of Fontawesome 5.
+      highlight: 0
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
