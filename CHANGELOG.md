@@ -1,5 +1,5 @@
 # v4.0.0
-## mm/dd/2019
+## 03/20/2019
 
 1. [](#improved)
     * Improved way to handle shortcodeAssets from `Page::contentMeta()` - Fixes numerous issues 
