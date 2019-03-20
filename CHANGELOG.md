@@ -1,3 +1,11 @@
+# v4.0.0
+## mm/dd/2019
+
+1. [](#improved)
+    * Improved way to handle shortcodeAssets from `Page::contentMeta()` - Fixes numerous issues 
+    * Allow `size` shortcode to handle non-numeric values (e.g. `%`, `x-large`, etc.) [#63](https://github.com/getgrav/grav-plugin-shortcode-core/pull/63)
+    * Added FontAwesome 5 support [#56](https://github.com/getgrav/grav-plugin-shortcode-core/pull/56)
+    
 # v3.1.2
 ## 03/15/2019
 
