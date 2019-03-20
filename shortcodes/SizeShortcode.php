@@ -9,7 +9,8 @@ class SizeShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('size', function(ShortcodeInterface $sc) {
             $size = $sc->getParameter('size', $this->getBbCode($sc));
-            return '<span style="font-size: '.$size.'px;">'.$sc->getContent().'</span>';
+            if ( is_numeric($size) ) { $size = $size.'px' ; }
+            return '<span style="font-size: '.$size.';">'.$sc->getContent().'</span>';
         });
     }
 }
