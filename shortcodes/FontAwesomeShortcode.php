@@ -16,7 +16,7 @@ class FontAwesomeShortcode extends Shortcode
 
             // Get shortcode content and parameters
             $str = $sc->getContent();
-            $icon = $sc->getParameter('icon', $sc->getParameter('fa', $sc->getBbCode()));
+            $icon = $sc->getParameter('icon', $sc->getParameter('fa', $this->getBbCode($sc)));
 
             if (!Utils::startsWith($icon, 'fa-')) {
                 $icon = 'fa-'.$icon;
