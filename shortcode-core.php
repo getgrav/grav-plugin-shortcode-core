@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Grav\Common\Assets;
 use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
 use Grav\Common\Utils;
@@ -45,7 +46,7 @@ class ShortcodeCorePlugin extends Plugin
             'onMarkdownInitialized'     => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers'       => ['onShortcodeHandlers', 0],
             'onPageContentProcessed'    => ['onPageContentProcessed', 0],
-            'onPageInitialized'         => ['onPageInitialized', 0],
+            'onPageContent'             => ['onPageContent', 0],
             'onTwigInitialized'         => ['onTwigInitialized', 0],
             'onTwigPageVariables'       => ['onTwigPageVariables', 0],
             'onTwigSiteVariables'       => ['onTwigSiteVariables', 0],
@@ -127,54 +128,35 @@ class ShortcodeCorePlugin extends Plugin
     /**
      * Handle the assets that might be associated with this page
      */
-    public function onPageInitialized(Event $event)
+    public function onPageContent(Event $event)
     {
         if (!$this->active) {
             return;
         }
 
         $page = $event['page'];
-        $assets = $this->grav['assets'];
-        $meta = [];
-
-        // Initialize all page content up front before Twig happens
-        if (isset($page->header()->content['items'])) {
-            foreach ($page->collection() as $item) {
-                // initialize modular item content
-                $item->content();
-
-                $item_meta = $item->getContentMeta('shortcodeMeta');
-                if ($item_meta) {
-                    $meta = array_merge_recursive($meta, $item_meta);
-                }
-            }
-        }
-
-        // Always initialize current page
-        $page->content();
 
         // get the meta and check for assets
         $page_meta = $page->getContentMeta('shortcodeMeta');
-        if ($page_meta) {
-            $meta = array_merge_recursive($meta, $page_meta);
-        }
 
-        // if assets found, add them to Assets manager
-        if (isset($meta['shortcodeAssets'])) {
-            $page_assets = (array) $meta['shortcodeAssets'];
-            if (!empty($page_assets)) {
-                // if we actually have data now, add it to asset manager
-                foreach ($page_assets as $type => $asset) {
-                    foreach ($asset as $item) {
-                        $method = 'add'.ucfirst($type);
-                        if (is_array($item)) {
-                            $assets->add($item[0], $item[1]);
-                        } else {
-                            $assets->$method($item);
-                        }
+        if (is_array($page_meta) && isset($page_meta['shortcodeAssets'])) {
+
+            $page_assets = (array) $page_meta['shortcodeAssets'];
+
+            /** @var Assets $assets */
+            $assets = $this->grav['assets'];
+            // if we actually have data now, add it to asset manager
+            foreach ($page_assets as $type => $asset) {
+                foreach ($asset as $item) {
+                    $method = 'add'.ucfirst($type);
+                    if (is_array($item)) {
+                        $assets->$method($item[0], $item[1]);
+                    } else {
+                        $assets->$method($item);
                     }
                 }
             }
+
         }
     }
 

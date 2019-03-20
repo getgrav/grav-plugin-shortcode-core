@@ -1,5 +1,5 @@
 name: Shortcode Core
-version: 3.1.2
+version: 4.0.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -13,7 +13,7 @@ bugs: https://github.com/getgrav/grav-plugin-shortcode-core/issues
 license: MIT
 
 dependencies:
-    - { name: grav, version: '~1.5' }
+    - { name: grav, version: '>=1.5.9' }
 
 form:
   validation: strict
@@ -99,3 +99,15 @@ form:
       label: Fontawesome URL
       help: You can change the location of fontawesome by changing this URL
       size: large
+
+    fontawesome.v5:
+      type: toggle
+      label: Use Fontawesome Version 5
+      help: Allows usage of the 'fab', 'fas' and other new font families of Fontawesome 5.
+      highlight: 0
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
