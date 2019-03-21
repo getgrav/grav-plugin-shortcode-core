@@ -13,7 +13,7 @@ bugs: https://github.com/getgrav/grav-plugin-shortcode-core/issues
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.5.9' }
+    - { name: grav, version: '>=1.5.10' }
 
 form:
   validation: strict
