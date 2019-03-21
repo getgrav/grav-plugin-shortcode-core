@@ -1,11 +1,17 @@
+# v4.0.1
+## 03/21/2019
+
+1. [](#new)
+    * Added a new `[mark][/mark]` shortcode which makes highlighting in code blocks much simpler!
+
 # v4.0.0
 ## 03/20/2019
 
 1. [](#improved)
-    * Improved way to handle shortcodeAssets from `Page::contentMeta()` - Fixes numerous issues 
+    * Improved way to handle shortcodeAssets from `Page::contentMeta()` - Fixes numerous issues
     * Allow `size` shortcode to handle non-numeric values (e.g. `%`, `x-large`, etc.) [#63](https://github.com/getgrav/grav-plugin-shortcode-core/pull/63)
     * Added FontAwesome 5 support [#56](https://github.com/getgrav/grav-plugin-shortcode-core/pull/56)
-    
+
 # v3.1.2
 ## 03/15/2019
 

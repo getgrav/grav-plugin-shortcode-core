@@ -54,7 +54,7 @@ load_fontawesome: false
 * `active: true|false` toggles if shortcodes will be enabled site-wide or not
 * `active_admin: true|false` toggles if shortcodes will be processed in the admin plugin
 * `admin_pages_only: true|false` toggles if admin should only process shortcodes for Grav pages
-* `parser: wordpress|regex|regular` let's you configure the parser to use. 
+* `parser: wordpress|regex|regular` let's you configure the parser to use.
 * `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/custom/shortcodes`)
 * `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
 
@@ -146,7 +146,7 @@ This text is **centered** aligned
 [/div]
 ```
 
-or 
+or
 
 ```
 [div class="table table-striped"]
@@ -181,7 +181,7 @@ Take advantage of powerful CSS columns support by using this shortcode
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. 
+consequat.
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
@@ -190,7 +190,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. 
+consequat.
 [/columns]
 ```
 
@@ -203,7 +203,7 @@ Defaults to 2 columns.  You can also explicitly set the number of `columns`, `wi
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. 
+consequat.
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
@@ -212,7 +212,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. 
+consequat.
 [/columns]
 ```
 
@@ -229,7 +229,7 @@ Do not process the shortcodes between these raw shortcode tags
 Encode an email address so that it's not so easily 'scrapable' by nefarious scripts.  This one has a couple of options: `autolink` toggle to turn the email into a link, and an `icon` option that lets you pick a font-awesome icon to prefix the email.  Both settings are optional.
 
 ```
-Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.com[/safe-email] 
+Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.com[/safe-email]
 ```
 
 #### Section
@@ -267,10 +267,10 @@ This we be removed from the page content and made available in Twig variables so
 </div>
 ```
 
-#### Sections from other pages   
-    
+#### Sections from other pages
+
 You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this syntax:
-    
+
 ```
 <div id="author">{{ page.find('/my/custom/page').contentMeta.shortcodeMeta.shortcode.section.author }}</div>
 ```
@@ -296,14 +296,68 @@ Danger Will Robinson! Danger, Will Robinson!
 
 Figure elements are the recommended way to add self-contained units of flow content, i.e. images, charts and other visual elements that can be moved away from the main flow of the document without affecting the document's meaning. Figures may include captions through the `caption` attribute. Both `id` and `class` attributes are also available.
 
+```
 [figure id="fig1" class="image" caption="**Fig. 1** A beautiful figure."]
 ![Gorgeous image](image.png)
 [/figure]
+```
+
+#### Mark
+
+The HTML `<mark></mark>` tag is extremely useful to highlight text in your pages, and serves like a highlighter pen.  However, as we know that markdown inside of HTML is not processed, using this HTML is often not convenient as it means markdown inside will not be processed.
+
+Another important usecase is trying to highlight code in a markdown text block, again the HTML tag doesn't work becuase the result is escaped and treated like any other code and simply displayed.
+
+The solution is simple, just use the shortcode version instead:
+
+```
+This is a sample of text [mark]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
+```
+
+You can also use the `class` option to specificy a specific a CSS class to add to the `<mark>` HTML tag (useful to color the marked output):
+
+```
+This is a sample of text [mark class=blue]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
+```
+
+It also works great in code blocks:
+
+```
+<?php
+class Pipeline extends PropertyObject
+{
+    use AssetUtilsTrait;
+
+    [mark]protected const CSS_ASSET = true;[/mark]
+    protected const JS_ASSET = false;
+
+    ...
+}
+```
+
+You can also pass an option `style` attribute of `block` to get a full lines highlighted:
+
+```
+<?php
+class Pipeline extends PropertyObject
+{
+    use AssetUtilsTrait;
+
+    [mark style=block]
+    protected const CSS_ASSET = true;
+    protected const JS_ASSET = false;
+    [/mark]
+
+    ...
+}
+```
+
 
 #### Language
 
 Hooks into Grav's multi-language capabilities to allow you to show certain blocks of code only for the current active language.
 
+```
 [lang=en]
 Or kind rest bred with am shed then.
 [/lang]
@@ -315,11 +369,13 @@ Marche diable ombres net non qui.
 [lang=de]
 Genie dahin einem ein gib geben allen.
 [/lang]
+```
 
 #### FontAwesome
 
 [FontAwesome](https://fortawesome.github.io/Font-Awesome/) is a powerful library of font-based icons.  This shortcode makes it simple to add fontawesome icons to your page content without using HTML.
 
+```
 [fa=cog /] Simplest Format
 
 [fa=fa-cog /] Format using `fa-` prefix
@@ -329,6 +385,7 @@ Genie dahin einem ein gib geben allen.
 [fa icon=fa-camera-retro extras=fa-4x /] Explicit format with extras - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
+```
 
 ## Using Shortcodes in Twig
 
