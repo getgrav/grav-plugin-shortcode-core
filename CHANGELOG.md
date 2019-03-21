@@ -1,5 +1,5 @@
 # v4.0.1
-## mm/dd/2019
+## 03/21/2019
 
 1. [](#new)
     * Added a new `[mark][/mark]` shortcode which makes highlighting in code blocks much simpler!
