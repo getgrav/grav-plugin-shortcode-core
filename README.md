@@ -329,6 +329,24 @@ class Pipeline extends PropertyObject
 }
 ```
 
+You can also pass an option `style` attribute of `block` to get a full lines highlighted:
+
+```
+<?php
+class Pipeline extends PropertyObject
+{
+    use AssetUtilsTrait;
+
+    [mark style=block]
+    protected const CSS_ASSET = true;
+    protected const JS_ASSET = false;
+    [/mark]
+
+    ...
+}
+```
+
+
 #### Language
 
 Hooks into Grav's multi-language capabilities to allow you to show certain blocks of code only for the current active language.
