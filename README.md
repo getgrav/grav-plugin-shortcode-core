@@ -314,6 +314,12 @@ The solution is simple, just use the shortcode version instead:
 This is a sample of text [mark]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
 ```
 
+You can also use the `class` option to specificy a specific a CSS class to add to the `<mark>` HTML tag (useful to color the marked output):
+
+```
+This is a sample of text [mark class=blue]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
+```
+
 It also works great in code blocks:
 
 ```

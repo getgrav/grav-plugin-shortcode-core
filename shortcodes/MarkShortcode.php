@@ -10,10 +10,19 @@ class MarkShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('mark', function(ProcessedShortcode $sc) {
             $style = $sc->getParameter('style', $this->getBbCode($sc));
-            $css = $style === 'block' ? ' class="mark-block" style="display:block;"' : '';
-            $content = $style == 'block' ? trim($sc->getContent(), "\n") : $sc->getContent();
+            $class = $sc->getParameter('class', 'default');
 
-            return "<mark{$css}>{$content}</mark>";
+            $css_class = 'class="mark-class-' . $class . '"';
+
+            if ($style == 'block') {
+                $css_style = 'style="display:block;"';
+                $content = trim($sc->getContent(), "\n");
+            } else {
+                $css_style = '';
+                $content = $sc->getContent();
+            }
+
+            return "<mark {$css_class} {$css_style}>{$content}</mark>";
         });
     }
 }
