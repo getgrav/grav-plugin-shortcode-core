@@ -1,3 +1,9 @@
+# v4.1.0
+## mm/dd/2019
+
+1. [](#new)
+    * Support for a `ShortCodeManager::getRawHandlers()` to support shortcodes that need to process **before** Markdown
+
 # v4.0.1
 ## 03/21/2019
 
