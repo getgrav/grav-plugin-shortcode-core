@@ -45,6 +45,7 @@ class ShortcodeCorePlugin extends Plugin
             'onThemeInitialized'        => ['onThemeInitialized', 0],
             'onMarkdownInitialized'     => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers'       => ['onShortcodeHandlers', 0],
+            'onPageContentRaw'          => ['onPageContentRaw', 0],
             'onPageContentProcessed'    => ['onPageContentProcessed', 0],
             'onPageContent'             => ['onPageContent', 0],
             'onTwigInitialized'         => ['onTwigInitialized', 0],
@@ -74,38 +75,44 @@ class ShortcodeCorePlugin extends Plugin
     }
 
     /**
+     * Process shortcodes before Grav's processing
+     *
+     * @param Event $e
+     */
+    public function onPageContentRaw(Event $e)
+    {
+        $this->processShortcodes($e['page'], 'processRawContent');
+    }
+
+    /**
      * Process shortcodes after Grav's processing, but before caching
      *
      * @param Event $e
      */
     public function onPageContentProcessed(Event $e)
     {
-        /** @var Page $page */
-        $page = $e['page'];
-        $config = $this->mergeConfig($page);
+        $this->processShortcodes($e['page'], 'processContent');
+    }
+
+    protected function processShortcodes($page, $type = 'processContent') {
         $meta = [];
+        $config = $this->mergeConfig($page);
 
         // Don't run in admin pages other than content
         $admin_pages_only = isset($config['admin_pages_only']) ? $config['admin_pages_only'] : true;
-        if ($admin_pages_only &&
-            $this->isAdmin() &&
-            !Utils::startsWith($page->filePath(), $this->grav['locator']->findResource('page://'))) {
+        if ($admin_pages_only && $this->isAdmin() && !Utils::startsWith($page->filePath(), $this->grav['locator']->findResource('page://'))) {
             return;
+        } else {
+            $this->active = $config->get('active', true);
         }
-
-        $this->active = $config->get('active', true);
 
         // if the plugin is not active (either global or on page) exit
         if (!$this->active) {
             return;
         }
 
-        // reset objects and assets for the page
-        $this->shortcodes->resetObjects();
-        $this->shortcodes->resetAssets();
-
         // process the content for shortcodes
-        $page->setRawContent($this->shortcodes->processContent($page, $config));
+        $page->setRawContent($this->shortcodes->$type($page, $config));
 
         // if objects found set them as page content meta
         $shortcode_objects = $this->shortcodes->getObjects();
@@ -123,6 +130,24 @@ class ShortcodeCorePlugin extends Plugin
         if (!empty($meta)) {
             $page->addContentMeta('shortcodeMeta', $meta);
         }
+    }
+
+    protected function getConfig($page)
+    {
+        $config = $this->mergeConfig($page);
+        $this->active = false;
+
+        // Don't run in admin pages other than content
+        $admin_pages_only = isset($config['admin_pages_only']) ? $config['admin_pages_only'] : true;
+        if ($admin_pages_only &&
+            $this->isAdmin() &&
+            !Utils::startsWith($page->filePath(), $this->grav['locator']->findResource('page://'))) {
+
+        } else {
+            $this->active = $config->get('active', true);
+        }
+
+        return $config;
     }
 
     /**

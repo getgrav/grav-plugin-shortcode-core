@@ -23,6 +23,9 @@ class ShortcodeManager
     /** @var  HandlerContainer $handlers */
     protected $handlers;
 
+    /** @var  HandlerContainer $raw_handlers */
+    protected $raw_handlers;
+
     /** @var  EventContainer $events */
     protected $events;
 
@@ -41,6 +44,7 @@ class ShortcodeManager
         $this->grav = Grav::instance();
         $this->config = $this->grav['config'];
         $this->handlers = new HandlerContainer();
+        $this->raw_handlers = new HandlerContainer();
         $this->events = new EventContainer();
         $this->states = [];
         $this->assets = [];
@@ -139,6 +143,16 @@ class ShortcodeManager
     }
 
     /**
+     * returns the current raw handler container object
+     *
+     * @return HandlerContainer
+     */
+    public function getRawHandlers()
+    {
+        return $this->raw_handlers;
+    }
+
+    /**
      * returns the current event container object
      *         
      * @return EventContainer
@@ -211,23 +225,34 @@ class ShortcodeManager
     /**
      * process the content by running over all the known shortcodes with the
      * chosen parser
-     * 
-     * @param  Page   $page   the page to work on
-     * @param  Data   $config configuration merged with the page config
+     *
+     * @param Page $page the page to work on
+     * @param Data $config configuration merged with the page config
+     * @param null $handlers
+     * @return string
      */
-    public function processContent(Page $page, Data $config)
+    public function processContent(Page $page, Data $config, $handlers = null)
     {
         $parser = $this->getParser($config->get('parser'));
+
+        if (!$handlers) {
+            $handlers = $this->handlers;
+        }
 
         if ($page && $config->get('enabled')) {
             $this->page = $page;
             $content = $page->getRawContent();
-            $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
+            $processor = new Processor(new $parser(new CommonSyntax()), $handlers);
             $processor = $processor->withEventContainer($this->events);
             $processed_content = $processor->process($content);
 
             return $processed_content;
         }
+    }
+
+    public function processRawContent(Page $page, Data $config)
+    {
+        return $this->processContent($page, $config, $this->raw_handlers);
     }
 
     /**
