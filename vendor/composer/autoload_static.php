@@ -9,16 +9,11 @@ class ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66
     public static $prefixLengthsPsr4 = array (
         'T' => 
         array (
-            'Thunder\\Shortcode\\Tests\\' => 24,
             'Thunder\\Shortcode\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Thunder\\Shortcode\\Tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/thunderer/shortcode/tests',
-        ),
         'Thunder\\Shortcode\\' => 
         array (
             0 => __DIR__ . '/..' . '/thunderer/shortcode/src',
