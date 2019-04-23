@@ -1,3 +1,9 @@
+# v4.1.1
+## 04/23/2019
+
+1. [](#improved)
+  * Updated Core Thunderer Shortcode library to `0.7.2`
+
 # v4.1.0
 ## 04/14/2019
 
