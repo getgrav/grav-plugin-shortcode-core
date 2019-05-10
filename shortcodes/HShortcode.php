@@ -11,23 +11,23 @@ class HShortcode extends Shortcode
             return $this->header(1, $sc);
         });
 
-        $this->shortcode->getHandlers()->add('h2', function(ShortcodeInterface $sc) {
+        $this->shortcode->getRawHandlers()->add('h2', function(ShortcodeInterface $sc) {
             return $this->header(2, $sc);
         });
 
-        $this->shortcode->getHandlers()->add('h3', function(ShortcodeInterface $sc) {
+        $this->shortcode->getRawHandlers()->add('h3', function(ShortcodeInterface $sc) {
             return $this->header(3, $sc);
         });
 
-        $this->shortcode->getHandlers()->add('h4', function(ShortcodeInterface $sc) {
+        $this->shortcode->getRawHandlers()->add('h4', function(ShortcodeInterface $sc) {
             return $this->header(4, $sc);
         });
 
-        $this->shortcode->getHandlers()->add('h5', function(ShortcodeInterface $sc) {
+        $this->shortcode->getRawHandlers()->add('h5', function(ShortcodeInterface $sc) {
             return $this->header(5, $sc);
         });
 
-        $this->shortcode->getHandlers()->add('h6', function(ShortcodeInterface $sc) {
+        $this->shortcode->getRawHandlers()->add('h6', function(ShortcodeInterface $sc) {
             return $this->header(6, $sc);
         });
 
