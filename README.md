@@ -158,17 +158,23 @@ or
 [/div]
 ```
 
+#### Headers
+
+Allows you to add `id` and `class` attributes to HTML `h1` through `h6` tags:
+
+```
+[h1 class="major"]This is my title[/h1]
+```
 
 #### Span
 
-Allows you to wrap markdown in an HTML `span` tag that supports both `id` and `classes` attributes
+Allows you to wrap markdown in an HTML `span` tag that supports both `id` and `class` attributes
 
 ```
 [span class="text-center"]
 This text is **centered** aligned
 [/span]
 ```
-
 
 #### Columns
 

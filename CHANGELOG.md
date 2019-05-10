@@ -1,3 +1,9 @@
+# v4.1.2
+## mm/dd/2019
+
+1. [](#new)
+  * Added new `h#` tags for `h1` through `h6` supporting `class` and `id` attributes
+
 # v4.1.1
 ## 04/23/2019
 
