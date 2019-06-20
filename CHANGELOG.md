@@ -3,6 +3,8 @@
 
 1. [](#new)
   * Added new `h#` tags for `h1` through `h6` supporting `class` and `id` attributes
+1. [](#improved)
+  * Make `setStates()` more flexible to accept any type of object  
 
 # v4.1.1
 ## 04/23/2019

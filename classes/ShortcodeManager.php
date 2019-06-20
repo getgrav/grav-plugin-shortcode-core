@@ -272,14 +272,14 @@ class ShortcodeManager
     }
 
     /**
-     * set a state of a particular shortcode with a hash for retrieval later
+     * set a state of a particular item with a hash for retrieval later
      * 
      * @param string             $hash      a unique hash code
-     * @param ShortcodeInterface $shortcode the shortcode to store
+     * @param object            $item  some item to store
      */
-    public function setStates($hash, ShortcodeInterface $shortcode)
+    public function setStates($hash, $item)
     {
-        $this->states[$hash][] = $shortcode;
+        $this->states[$hash][] = $item;
     }
 
     /**
