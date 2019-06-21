@@ -2,13 +2,12 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
-use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 
 class ColumnsShortcode extends Shortcode
 {
     public function init()
     {
-        $this->shortcode->getHandlers()->add('columns', function(ProcessedShortcode $sc) {
+        $this->shortcode->getHandlers()->add('columns', function(ShortcodeInterface $sc) {
 
             $column_count = intval($sc->getParameter('count', 2));
             $column_width = $sc->getParameter('width', 'auto');

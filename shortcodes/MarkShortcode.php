@@ -2,13 +2,12 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
-use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 
 class MarkShortcode extends Shortcode
 {
     public function init()
     {
-        $this->shortcode->getHandlers()->add('mark', function(ProcessedShortcode $sc) {
+        $this->shortcode->getHandlers()->add('mark', function(ShortcodeInterface $sc) {
             $style = $sc->getParameter('style', $this->getBbCode($sc));
             $class = $sc->getParameter('class', 'default');
 

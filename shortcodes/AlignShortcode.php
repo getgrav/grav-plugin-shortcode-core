@@ -2,13 +2,12 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
-use Thunder\Shortcode\Shortcode\ProcessedShortcode;
 
 class AlignShortcode extends Shortcode
 {
     public function init()
     {
-        $this->shortcode->getHandlers()->add('center', function(ProcessedShortcode $sc) {
+        $this->shortcode->getHandlers()->add('center', function(ShortcodeInterface $sc) {
             return '<div style="text-align: center;">'.$sc->getContent().'</div>';
         });
 
