@@ -221,7 +221,6 @@ class ShortcodeCorePlugin extends Plugin
     {
         // check current event's page content meta for objects, and if found as them as twig variables
         $meta = $e['page']->getContentMeta('shortcodeMeta');
-
         $this->mergeTwigVars($meta);
     }
 
@@ -230,9 +229,11 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onTwigSiteVariables()
     {
+        // force page processing now as we need shortcodes available
+        $this->grav['page']->content();
+
         // check current page content meta for objects, and if found as them as twig variables
         $meta = $this->grav['page']->getContentMeta('shortcodeMeta');
-
         $this->mergeTwigVars($meta);
     }
 

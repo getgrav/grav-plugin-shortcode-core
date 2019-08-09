@@ -48,9 +48,9 @@ class Shortcode
         return $this->config->get('plugins.shortcode-core.parser');
     }
 
-    public function getBbCode($sc)
+    public function getBbCode($sc, $default = null)
     {
-        $code = null;
+        $code = $default;
 
         if ($this->getParser() === 'wordpress') {
             $params = $sc->getParameters();
@@ -61,6 +61,7 @@ class Shortcode
         } else {
             $code = $sc->getBbCode();
         }
+
         return $code;
     }
 
