@@ -1,3 +1,10 @@
+# v4.1.3
+## mm/dd/2019
+
+1. [](#improved)
+  * Fix for shortcode objects not being available. For example `[section][/section]` not working previously without `process: twig: true`
+  * `README.md` improvements 
+
 # v4.1.2
 ## 06/22/2019
 
