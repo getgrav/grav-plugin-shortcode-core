@@ -52,10 +52,14 @@ class Shortcode
     {
         $code = $default;
 
-        $params = $sc->getParameters();
-        if (is_array($params)) {
-            $keys = array_keys($params);
-            $code = trim(array_shift($keys), '=');
+        if ($this->getParser() === 'wordpress') {
+            $params = $sc->getParameters();
+            if (is_array($params)) {
+                $keys = array_keys($params);
+                $code = trim(array_shift($keys), '=');
+            }
+        } else {
+            $code = $sc->getBbCode();
         }
 
         return $code;
