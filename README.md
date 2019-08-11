@@ -393,6 +393,26 @@ Genie dahin einem ein gib geben allen.
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 ```
 
+#### Details/Summary
+
+The `<details>` element provides a simple show/hide behaviour without JavaScript, and can optionally contain a `<summary>` element that is always shown. Clicking on the summary text toggles the visibility of the content, and when a summary is not provided, it defaults to "Details". The element can be used to provide extra details, or can be combined into an accordion-like structure.
+
+```
+[details]
+Lorem ipsum dolor sit amet...
+[/details]
+
+[details="Summary text"]
+Lorem ipsum dolor sit amet...
+[/details]
+
+[details summary="Summary text" class="accordion"]
+Lorem ipsum dolor sit amet...
+[/details]
+```
+
+**Note:** The show/hide behaviour is not supported in IE 11 or Edge 18, and the element will be permanently open. You can check the current status of browser compatibility at [Can I Use](https://caniuse.com/#search=details).
+
 ## Using Shortcodes in Twig
 
 You can now use shortcodes in Twig templates and process them with the `|shortcodes` filter. For example:
@@ -404,7 +424,7 @@ You can now use shortcodes in Twig templates and process them with the `|shortco
 
 ## Developing Shortcode Plugins
 
-The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins. 
+The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.
 
 The simplest way to add your own custom shortcodes, it to simply create a new shortcode in a directory (e.g. `user/custom/shortcodes`) such as this simple one to allow for strike-through text:
 
@@ -489,7 +509,7 @@ There are basically two ways of processing a shortcode:
 1. After markdown is processed
 2. Before markdown is processed
 
-These two approaches are important because, for the most part, shortcodes make more sense when they can 'wrap' markdown, so they process **after** markdown. 
+These two approaches are important because, for the most part, shortcodes make more sense when they can 'wrap' markdown, so they process **after** markdown.
 
 For example a `[div][/div]` shortcode would be useless if it ran before markdown is processed because it would add the relevant HTML `<div></div>` tags, and then the markdown parser would promptly **skip** all markdown processing between those divs because it won't process markdown **inside** HTML. So this shortcode and most others run after markdown processing has already occurred using this approach:
 
