@@ -1,6 +1,8 @@
 # v4.1.4
 ## mm/dd/2019
 
+1. [](#new)
+    * Added a new `[details][/details]` shortcode [#72](https://github.com/getgrav/grav-plugin-shortcode-core/pull/72)
 1. [](#improved)
   * Fixed regression issue introduced in v1.4.3 [#73](https://github.com/getgrav/grav-plugin-shortcode-core/issues/73)
 
