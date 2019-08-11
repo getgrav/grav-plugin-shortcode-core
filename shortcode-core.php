@@ -48,9 +48,7 @@ class ShortcodeCorePlugin extends Plugin
             'onPageContentRaw'          => ['onPageContentRaw', 0],
             'onPageContentProcessed'    => ['onPageContentProcessed', 0],
             'onPageContent'             => ['onPageContent', 0],
-            'onTwigInitialized'         => ['onTwigInitialized', 0],
-            'onTwigPageVariables'       => ['onTwigPageVariables', 0],
-            'onTwigSiteVariables'       => ['onTwigSiteVariables', 0],
+            'onTwigInitialized'         => ['onTwigInitialized', 0]
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
@@ -164,24 +162,36 @@ class ShortcodeCorePlugin extends Plugin
         // get the meta and check for assets
         $page_meta = $page->getContentMeta('shortcodeMeta');
 
-        if (is_array($page_meta) && isset($page_meta['shortcodeAssets'])) {
+        if (is_array($page_meta)) {
+            if (isset($page_meta['shortcodeAssets'])) {
 
-            $page_assets = (array) $page_meta['shortcodeAssets'];
+                $page_assets = (array) $page_meta['shortcodeAssets'];
 
-            /** @var Assets $assets */
-            $assets = $this->grav['assets'];
-            // if we actually have data now, add it to asset manager
-            foreach ($page_assets as $type => $asset) {
-                foreach ($asset as $item) {
-                    $method = 'add'.ucfirst($type);
-                    if (is_array($item)) {
-                        $assets->$method($item[0], $item[1]);
-                    } else {
-                        $assets->$method($item);
+                /** @var Assets $assets */
+                $assets = $this->grav['assets'];
+                // if we actually have data now, add it to asset manager
+                foreach ($page_assets as $type => $asset) {
+                    foreach ($asset as $item) {
+                        $method = 'add'.ucfirst($type);
+                        if (is_array($item)) {
+                            $assets->$method($item[0], $item[1]);
+                        } else {
+                            $assets->$method($item);
+                        }
                     }
                 }
             }
 
+            if (isset($page_meta['shortcode'])) {
+                $objects = $page_meta['shortcode'];
+                $twig = $this->grav['twig'];
+
+                if (!empty($objects)) {
+                    foreach ($objects as $key => $object) {
+                        $twig->twig_vars['shortcode'][$key] = $object;
+                    }
+                }
+            }
         }
     }
 
@@ -213,31 +223,6 @@ class ShortcodeCorePlugin extends Plugin
     }
 
     /**
-     * set any objects stored in the shortcodes manager as page twig variables
-     *
-     * @param Event $e
-     */
-    public function onTwigPageVariables(Event $e)
-    {
-        // check current event's page content meta for objects, and if found as them as twig variables
-        $meta = $e['page']->getContentMeta('shortcodeMeta');
-        $this->mergeTwigVars($meta);
-    }
-
-    /**
-     * set any objects stored in the shortcodes manager as site twig variables
-     */
-    public function onTwigSiteVariables()
-    {
-        // force page processing now as we need shortcodes available
-        $this->grav['page']->content();
-
-        // check current page content meta for objects, and if found as them as twig variables
-        $meta = $this->grav['page']->getContentMeta('shortcodeMeta');
-        $this->mergeTwigVars($meta);
-    }
-
-    /**
      * Helper method that merges the content meta shortcode data with twig variables
      *
      * @param $meta
@@ -256,7 +241,4 @@ class ShortcodeCorePlugin extends Plugin
             }
         }
     }
-
-
-
 }
