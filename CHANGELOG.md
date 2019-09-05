@@ -1,3 +1,9 @@
+# v4.1.6
+## mm/dd/2019
+
+1. [](#improved)
+    * Support markdown in `Figure` shortcode caption attribute
+
 # v4.1.5
 ## 09/05/2019
 

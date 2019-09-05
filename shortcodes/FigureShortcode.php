@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Common\Utils;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class FigureShortcode extends Shortcode
@@ -10,7 +11,11 @@ class FigureShortcode extends Shortcode
         $this->shortcode->getHandlers()->add('figure', function(ShortcodeInterface $sc) {
             $id = $sc->getParameter('id');
             $class = $sc->getParameter('class');
-	    $caption = $sc->getParameter('caption');
+	        $caption = $sc->getParameter('caption');
+	        $page = $this->grav['page'];
+
+	        // Process any markdown on caption
+            $caption = Utils::processMarkdown($caption, false, $page);
 
             $id_output = $id ? 'id="' . $id . '" ': '';
             $class_output = $class ? 'class="' . $class . '"' : '';
