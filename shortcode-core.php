@@ -46,7 +46,7 @@ class ShortcodeCorePlugin extends Plugin
             'onMarkdownInitialized'     => ['onMarkdownInitialized', 0],
             'onShortcodeHandlers'       => ['onShortcodeHandlers', 0],
             'onPageContentRaw'          => ['onPageContentRaw', 0],
-            'onPageContentProcessed'    => ['onPageContentProcessed', 0],
+            'onPageContentProcessed'    => ['onPageContentProcessed', -10],
             'onPageContent'             => ['onPageContent', 0],
             'onTwigInitialized'         => ['onTwigInitialized', 0]
         ]);

@@ -422,11 +422,17 @@ You can now use shortcodes in Twig templates and process them with the `|shortco
 {{ twig_text|shortcodes }}
 ```
 
-## Developing Shortcode Plugins
+## Custom Shortcodes
 
-The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.
+### Simple Way
 
-The simplest way to add your own custom shortcodes, it to simply create a new shortcode in a directory (e.g. `user/custom/shortcodes`) such as this simple one to allow for strike-through text:
+First, configure a directory from which custom shortcodes are loaded. Edit `user/config/plugins/shortcode-core.yaml` like follows (create it if it does not exist):
+
+```yaml
+custom_shortcodes: '/user/custom/shortcodes'
+```
+
+To add a custom shortcode, create a PHP file that defines a new shortcode class. For example, to create a shortcode for ~~strikethrough~~ text, save the following code as `user/custom/shortcodes/StrikeShortcode.php`:
 
 ```php
 <?php
@@ -445,13 +451,15 @@ class StrikeShortcode extends Shortcode
 }
 ```
 
-Then simply set the plugin to look in this directory for custom shortcodes by editing the `user/config/plugins/shortcode-core.yaml` file (create it if missing):
+Note that the class name (`StrikeShortcode`) must match the file name for the shortcode to work.
 
-```yaml
-custom_shortcodes: '/user/custom/shortcodes'
-```
+`[strike]text[/strike]` should now produce strikethrough text.
 
-The more flexible approach is to create a custom plugin to do provide a tidy package for your shotdcodes.
+### As a Custom Plugin
+
+The more flexible approach is to create a custom plugin.
+
+The **Shortcode Core** plugin is developed on the back of the [Thunderer Advanced Shortcode Engine](https://github.com/thunderer/Shortcode) and as such loads the libraries and classes required to build third party shortcode plugins.
 
 We introduced a new event called `onShortcodeHandlers()` that allows a 3rd party plugin to create and add their own custom handlers.  These are then all processed by the core plugin in one shot.
 
