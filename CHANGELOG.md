@@ -1,3 +1,9 @@
+# v4.1.5
+## mm/dd/2019
+
+1. [](#improved)
+    * Run `onContentProcessed()` event after all other plugins [#75](https://github.com/getgrav/grav-plugin-shortcode-core/issues/75)
+
 # v4.1.4
 ## 08/11/2019
 
