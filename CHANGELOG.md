@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Support markdown in `Figure` shortcode caption attribute
+    * FlexObjects compatibility: changed references to `Page` class to use `PageInterface`
 
 # v4.1.5
 ## 09/05/2019

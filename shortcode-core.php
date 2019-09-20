@@ -2,11 +2,10 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Assets;
-use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
 use Grav\Common\Utils;
 use RocketTheme\Toolbox\Event\Event;
-use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
+
 
 class ShortcodeCorePlugin extends Plugin
 {

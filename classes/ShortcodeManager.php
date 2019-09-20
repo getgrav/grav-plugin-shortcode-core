@@ -3,7 +3,7 @@ namespace Grav\Plugin;
 
 use Grav\Common\Data\Data;
 use Grav\Common\Grav;
-use Grav\Common\Page\Page;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Guzzle\Common\Exception\UnexpectedValueException;
 use Thunder\Shortcode\EventContainer\EventContainer;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
@@ -17,7 +17,7 @@ class ShortcodeManager
     /** @var Grav $grav */
     protected $grav;
 
-    /** @var Page $page */
+    /** @var PageInterface $page */
     protected $page;
 
     /** @var  HandlerContainer $handlers */
@@ -37,7 +37,6 @@ class ShortcodeManager
 
     /**
      * initialize some internal instance variables
-     * @param Page $page
      */
     public function __construct()
     {
@@ -226,12 +225,12 @@ class ShortcodeManager
      * process the content by running over all the known shortcodes with the
      * chosen parser
      *
-     * @param Page $page the page to work on
+     * @param PageInterface $page the page to work on
      * @param Data $config configuration merged with the page config
      * @param null $handlers
      * @return string
      */
-    public function processContent(Page $page, Data $config, $handlers = null)
+    public function processContent(PageInterface $page, Data $config, $handlers = null)
     {
         $parser = $this->getParser($config->get('parser'));
 
@@ -250,7 +249,7 @@ class ShortcodeManager
         }
     }
 
-    public function processRawContent(Page $page, Data $config)
+    public function processRawContent(PageInterface $page, Data $config)
     {
         return $this->processContent($page, $config, $this->raw_handlers);
     }
@@ -309,9 +308,9 @@ class ShortcodeManager
     /**
      * Sets the current page context
      *
-     * @param Page $page
+     * @param PageInterface $page
      */
-    public function setPage(Page $page)
+    public function setPage(PageInterface $page)
     {
         $this->page = $page;
     }
