@@ -2,11 +2,11 @@
 namespace Grav\Plugin;
 
 use Grav\Common\Assets;
-use Grav\Common\Page\Page;
 use Grav\Common\Plugin;
 use Grav\Common\Utils;
+use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
-use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
+
 
 class ShortcodeCorePlugin extends Plugin
 {
@@ -23,9 +23,10 @@ class ShortcodeCorePlugin extends Plugin
         require_once(__DIR__.'/classes/Shortcode.php');
         require_once(__DIR__.'/classes/ShortcodeObject.php');
         require_once(__DIR__.'/classes/ShortcodeManager.php');
+        require_once(__DIR__.'/classes/ShortcodeTwigVar.php');
 
         return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 10],
+            'onPluginsInitialized' => ['onPluginsInitialized', 10]
         ];
     }
 
@@ -181,17 +182,6 @@ class ShortcodeCorePlugin extends Plugin
                     }
                 }
             }
-
-            if (isset($page_meta['shortcode'])) {
-                $objects = $page_meta['shortcode'];
-                $twig = $this->grav['twig'];
-
-                if (!empty($objects)) {
-                    foreach ($objects as $key => $object) {
-                        $twig->twig_vars['shortcode'][$key] = $object;
-                    }
-                }
-            }
         }
     }
 
@@ -220,25 +210,6 @@ class ShortcodeCorePlugin extends Plugin
                 [$this->shortcodes, 'processShortcodes']
             )
         );
-    }
-
-    /**
-     * Helper method that merges the content meta shortcode data with twig variables
-     *
-     * @param $meta
-     */
-    private function mergeTwigVars($meta)
-    {
-        // check content meta for objects, and if found as them as twig variables
-        if (isset($meta['shortcode'])) {
-            $objects = $meta['shortcode'];
-            $twig = $this->grav['twig'];
-
-            if (!empty($objects)) {
-                foreach ($objects as $key => $object) {
-                    $twig->twig_vars['shortcode'][$key] = $object;
-                }
-            }
-        }
+        $this->grav['twig']->twig_vars['shortcode'] = new ShortcodeTwigVar();
     }
 }

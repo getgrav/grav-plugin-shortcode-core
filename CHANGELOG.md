@@ -1,3 +1,13 @@
+# v4.1.6
+## 10/03/2019
+
+1. [](#improved)
+    * Support markdown in `Figure` shortcode caption attribute
+    * FlexObjects compatibility: changed references to `Page` class to use `PageInterface`
+    * Reworked the `shortcode` twig var to use a class/method approach for better compatibility in modular/page formats
+1. [](#bugfix)
+    * Fix issue with `[language]` when `include_default_lang: false` [#76](https://github.com/getgrav/grav-plugin-shortcode-core/issues/76)
+
 # v4.1.5
 ## 09/05/2019
 

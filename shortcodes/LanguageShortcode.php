@@ -15,7 +15,7 @@ class LanguageShortcode extends Shortcode
             if ($lang) {
                 /** @var Language $language */
                 $language = $this->grav['language'];
-                $current = $language->getActive();
+                $current = $language->getLanguage();
 
                 if ($current == $lang) {
                     return $sc->getContent();

@@ -12,5 +12,6 @@ class SectionShortcode extends Shortcode
             $object = new ShortcodeObject($name, $sc->getContent());
             $this->shortcode->addObject($sc->getName(), $object);
         });
+
     }
 }
