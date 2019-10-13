@@ -14,7 +14,7 @@ class FontAwesomeShortcode extends Shortcode
                 $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
             }
             if ($this->config->get('plugins.shortcode-core.fontawesome.v5', false)) {
-                $v5classes = ['fab', 'fal', 'fas', 'far'];
+                $v5classes = ['fab', 'fal', 'fas', 'far', 'fad'];
             } else {
                 $v5classes = [];
             }
