@@ -413,6 +413,27 @@ Lorem ipsum dolor sit amet...
 
 **Note:** The show/hide behaviour is not supported in IE 11 or Edge 18, and the element will be permanently open. You can check the current status of browser compatibility at [Can I Use](https://caniuse.com/#search=details).
 
+#### Lorem Ipsum
+
+Useful for faking content, you can use a shortcode to quickly generate some random "lorem ipsum" text:
+
+**Paragraphs:**
+```
+[lorem=5 /]
+
+[lorem p=5 tag=div /]
+```
+
+**Sentences:**
+```
+[lorem s=4 /]
+```
+
+**Words:**
+```
+[lorem w=35 /]
+```
+
 ## Using Shortcodes in Twig
 
 You can now use shortcodes in Twig templates and process them with the `|shortcodes` filter. For example:

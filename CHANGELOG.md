@@ -1,3 +1,9 @@
+# v4.1.7
+## mm/dd/2019
+
+1. [](#new)
+    * Added a new `[lorem]` shortcode for quickly generating lorem ipsum dummy content
+
 # v4.1.6
 ## 10/03/2019
 
