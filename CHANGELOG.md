@@ -1,8 +1,9 @@
 # v4.1.7
-## mm/dd/2019
+## 12/04/2019
 
 1. [](#new)
     * Added a new `[lorem]` shortcode for quickly generating lorem ipsum dummy content
+    * Updated Core Thunderer Shortcode library to `0.7.3` for PHP 7.4 compatibility
 
 # v4.1.6
 ## 10/03/2019
