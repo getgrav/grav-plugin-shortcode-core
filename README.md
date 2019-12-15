@@ -396,19 +396,66 @@ Genie dahin einem ein gib geben allen.
 #### Details/Summary
 
 The `<details>` element provides a simple show/hide behaviour without JavaScript, and can optionally contain a `<summary>` element that is always shown. Clicking on the summary text toggles the visibility of the content, and when a summary is not provided, it defaults to "Details". The element can be used to provide extra details, or can be combined into an accordion-like structure.
+Use `open="true"` to open the item by default.
 
 ```
 [details]
 Lorem ipsum dolor sit amet...
 [/details]
 
-[details="Summary text"]
+[details="Summary text" open="true"]
 Lorem ipsum dolor sit amet...
 [/details]
 
 [details summary="Summary text" class="accordion"]
 Lorem ipsum dolor sit amet...
 [/details]
+```
+
+You can use the group attribute to group items together. This makes it easy to implement accordion behaviour, where only one item of a group can be open at a time.
+
+```
+[details="Summary text" open="true" group="group01"]
+Lorem ipsum dolor sit amet...
+[/details]
+
+[details="Summary text" group="group01"]
+Lorem ipsum dolor sit amet...
+[/details]
+
+[details="Summary text" group="group01"]
+Lorem ipsum dolor sit amet...
+[/details]
+```
+
+Combined with a little JS like this gets you the desired behaviour:
+
+```js
+const items = document.querySelectorAll('details');
+
+[...items].forEach(item => {
+    // check if item is in group mode
+    if (item.dataset.group) {
+        // override click event handling for group mode items
+        item.querySelector('summary').addEventListener('click', e => {
+            e.preventDefault();
+
+            // check if item is open or closed
+            if (item.hasAttribute('open')) {
+                // close item if it was open
+                item.removeAttribute('open');
+            } else {
+                // close all open items in group
+                [...document.querySelectorAll(`details[data-group="${item.dataset.group}"][open]`)].forEach(details => {
+                    details.removeAttribute('open');
+                });
+                // open the item
+                item.setAttribute('open', '');
+            }
+        });
+    }
+});
+
 ```
 
 **Note:** The show/hide behaviour is not supported in IE 11 or Edge 18, and the element will be permanently open. You can check the current status of browser compatibility at [Can I Use](https://caniuse.com/#search=details).
