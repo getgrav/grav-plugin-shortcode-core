@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class SectionShortcode extends Shortcode
@@ -9,7 +10,7 @@ class SectionShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('section', function(ShortcodeInterface $sc) {
             $name = $sc->getParameter('name');
-            $object = new ShortcodeObject($name, $sc->getContent());
+            $object = new \Grav\Plugin\ShortcodeCore\ShortcodeObject($name, $sc->getContent());
             $this->shortcode->addObject($sc->getName(), $object);
         });
 

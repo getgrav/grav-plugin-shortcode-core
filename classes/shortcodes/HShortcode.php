@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class HShortcode extends Shortcode
@@ -34,7 +35,7 @@ class HShortcode extends Shortcode
 
     }
 
-    protected function header($level, $sc)
+    protected function header($level, ShortcodeInterface $sc)
     {
         $id = $sc->getParameter('id');
         $class = $sc->getParameter('class');
@@ -42,6 +43,7 @@ class HShortcode extends Shortcode
 
         $id_output = $id ? ' id="' . $id . '" ': '';
         $class_output = $class ? ' class="' . $class . '"' : '';
+
         return "<{$tag}{$id_output}{$class_output}>{$sc->getContent()}</{$tag}>";
     }
 }

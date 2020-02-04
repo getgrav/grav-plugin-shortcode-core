@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class DetailsShortcode extends Shortcode
@@ -10,17 +11,17 @@ class DetailsShortcode extends Shortcode
         $this->shortcode->getHandlers()->add('details', function(ShortcodeInterface $sc) {
             // Get summary/title
             $summary = $sc->getParameter('summary', $this->getBbCode($sc));
-            $summaryHTML = $summary ? '<summary>'.$summary.'</summary>' : '';
+            $summaryHTML = $summary ? '<summary>' . $summary . '</summary>' : '';
 
             // Get classes for details
             $class = $sc->getParameter('class', $this->getBbCode($sc));
-            $classHTML = (isset($class) and $class !== $summary) ? 'class="'.$class.'"' : '';
+            $classHTML = (isset($class) and $class !== $summary) ? 'class="' . $class . '"' : '';
 
             // Get content
             $content = $sc->getContent();
 
             // Return the details/summary block
-            return '<details '.$classHTML.'>'.$summaryHTML.$content.'</details>';
+            return '<details ' . $classHTML . '>' . $summaryHTML . $content . '</details>';
         });
     }
 }

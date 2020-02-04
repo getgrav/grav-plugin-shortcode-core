@@ -1,16 +1,20 @@
 <?php
 namespace Grav\Plugin;
 
+use Composer\Autoload\ClassLoader;
 use Grav\Common\Assets;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Plugin;
 use Grav\Common\Utils;
+use Grav\Plugin\ShortcodeCore\Shortcode;
+use Grav\Plugin\ShortcodeCore\ShortcodeManager;
+use Grav\Plugin\ShortcodeCore\ShortcodeObject;
 use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
 
 
 class ShortcodeCorePlugin extends Plugin
 {
-
     /** @var  ShortcodeManager $shortcodes */
     protected $shortcodes;
 
@@ -19,15 +23,22 @@ class ShortcodeCorePlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-        require_once(__DIR__.'/vendor/autoload.php');
-        require_once(__DIR__.'/classes/Shortcode.php');
-        require_once(__DIR__.'/classes/ShortcodeObject.php');
-        require_once(__DIR__.'/classes/ShortcodeManager.php');
-        require_once(__DIR__.'/classes/ShortcodeTwigVar.php');
-
         return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 10]
+            'onPluginsInitialized' => [
+                ['autoload', 100001],
+                ['onPluginsInitialized', 10]
+            ]
         ];
+    }
+
+    /**
+     * [onPluginsInitialized:100000] Composer autoload.
+     *
+     * @return ClassLoader
+     */
+    public function autoload()
+    {
+        return require __DIR__ . '/vendor/autoload.php';
     }
 
     /**
@@ -35,6 +46,9 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onPluginsInitialized()
     {
+        class_alias(Shortcode::class, 'Grav\\Plugin\\Shortcodes\\Shortcode');
+        class_alias(ShortcodeObject::class, 'Grav\\Plugin\\Shortcodes\\ShortCodeObject');
+
         $this->config = $this->grav['config'];
 
         // don't continue if this is admin and plugin is disabled for admin
@@ -59,7 +73,8 @@ class ShortcodeCorePlugin extends Plugin
      * Theme initialization is best place to fire onShortcodeHandler event
      * in order to support both plugins and themes
      */
-    public function onThemeInitialized() {
+    public function onThemeInitialized()
+    {
         $this->grav->fireEvent('onShortcodeHandlers');
     }
 
@@ -93,17 +108,17 @@ class ShortcodeCorePlugin extends Plugin
         $this->processShortcodes($e['page'], 'processContent');
     }
 
-    protected function processShortcodes($page, $type = 'processContent') {
+    protected function processShortcodes(PageInterface $page, $type = 'processContent') {
         $meta = [];
         $config = $this->mergeConfig($page);
 
         // Don't run in admin pages other than content
-        $admin_pages_only = isset($config['admin_pages_only']) ? $config['admin_pages_only'] : true;
+        $admin_pages_only = $config['admin_pages_only'] ?? true;
         if ($admin_pages_only && $this->isAdmin() && !Utils::startsWith($page->filePath(), $this->grav['locator']->findResource('page://'))) {
             return;
-        } else {
-            $this->active = $config->get('active', true);
         }
+
+        $this->active = $config->get('active', true);
 
         // if the plugin is not active (either global or on page) exit
         if (!$this->active) {
@@ -131,7 +146,7 @@ class ShortcodeCorePlugin extends Plugin
         }
     }
 
-    protected function getConfig($page)
+    protected function getConfig(PageInterface $page)
     {
         $config = $this->mergeConfig($page);
         $this->active = false;
@@ -190,7 +205,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onShortcodeHandlers()
     {
-        $this->shortcodes->registerAllShortcodes(__DIR__.'/shortcodes');
+        $this->shortcodes->registerAllShortcodes(__DIR__ . '/shortcodes');
 
         // Add custom shortcodes directory if provided
         $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');

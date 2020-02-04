@@ -2,6 +2,7 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Grav\Common\Utils;
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class FontAwesomeShortcode extends Shortcode
@@ -14,9 +15,9 @@ class FontAwesomeShortcode extends Shortcode
                 $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
             }
             if ($this->config->get('plugins.shortcode-core.fontawesome.v5', false)) {
-                $v5classes = array('fab', 'fal', 'fas', 'far');
+                $v5classes = ['fab', 'fal', 'fas', 'far'];
             } else {
-                $v5classes = array();
+                $v5classes = [];
             }
 
             // Get shortcode content and parameters
@@ -27,13 +28,13 @@ class FontAwesomeShortcode extends Shortcode
                 $icon = 'fa-'.$icon;
             }
 
-            if($icon) {
+            if ($icon) {
                 $fa_class = 'fa';
                 $extras = explode(',', $sc->getParameter('extras', ''));
 
                 foreach($extras as $extra) {
                     if(!empty($extra)) {
-                        if(in_array($extra, $v5classes)) {
+                        if(in_array($extra, $v5classes, true)) {
                             $fa_class = $extra;
                             continue;
                         }
@@ -44,11 +45,10 @@ class FontAwesomeShortcode extends Shortcode
                     }
                 }
 
-                $output = '<i class="' . $fa_class . ' ' . $icon . '">' . $str . '</i>';
-
-                return $output;
+                return '<i class="' . $fa_class . ' ' . $icon . '">' . $str . '</i>';
             }
 
+            return '';
         });
     }
 }

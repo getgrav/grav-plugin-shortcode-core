@@ -11,6 +11,11 @@ class ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66
         array (
             'Thunder\\Shortcode\\' => 18,
         ),
+        'G' => 
+        array (
+            'Grav\\Plugin\\Shortcodes\\' => 23,
+            'Grav\\Plugin\\ShortcodeCore\\' => 26,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,6 +23,18 @@ class ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66
         array (
             0 => __DIR__ . '/..' . '/thunderer/shortcode/src',
         ),
+        'Grav\\Plugin\\Shortcodes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes/shortcodes',
+        ),
+        'Grav\\Plugin\\ShortcodeCore\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes/plugin',
+        ),
+    );
+
+    public static $classMap = array (
+        'Grav\\Plugin\\ShortcodeCorePlugin' => __DIR__ . '/../..' . '/shortcode-core.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -25,6 +42,7 @@ class ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66::$classMap;
 
         }, null, ClassLoader::class);
     }

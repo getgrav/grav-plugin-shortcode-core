@@ -2,6 +2,7 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Grav\Common\Language\Language;
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class LanguageShortcode extends Shortcode
@@ -21,6 +22,7 @@ class LanguageShortcode extends Shortcode
                     return $sc->getContent();
                 }
             }
+
             return '';
         });
     }
