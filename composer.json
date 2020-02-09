@@ -1,5 +1,5 @@
 {
-    "name": "grav-plugin-shortcode-core",
+    "name": "getgrav/shortcode-core",
     "type": "grav-plugin",
     "description": "Shortcode Core plugin for Grav CMS",
     "keywords": ["shortcode"],

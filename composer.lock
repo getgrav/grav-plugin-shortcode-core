@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be7c01d15ec258f01e268f64d4ec8317",
+    "content-hash": "95ac1934b2d5e35cff7d71f6744b2666",
     "packages": [
         {
             "name": "thunderer/shortcode",
