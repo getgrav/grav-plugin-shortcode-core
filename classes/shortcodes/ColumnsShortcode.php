@@ -1,15 +1,15 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class ColumnsShortcode extends Shortcode
 {
     public function init()
     {
-        $this->shortcode->getHandlers()->add('columns', function(ShortcodeInterface $sc) {
-
-            $column_count = intval($sc->getParameter('count', 2));
+        $this->shortcode->getHandlers()->add('columns', static function(ShortcodeInterface $sc) {
+            $column_count = (int)$sc->getParameter('count', 2);
             $column_width = $sc->getParameter('width', 'auto');
             $column_gap = $sc->getParameter('gap', 'normal');
             $column_rule = $sc->getParameter('rule', false);
@@ -21,7 +21,7 @@ class ColumnsShortcode extends Shortcode
                 $css_style .= 'column-rule:' . $column_rule . ';-moz-column-rule:' . $column_rule . ';';
             }
 
-            return '<div class="sc-columns" style="'.$css_style.'">'.$sc->getContent().'</div>';
+            return '<div class="sc-columns" style="' . $css_style . '">' . $sc->getContent() . '</div>';
         });
 
     }

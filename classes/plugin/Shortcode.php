@@ -1,11 +1,10 @@
 <?php
 
-namespace Grav\Plugin\Shortcodes;
+namespace Grav\Plugin\ShortcodeCore;
 
 use Grav\Common\Config\Config;
 use Grav\Common\Grav;
 use Grav\Common\Twig\Twig;
-use Grav\Plugin\ShortcodeManager;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class Shortcode
@@ -23,7 +22,7 @@ class Shortcode
     protected $twig;
 
     /**
-     * set some instance variable states
+     * Shortcode constructor.
      */
     public function __construct()
     {
@@ -34,17 +33,17 @@ class Shortcode
     }
 
     /**
-     * do some work
+     * Initialize shortcode handler
      */
     public function init()
     {
-        $this->shortcode->getHandlers()->add('u', function(ShortcodeInterface $shortcode) {
+        $this->shortcode->getHandlers()->add('u', static function(ShortcodeInterface $shortcode) {
             return $shortcode->getContent();
         });
     }
 
     /**
-     * returns the name of the class if required
+     * Returns the name of the class if required
      * 
      * @return string the name of the class
      */
@@ -53,11 +52,19 @@ class Shortcode
         return get_class($this);
     }
 
+    /**
+     * @return string
+     */
     public function getParser()
     {
         return $this->config->get('plugins.shortcode-core.parser');
     }
 
+    /**
+     * @param ShortcodeInterface $sc
+     * @param string|null $default
+     * @return string|null
+     */
     public function getBbCode(ShortcodeInterface $sc, $default = null)
     {
         $code = $default;

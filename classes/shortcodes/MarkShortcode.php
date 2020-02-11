@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class MarkShortcode extends Shortcode
@@ -13,7 +14,7 @@ class MarkShortcode extends Shortcode
 
             $css_class = 'class="mark-class-' . $class . '"';
 
-            if ($style == 'block') {
+            if ($style === 'block') {
                 $css_style = 'style="display:block;"';
                 $content = trim($sc->getContent(), "\n");
             } else {

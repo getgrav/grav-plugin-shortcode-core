@@ -1,3 +1,13 @@
+# v4.2.0
+## 02/11/2020
+
+1. [](#new)
+    * Pass phpstan level 1 tests
+    * Added autoload support for registering shortcodes with `$grav['shortcode']->registerShortcode($name)`
+    * Moved `Shortcode` and `ShortcodeObject` classes into `Grav\Plugin\ShortcodeCore` namespace with old aliases
+1. [](#improved)
+    * Major code cleanup
+
 # v4.1.7
 ## 12/04/2019
 

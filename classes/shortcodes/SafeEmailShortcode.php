@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class SafeEmailShortcode extends Shortcode
@@ -22,19 +23,19 @@ class SafeEmailShortcode extends Shortcode
             $email = '';
             $str_len = strlen($str);
             for ($i = 0; $i < $str_len; $i++) {
-                $email .= "&#" . ord($str[$i]). ";";
+                $email .= '&#' . ord($str[$i]). ';';
             }
 
             // Handle autolinking
             if ($autolink) {
-                $output = '<a href="mailto:'.$email.'">'.$email.'</a>';
+                $output = '<a href="mailto:' . $email . '">' . $email . '</a>';
             } else {
                 $output = $email;
             }
 
             // Handle icon option
             if ($icon) {
-                $output = '<i class="fa fa-'.$icon.'"></i> ' . $output;
+                $output = '<i class="fa fa-' . $icon . '"></i> ' . $output;
             }
 
             return $output;

@@ -13,28 +13,11 @@
 
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class LoremShortcode extends Shortcode
 {
-    public function init()
-    {
-        $this->shortcode->getHandlers()->add('lorem', function(ShortcodeInterface $sc) {
-            $paragraphs = $sc->getParameter('p', $this->getBbCode($sc));
-            $paragraph_tag = $sc->getParameter('tag', 'p');
-            $sentences = $sc->getParameter('s');
-            $words = $sc->getParameter('w');
-
-            if ($words) {
-                return $this->words($words);
-            } elseif ($sentences) {
-                return $this->sentences($sentences);
-            } else {
-                return $this->paragraphs($paragraphs ?? 1, $paragraph_tag);
-            }
-        });
-    }
-
     /**
      * First
      *
@@ -53,7 +36,7 @@ class LoremShortcode extends Shortcode
      * @access private
      * @var    array
      */
-    public $words = array(
+    public $words = [
         // Lorem ipsum...
         'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
         // and the rest of the vocabulary
@@ -85,7 +68,27 @@ class LoremShortcode extends Shortcode
         'ultricies', 'urna', 'ut', 'varius', 'vehicula', 'vel', 'velit',
         'venenatis', 'vestibulum', 'vitae', 'vivamus', 'viverra', 'volutpat',
         'vulputate',
-    );
+    ];
+
+    public function init()
+    {
+        $this->shortcode->getHandlers()->add('lorem', function(ShortcodeInterface $sc) {
+            $paragraphs = $sc->getParameter('p', $this->getBbCode($sc));
+            $paragraph_tag = $sc->getParameter('tag', 'p');
+            $sentences = $sc->getParameter('s');
+            $words = $sc->getParameter('w');
+
+            if ($words) {
+                return $this->words($words);
+            }
+            if ($sentences) {
+                return $this->sentences($sentences);
+            }
+
+            return $this->paragraphs($paragraphs ?? 1, $paragraph_tag);
+        });
+    }
+
     /**
      * Word
      *
@@ -126,7 +129,7 @@ class LoremShortcode extends Shortcode
      */
     public function words($count = 1, $tags = false, $array = false)
     {
-        $words      = array();
+        $words      = [];
         $word_count = 0;
         // Shuffles and appends the word list to compensate for count
         // arguments that exceed the size of our vocabulary list
@@ -144,6 +147,7 @@ class LoremShortcode extends Shortcode
             }
         }
         $words = array_slice($words, 0, $count);
+
         return $this->output($words, $tags, $array);
     }
     /**
@@ -186,11 +190,12 @@ class LoremShortcode extends Shortcode
      */
     public function sentences($count = 1, $tags = false, $array = false)
     {
-        $sentences = array();
+        $sentences = [];
         for ($i = 0; $i < $count; $i++) {
             $sentences[] = $this->wordsArray($this->gauss(24.46, 5.08));
         }
         $this->punctuate($sentences);
+
         return $this->output($sentences, $tags, $array);
     }
     /**
@@ -233,10 +238,11 @@ class LoremShortcode extends Shortcode
      */
     public function paragraphs($count = 1, $tags = false, $array = false)
     {
-        $paragraphs = array();
+        $paragraphs = [];
         for ($i = 0; $i < $count; $i++) {
             $paragraphs[] = $this->sentences($this->gauss(5.8, 1.93));
         }
+
         return $this->output($paragraphs, $tags, $array, "\n\n");
     }
     /**
@@ -257,6 +263,7 @@ class LoremShortcode extends Shortcode
         $x = mt_rand() / mt_getrandmax();
         $y = mt_rand() / mt_getrandmax();
         $z = sqrt(-2 * log($x)) * cos(2 * pi() * $y);
+
         return $z * $std_dev + $mean;
     }
     /**
@@ -317,17 +324,17 @@ class LoremShortcode extends Shortcode
      * into a string or not.
      *
      * @access private
-     * @param  array   $strings an array of generated strings
+     * @param  string|string[] $strings an array of generated strings
      * @param  mixed   $tags string or array of HTML tags to wrap output with
      * @param  boolean $array whether an array or a string should be returned
      * @param  string  $delimiter the string to use when calling implode()
-     * @return mixed   string or array of generated lorem ipsum text
+     * @return string|string[] string or array of generated lorem ipsum text
      */
     private function output($strings, $tags, $array, $delimiter = ' ')
     {
         if ($tags) {
             if (!is_array($tags)) {
-                $tags = array($tags);
+                $tags = [$tags];
             } else {
                 // Flips the array so we can work from the inside out
                 $tags = array_reverse($tags);
@@ -335,7 +342,7 @@ class LoremShortcode extends Shortcode
             foreach ($strings as $key => $string) {
                 foreach ($tags as $tag) {
                     // Detects / applies back reference
-                    if ($tag[0] == '<') {
+                    if ($tag[0] === '<') {
                         $string = str_replace('$1', $string, $tag);
                     } else {
                         $string = sprintf('<%1$s>%2$s</%1$s>', $tag, $string);
@@ -347,6 +354,7 @@ class LoremShortcode extends Shortcode
         if (!$array) {
             $strings = implode($delimiter, $strings);
         }
+
         return $strings;
     }
 

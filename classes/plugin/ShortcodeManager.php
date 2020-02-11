@@ -1,12 +1,16 @@
 <?php
-namespace Grav\Plugin;
 
+namespace Grav\Plugin\ShortcodeCore;
+
+use Grav\Common\Config\Config;
 use Grav\Common\Data\Data;
 use Grav\Common\Grav;
 use Grav\Common\Page\Interfaces\PageInterface;
-use Guzzle\Common\Exception\UnexpectedValueException;
 use Thunder\Shortcode\EventContainer\EventContainer;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
+use Thunder\Shortcode\Parser\RegexParser;
+use Thunder\Shortcode\Parser\RegularParser;
+use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Thunder\Shortcode\Syntax\CommonSyntax;
@@ -16,6 +20,9 @@ class ShortcodeManager
 
     /** @var Grav $grav */
     protected $grav;
+
+    /** @var Config */
+    protected $config;
 
     /** @var PageInterface $page */
     protected $page;
@@ -29,10 +36,13 @@ class ShortcodeManager
     /** @var  EventContainer $events */
     protected $events;
 
+    /** @var array */
     protected $assets;
 
+    /** @var array */
     protected $states;
 
+    /** @var array */
     protected $objects;
 
     /**
@@ -62,10 +72,8 @@ class ShortcodeManager
         if (is_array($action)) {
             $this->assets['add'] [] = $action;
         } else {
-            if (isset($this->assets[$action])) {
-                if (in_array($asset, $this->assets[$action])) {
-                    return;
-                }
+            if (isset($this->assets[$action]) && in_array($asset, $this->assets[$action], true)) {
+                return;
             }
             $this->assets[$action] [] = $asset;
         }
@@ -91,8 +99,8 @@ class ShortcodeManager
 
     /**
      * adds ad object
-     * @param $key the key to look up the object
-     * @param $object the object to store
+     * @param string $key The key to look up the object
+     * @param object $object The object to store
      */
     public function addObject($key, $object)
     {
@@ -108,7 +116,7 @@ class ShortcodeManager
 
     /**
      * sets all the objects
-     * @param $object the objects array
+     * @param array $objects The objects array
      */
     public function setObjects($objects)
     {
@@ -117,9 +125,10 @@ class ShortcodeManager
 
     /**
      * return all the objects
-     * @return array the objects array
+     * @return array The objects array
      */
-    public function getObjects() {
+    public function getObjects()
+    {
         return $this->objects;
     }
 
@@ -162,21 +171,22 @@ class ShortcodeManager
     }
 
     /**
-     * register an individual shortcode with the manager so it can be
-     * operated on by the Shortcode library
+     * Register an individual shortcode with the manager so it can be operated on by the Shortcode library
      * 
      * @param  string $name      the name of the shortcode (should match the classname)
-     * @param  string $directory directory where the shortcode is located
+     * @param  string|null $directory directory where the shortcode is located
       */
-    public function registerShortcode($name, $directory)
+    public function registerShortcode($name, $directory = null)
     {
-        $path = rtrim($directory, '/').'/'.$name;
-        require_once($path);
+        $className = 'Grav\\Plugin\\Shortcodes\\' . basename($name, '.php');
+        if (!class_exists($className) && $directory) {
+            $path = rtrim($directory, '/').'/'.$name;
 
-        $name = "Grav\\Plugin\\Shortcodes\\" . basename($name, '.php');
+            require_once $path;
+        }
 
-        if (class_exists($name)) {
-            $shortcode = new $name();
+        if (class_exists($className)) {
+            $shortcode = new $className();
             $shortcode->init();
         }
     }
@@ -202,7 +212,7 @@ class ShortcodeManager
     /**
      * setup the markdown parser to handle shortcodes properly
      * 
-     * @param  mixed $markdown the markdown parser object
+     * @param  object $markdown the markdown parser object
      */
     public function setupMarkdown($markdown)
     {
@@ -210,14 +220,15 @@ class ShortcodeManager
 
         $markdown->blockShortCodes = function($Line) {
             $valid_shortcodes = implode('|', $this->handlers->getNames());
-            $regex = '/^\[\/?(?:'.$valid_shortcodes.')[^\]]*\]$/';
+            $regex = '/^\[\/?(?:' . $valid_shortcodes . ')[^\]]*\]$/';
 
             if (preg_match($regex, trim($Line['body']), $matches)) {
-                $Block = array(
+                return [
                     'markup' => $Line['body'],
-                );
-                return $Block;
+                ];
             }
+
+            return null;
         };
     }
 
@@ -243,10 +254,11 @@ class ShortcodeManager
             $content = $page->getRawContent();
             $processor = new Processor(new $parser(new CommonSyntax()), $handlers);
             $processor = $processor->withEventContainer($this->events);
-            $processed_content = $processor->process($content);
 
-            return $processed_content;
+            return $processor->process($content);
         }
+
+        return null;
     }
 
     public function processRawContent(PageInterface $page, Data $config)
@@ -265,9 +277,8 @@ class ShortcodeManager
     {
         $parser = $this->getParser($this->config->get('parser'));
         $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
-        $processed_string = $processor->process($str);
 
-        return $processed_string;
+        return $processor->process($str);
     }
 
     /**
@@ -292,6 +303,8 @@ class ShortcodeManager
         if (array_key_exists($hash, $this->states)) {
             return $this->states[$hash];
         }
+
+        return null;
     }
 
     /**
@@ -332,13 +345,13 @@ class ShortcodeManager
         switch($parser)
         {
             case 'regular':
-                $parser = 'Thunder\Shortcode\Parser\RegularParser';
+                $parser = RegularParser::class;
                 break;
             case 'wordpress':
-                $parser = 'Thunder\Shortcode\Parser\WordpressParser';
+                $parser = WordpressParser::class;
                 break;
             default:
-                $parser = 'Thunder\Shortcode\Parser\RegexParser';
+                $parser = RegexParser::class;
                 break;
         }
 

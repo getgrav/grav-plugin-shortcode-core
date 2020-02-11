@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Shortcodes;
 
+use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class SizeShortcode extends Shortcode
@@ -9,8 +10,11 @@ class SizeShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('size', function(ShortcodeInterface $sc) {
             $size = $sc->getParameter('size', $this->getBbCode($sc));
-            if ( is_numeric($size) ) { $size = $size.'px' ; }
-            return '<span style="font-size: '.$size.';">'.$sc->getContent().'</span>';
+            if (is_numeric($size)) {
+                $size .= 'px';
+            }
+
+            return '<span style="font-size: ' . $size . ';">' . $sc->getContent() . '</span>';
         });
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin\ShortcodeCore;
 
 use Grav\Common\Grav;
@@ -13,14 +14,14 @@ class ShortcodeTwigVar
 
         if ($objects) {
             return $objects[$name] ?? [];
-        } else {
-            $page_meta = Grav::instance()['page']->getContentMeta('shortcodeMeta');
-            if (isset($page_meta['shortcode'])) {
-                $objects = (array) $page_meta['shortcode'];
-                return $objects[$name] ?? [];
-            } else {
-                return [];
-            }
         }
+
+        $page_meta = Grav::instance()['page']->getContentMeta('shortcodeMeta');
+        if (isset($page_meta['shortcode'])) {
+            $objects = (array) $page_meta['shortcode'];
+            return $objects[$name] ?? [];
+        }
+
+        return [];
     }
 }

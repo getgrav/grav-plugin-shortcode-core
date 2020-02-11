@@ -1,8 +1,8 @@
 <?php
 
-namespace Grav\Plugin\Shortcodes;
+namespace Grav\Plugin\ShortcodeCore;
 
-class ShortCodeObject
+class ShortcodeObject
 {
     protected $obj_name;
     protected $obj_object;
