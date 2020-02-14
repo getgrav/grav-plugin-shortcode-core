@@ -1,3 +1,9 @@
+# v4.2.2
+## mm/dd/2020
+
+1. [](#improved)
+    * Added second `$options` parameter to `ShortcodeCore->registerAllShortcodes()`, key `ignore` can be used to ignore class names / files from being loaded
+
 # v4.2.1
 ## 02/14/2020
 
