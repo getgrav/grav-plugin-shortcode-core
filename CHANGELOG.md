@@ -1,5 +1,5 @@
 # v4.2.1
-## mm/dd/2020
+## 02/14/2020
 
 1. [](#improved)
     * Improved shortcode loading, all shortcodes should now extend `Grav\Plugin\Shortcodes\Shortcode` class
