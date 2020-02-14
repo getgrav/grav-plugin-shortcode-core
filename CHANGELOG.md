@@ -1,10 +1,19 @@
+# v4.2.1
+## mm/dd/2020
+
+1. [](#improved)
+    * Improved shortcode loading, all shortcodes should now extend `Grav\Plugin\Shortcodes\Shortcode` class
+1. [](#bugfix)
+    * Fixed `Class 'Grav\Plugin\Shortcodes\Shortcode' not found` error when using some plugins
+    * Fixed fatal error when trying to instantiate bad shortcodes (they will be skipped instead)
+
 # v4.2.0
 ## 02/11/2020
 
 1. [](#new)
     * Pass phpstan level 1 tests
     * Added autoload support for registering shortcodes with `$grav['shortcode']->registerShortcode($name)`
-    * Moved `Shortcode` and `ShortcodeObject` classes into `Grav\Plugin\ShortcodeCore` namespace with old aliases
+    * Moved `ShortcodeObject` classes into `Grav\Plugin\ShortcodeCore` namespace with old alias
 1. [](#improved)
     * Major code cleanup
 

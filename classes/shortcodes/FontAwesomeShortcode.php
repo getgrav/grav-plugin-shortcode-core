@@ -2,7 +2,6 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Grav\Common\Utils;
-use Grav\Plugin\ShortcodeCore\Shortcode;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 
 class FontAwesomeShortcode extends Shortcode
