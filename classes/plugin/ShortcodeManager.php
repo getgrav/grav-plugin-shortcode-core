@@ -185,9 +185,14 @@ class ShortcodeManager
             require_once $path;
         }
 
-        if (class_exists($className)) {
-            $shortcode = new $className();
-            $shortcode->init();
+        // Make sure the class exists, extends Shortcode and is not abstract.
+        if (class_exists($className) && is_subclass_of($className, \Grav\Plugin\Shortcodes\Shortcode::class)) {
+            $reflection = new \ReflectionClass($className);
+            if (!$reflection->isAbstract()) {
+                /** @var \Grav\Plugin\Shortcodes\Shortcode $shortcode */
+                $shortcode = new $className();
+                $shortcode->init();
+            }
         }
     }
 

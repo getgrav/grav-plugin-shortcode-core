@@ -27,7 +27,7 @@ class ShortcodeObject
     {
         return $this->obj_object;
     }
-
-
-
 }
+
+// Make sure we also autoload the deprecated class.
+class_exists(\Grav\Plugin\Shortcodes\ShortcodeObject::class);

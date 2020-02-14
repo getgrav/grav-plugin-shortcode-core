@@ -6,9 +6,7 @@ use Grav\Common\Assets;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Plugin;
 use Grav\Common\Utils;
-use Grav\Plugin\ShortcodeCore\Shortcode;
 use Grav\Plugin\ShortcodeCore\ShortcodeManager;
-use Grav\Plugin\ShortcodeCore\ShortcodeObject;
 use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
 
@@ -46,9 +44,6 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onPluginsInitialized()
     {
-        class_alias(Shortcode::class, 'Grav\\Plugin\\Shortcodes\\Shortcode');
-        class_alias(ShortcodeObject::class, 'Grav\\Plugin\\Shortcodes\\ShortCodeObject');
-
         $this->config = $this->grav['config'];
 
         // don't continue if this is admin and plugin is disabled for admin
