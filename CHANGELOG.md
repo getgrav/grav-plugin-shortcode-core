@@ -4,7 +4,7 @@
 1. [](#improved)
     * Added second `$options` parameter to `ShortcodeCore->registerAllShortcodes()`, key `ignore` can be used to ignore class names / files from being loaded
 1. [](#bugfix)
-    * Fix shortcodes which do not override `init()` method, added deprecation notice instead
+    * Fix shortcodes which do not override `init()` method, added deprecation notice instead [#82](https://github.com/getgrav/grav-plugin-shortcode-core/issues/82)
 
 # v4.2.1
 ## 02/14/2020
