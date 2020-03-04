@@ -198,13 +198,15 @@ class ShortcodeManager
 
     /**
      * register all files as shortcodes in a particular directory
-     * @param  string $directory directory where the shortcodes are located
+     * @param string $directory directory where the shortcodes are located
+     * @param array $options Extra options
      */
-    public function registerAllShortcodes($directory)
+    public function registerAllShortcodes($directory, array $options = [])
     {
         try {
+            $ignore = $options['ignore'] ?? [];
             foreach (new \DirectoryIterator($directory) as $file) {
-                if ($file->isDot()) {
+                if ($file->isDot() || \in_array($file->getBasename('.php'), $ignore, true)) {
                     continue;
                 }
                 $this->registerShortcode($file->getFilename(), $directory);

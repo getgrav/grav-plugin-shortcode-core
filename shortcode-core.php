@@ -103,6 +103,10 @@ class ShortcodeCorePlugin extends Plugin
         $this->processShortcodes($e['page'], 'processContent');
     }
 
+    /**
+     * @param PageInterface $page
+     * @param string $type
+     */
     protected function processShortcodes(PageInterface $page, $type = 'processContent') {
         $meta = [];
         $config = $this->mergeConfig($page);
@@ -141,6 +145,10 @@ class ShortcodeCorePlugin extends Plugin
         }
     }
 
+    /**
+     * @param PageInterface $page
+     * @return \Grav\Common\Data\Data
+     */
     protected function getConfig(PageInterface $page)
     {
         $config = $this->mergeConfig($page);
@@ -200,7 +208,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onShortcodeHandlers()
     {
-        $this->shortcodes->registerAllShortcodes(__DIR__ . '/classes/shortcodes');
+        $this->shortcodes->registerAllShortcodes(__DIR__ . '/classes/shortcodes', ['ignore' => ['Shortcode', 'ShortcodeObject']]);
 
         // Add custom shortcodes directory if provided
         $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');
@@ -214,12 +222,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onTwigInitialized()
     {
-        $this->grav['twig']->twig()->addFilter(
-            new \Twig_SimpleFilter(
-                'shortcodes',
-                [$this->shortcodes, 'processShortcodes']
-            )
-        );
+        $this->grav['twig']->twig()->addFilter(new \Twig_SimpleFilter('shortcodes', [$this->shortcodes, 'processShortcodes']));
         $this->grav['twig']->twig_vars['shortcode'] = new ShortcodeTwigVar();
     }
 }

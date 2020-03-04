@@ -36,7 +36,15 @@ abstract class Shortcode
     /**
      * Initialize shortcode handler
      */
-    abstract public function init();
+    public function init()
+    {
+        user_error(__METHOD__ . '() method will be abstract in the future, please override it!', E_USER_DEPRECATED);
+
+        // FIXME: This code had to be put back because of some plugins do not properly initialize themselves.
+        $this->shortcode->getHandlers()->add('u', static function(ShortcodeInterface $shortcode) {
+            return $shortcode->getContent();
+        });
+    }
 
     /**
      * Returns the name of the class if required
