@@ -10,11 +10,13 @@ class SpanShortcode extends Shortcode
         $this->shortcode->getHandlers()->add('span', static function(ShortcodeInterface $sc) {
             $id = $sc->getParameter('id');
             $class = $sc->getParameter('class');
+            $style = $sc->getParameter('style');
 
             $id_output = $id ? 'id="' . $id . '" ': '';
             $class_output = $class ? 'class="' . $class . '"' : '';
+            $style_output = $style ? 'style="' . $style . '"' : '';
 
-            return '<span ' . $id_output . ' ' . $class_output . '>' . $sc->getContent() . '</span>';
+            return '<span ' . $id_output . ' ' . $class_output . ' ' . $style_output . '>' . $sc->getContent() . '</span>';
         });
     }
 }
