@@ -46,6 +46,7 @@ active: true
 active_admin: true
 admin_pages_only: true
 parser: regex
+include_default_shortcodes: true
 custom_shortcodes:
 load_fontawesome: false
 ```
@@ -54,7 +55,8 @@ load_fontawesome: false
 * `active: true|false` toggles if shortcodes will be enabled site-wide or not
 * `active_admin: true|false` toggles if shortcodes will be processed in the admin plugin
 * `admin_pages_only: true|false` toggles if admin should only process shortcodes for Grav pages
-* `parser: wordpress|regex|regular` let's you configure the parser to use.
+* `parser: wordpress|regex|regular` let's you configure the parser to use
+* `include_default_shortcodes: true|false` toggle the inclusion of shortcodes provided by this plugin
 * `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/custom/shortcodes`)
 * `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
 
