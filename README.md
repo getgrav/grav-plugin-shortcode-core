@@ -314,7 +314,7 @@ Figure elements are the recommended way to add self-contained units of flow cont
 
 The HTML `<mark></mark>` tag is extremely useful to highlight text in your pages, and serves like a highlighter pen.  However, as we know that markdown inside of HTML is not processed, using this HTML is often not convenient as it means markdown inside will not be processed.
 
-Another important usecase is trying to highlight code in a markdown text block, again the HTML tag doesn't work becuase the result is escaped and treated like any other code and simply displayed.
+Another important usecase is trying to highlight code in a markdown text block, again the HTML tag doesn't work because the result is escaped and treated like any other code and simply displayed.
 
 The solution is simple, just use the shortcode version instead:
 
