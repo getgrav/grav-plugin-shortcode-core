@@ -1,5 +1,7 @@
 name: Shortcode Core
-version: 4.2.2
+slug: shortcode-core
+type: plugin
+version: 4.2.3
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:

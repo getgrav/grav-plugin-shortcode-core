@@ -1,3 +1,11 @@
+# v4.2.3
+## 04/27/2020
+
+1. [](#improved)
+    * Configuration option to exclude default shortcodes [#86](https://github.com/getgrav/grav-plugin-shortcode-core/issues/86)
+    * Add support for `style` attribute in `[span]` shortcode [#88](https://github.com/getgrav/grav-plugin-shortcode-core/issues/88)  
+    * Fix typos [#91](https://github.com/getgrav/grav-plugin-shortcode-core/issues/91) 
+
 # v4.2.2
 ## 03/04/2020
 
