@@ -18,5 +18,9 @@ class AlignShortcode extends Shortcode
         $this->shortcode->getHandlers()->add('right', static function(ShortcodeInterface $sc) {
             return '<div style="text-align: right;">' . $sc->getContent() . '</div>';
         });
+        
+        $this->shortcode->getHandlers()->add('justify', static function(ShortcodeInterface $sc) {
+            return '<div style="text-align: justify;">' . $sc->getContent() . '</div>';
+        });
     }
 }
