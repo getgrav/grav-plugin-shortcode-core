@@ -390,6 +390,8 @@ Genie dahin einem ein gib geben allen.
 
 [fa icon=fa-camera-retro /] Explicit format
 
+[fa icon=fa-grav extras=fab /] Font Awesome 5 format
+
 [fa icon=fa-camera-retro extras=fa-4x /] Explicit format with extras - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
 
 [fa icon=fa-circle-o-notch extras=fa-spin,fa-3x,fa-fw,margin-bottom /] The full monty! - [See FontAwesome Examples](https://fortawesome.github.io/Font-Awesome/examples/)
