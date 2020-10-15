@@ -32,7 +32,7 @@ window.nextgenEditor.addShortcode('fa', {
     if (attributes.extras) {
       attributes.extras.split(',').forEach((extra) => {
         if (extra) {
-          if (['fab', 'fal', 'fas', 'far'].includes(extra)) {
+          if (['fab', 'fal', 'fas', 'far', 'fad'].includes(extra)) {
             faclass = extra;
             return;
           }

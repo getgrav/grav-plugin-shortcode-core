@@ -41,3 +41,15 @@ window.nextgenEditor.addShortcode('right', {
     return '<div style="text-align:right">{{content_editable}}</div>';
   },
 });
+
+window.nextgenEditor.addShortcode('justify', {
+  type: 'block',
+  title: 'Justify',
+  button: {
+    group: 'shortcode-core-align',
+    label: 'Justify',
+  },
+  content() {
+    return '<div style="text-align:justify">{{content_editable}}</div>';
+  },
+});
