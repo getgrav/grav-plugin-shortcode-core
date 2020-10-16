@@ -71,6 +71,8 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
       });
     }
 
-    return uncollapse(output);
+    output = uncollapse(output);
+
+    return output;
   },
 });
