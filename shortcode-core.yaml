@@ -10,6 +10,6 @@ fontawesome:
   url: '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'
   v5: false
 nextgen-editor:
-  env: development
+  env: production
   dev_host: localhost
   dev_port: 2001
