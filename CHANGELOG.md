@@ -1,9 +1,14 @@
-# v4.2.4
+# v5.0.0
 ## mm/dd/2020
 
+1. [](#new)
+    * Added built-in support for **Nextgen Editor** with powerful GUI capabilities for all core shortcodes
+    * Support for 3rd party shortcode plugins to add their own **Nextgen Editor** integrations.
 1. [](#improved)
     * Added support for comma-listed language tags in `[lang]` shortcode: `[lang=dk,se,no,fi]`
-
+1. [](#bugfix)
+    * Support HTML in Header shortcode
+    
 # v4.2.3
 ## 04/27/2020
 
