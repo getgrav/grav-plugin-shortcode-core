@@ -13,11 +13,14 @@ class LanguageShortcode extends Shortcode
             $lang = $this->getBbCode($sc);
 
             if ($lang) {
+                $list = explode(',', $lang);
+                array_walk($list, 'trim');
+
                 /** @var Language $language */
                 $language = $this->grav['language'];
                 $current = $language->getLanguage();
 
-                if ($current == $lang) {
+                if (in_array($current, $list)) {
                     return $sc->getContent();
                 }
             }

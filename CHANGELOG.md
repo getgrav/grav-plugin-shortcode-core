@@ -1,3 +1,9 @@
+# v4.2.4
+## mm/dd/2020
+
+1. [](#improved)
+    * Added support for comma-listed language tags in `[lang]` shortcode: `[lang=dk,se,no,fi]`
+
 # v4.2.3
 ## 04/27/2020
 
