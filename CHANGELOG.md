@@ -1,5 +1,5 @@
 # v5.0.0
-## mm/dd/2020
+## 11/04/2020
 
 1. [](#new)
     * Added built-in support for **Nextgen Editor** with powerful GUI capabilities for all core shortcodes
