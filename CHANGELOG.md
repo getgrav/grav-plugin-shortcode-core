@@ -1,3 +1,17 @@
+# v5.0.0
+## 11/04/2020
+
+1. [](#new)
+    * Added built-in support for **Nextgen Editor** with powerful GUI capabilities for all core shortcodes
+    * Support for 3rd party shortcode plugins to add their own **Nextgen Editor** integrations.
+1. [](#improved)
+    * Support for comma-listed language tags in `[lang]` shortcode: `[lang=dk,se,no,fi]`
+    * Support for justified text in align shortcode [#94](https://github.com/getgrav/grav-plugin-shortcode-core/issues/94)
+    * Support for asset collections and arrays [#85](https://github.com/getgrav/grav-plugin-shortcode-core/issues/85)
+    * Support of `duotone` FontAwesome icons [#78](https://github.com/getgrav/grav-plugin-shortcode-core/issues/78)
+1. [](#bugfix)
+    * Support HTML in Header shortcode
+    
 # v4.2.3
 ## 04/27/2020
 

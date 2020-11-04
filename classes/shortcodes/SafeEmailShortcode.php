@@ -34,7 +34,16 @@ class SafeEmailShortcode extends Shortcode
 
             // Handle icon option
             if ($icon) {
-                $output = '<i class="fa fa-' . $icon . '"></i> ' . $output;
+                if ($this->config->get('plugins.shortcode-core.fontawesome.v5', false)) {
+                    if (preg_match("/^(?P<weight>fa[srlbd]) fa-(?<icon>.+)/", $icon, $icon_parts)) {
+                        $icon_base = $icon_parts["weight"] . " fa-";
+                        $icon = $icon_parts["icon"];
+                    }
+                } else {
+                    $icon_base = "fa fa-";
+                }
+
+                $output = '<i class="'. $icon_base . $icon . '"></i> ' . $output;
             }
 
             return $output;
