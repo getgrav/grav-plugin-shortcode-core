@@ -16,6 +16,8 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
       const shortcode = window.nextgenEditor.shortcodes[name];
       const attributes = JSON.parse(decodeURIComponent(domShortcode.getAttribute('attributes')));
 
+      const innerHTMLAttribute = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].innerHTML && attrName), '');
+
       const attrLine = Object.keys(shortcode.attributes).reduce((acc, attrName) => {
         const attribute = shortcode.attributes[attrName];
 
@@ -29,9 +31,15 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
           return acc;
         }
 
-        return !attribute.bbcode
-          ? `${acc} ${attrName}="${attributes[attrName]}"`
-          : `="${attributes[attrName]}"${acc}`;
+        if (attribute.bbcode) {
+          return `="${attributes[attrName]}"${acc}`;
+        }
+
+        if (attribute.innerHTML) {
+          return acc;
+        }
+
+        return `${acc} ${attrName}="${attributes[attrName]}"`;
       }, '');
 
       if (shortcode.type === 'block') {
@@ -39,7 +47,9 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
           domShortcode.innerHTML = '';
         }
 
-        if (domShortcode.innerHTML) {
+        if (innerHTMLAttribute) {
+          domShortcode.outerHTML = `<p>[${shortcode.realName}${attrLine}]${attributes[innerHTMLAttribute]}[/${shortcode.realName}]</p>`;
+        } else if (domShortcode.innerHTML) {
           domShortcode.outerHTML = `<p>[${shortcode.realName}${attrLine}]</p>${domShortcode.innerHTML}<p>[/${shortcode.realName}]</p>`;
         } else {
           domShortcode.outerHTML = `<p>[${shortcode.realName}${attrLine} /]</p>`;
@@ -51,7 +61,9 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
           domShortcode.innerHTML = '';
         }
 
-        if (domShortcode.innerHTML) {
+        if (innerHTMLAttribute) {
+          domShortcode.outerHTML = `[${shortcode.realName}${attrLine}]${attributes[innerHTMLAttribute]}[/${shortcode.realName}]`;
+        } else if (domShortcode.innerHTML) {
           domShortcode.outerHTML = `[${shortcode.realName}${attrLine}]${domShortcode.innerHTML}[/${shortcode.realName}]`;
         } else {
           domShortcode.outerHTML = `[${shortcode.realName}${attrLine} /]`;

@@ -20,11 +20,28 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
 
           const groups = matches.pop();
 
-          const bbcode = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].bbcode && attrName), '');
+          let content = shortcode.type === 'block'
+            ? groups.content.replace(/<p>$/, '')
+            : groups.content;
 
-          const attrGroup = bbcode && groups.attributes && groups.attributes.startsWith('=')
+          const bbcode = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].bbcode && attrName), '');
+          const innerHTMLAttribute = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].innerHTML && attrName), '');
+
+          let attrGroup = bbcode && groups.attributes && groups.attributes.startsWith('=')
             ? `${bbcode}${groups.attributes}`
             : groups.attributes || '';
+
+          if (innerHTMLAttribute) {
+            const innerHTML = shortcode.type === 'block'
+              ? content.replace(/^<p>/, '').replace(/<\/p>$/, '').replace(/^&nbsp;$/, '')
+              : content.replace(/^&nbsp;$/, '');
+
+            attrGroup = attrGroup
+              ? `${attrGroup} ${innerHTMLAttribute}="${innerHTML}"`
+              : `${innerHTMLAttribute}="${innerHTML}"`;
+
+            content = '';
+          }
 
           const domAttributes = new DOMParser().parseFromString(`<div ${attrGroup}></div>`, 'text/html').body.firstChild.attributes;
 
@@ -54,14 +71,14 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
 
           if (shortcode.type === 'block') {
             replacement += `<shortcode-block name="${shortcode.name}" attributes="${attributesEncoded}">`;
-            replacement += groups.content.replace(/<p>$/, '');
+            replacement += content;
             replacement += '</shortcode-block>';
           }
 
           if (shortcode.type === 'inline') {
             replacement += groups.p1 || '';
             replacement += `<shortcode-inline name="${shortcode.name}" attributes="${attributesEncoded}">`;
-            replacement += groups.content;
+            replacement += content;
             replacement += '</shortcode-inline>';
             replacement += groups.p2 || '';
           }
