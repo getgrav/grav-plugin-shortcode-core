@@ -1,3 +1,9 @@
+# v5.0.1
+## 12/02/2020
+
+1. [](#improved)
+    * Content editing in settings popup
+
 # v5.0.0
 ## 11/04/2020
 
