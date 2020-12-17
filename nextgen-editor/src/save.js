@@ -31,7 +31,7 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
           return acc;
         }
 
-        if (attribute.bbcode) {
+        if (attribute.bbcode && attribute.shorthand) {
           return `="${attributes[attrName]}"${acc}`;
         }
 

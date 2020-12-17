@@ -24,7 +24,7 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
             ? groups.content.replace(/<p>$/, '')
             : groups.content;
 
-          const bbcode = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].bbcode && attrName), '');
+          const bbcode = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].bbcode && !shortcode.attributes[attrName].shorthand && attrName), '');
           const innerHTMLAttribute = Object.keys(shortcode.attributes).reduce((acc, attrName) => acc || (shortcode.attributes[attrName].innerHTML && attrName), '');
 
           let attrGroup = bbcode && groups.attributes && groups.attributes.startsWith('=')

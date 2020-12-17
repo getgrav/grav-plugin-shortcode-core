@@ -13,6 +13,9 @@ window.nextgenEditor.addHook('hookInit', () => {
       if (typeof attribute.default !== 'object') {
         attribute.default = { value: attribute.default };
       }
+      if (attribute.shorthand === undefined) {
+        attribute.shorthand = true;
+      }
     });
 
     if (shortcode.type === 'block' && !shortcode.titlebar) {
