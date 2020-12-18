@@ -1,5 +1,5 @@
 # v5.0.2
-## 12/17/2020
+## 12/18/2020
 
 1. [](#improved)
     * NexGen Editor: Added optional `shorthand` to force attributes to full declaration
