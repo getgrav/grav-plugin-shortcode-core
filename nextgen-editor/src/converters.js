@@ -18,23 +18,23 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreConvertersBlock', {
 
     this.editor.conversion.for('upcast').elementToElement({
       view: 'shortcode-block',
-      model(viewElement, modelWriter) {
-        return modelWriter.createElement('shortcode-block', viewElement.getAttributes());
+      model(viewElement, { writer }) {
+        return writer.createElement('shortcode-block', viewElement.getAttributes());
       },
     });
 
     this.editor.conversion.for('dataDowncast').elementToElement({
       model: 'shortcode-block',
-      view(modelElement, viewWriter) {
-        return viewWriter.createContainerElement('shortcode-block', modelElement.getAttributes());
+      view(modelElement, { writer }) {
+        return writer.createContainerElement('shortcode-block', modelElement.getAttributes());
       },
     });
 
     this.editor.conversion.for('editingDowncast').elementToElement({
       model: 'shortcode-block',
-      view(modelElement, viewWriter) {
-        const container = viewWriter.createContainerElement('shortcode-block', modelElement.getAttributes());
-        return toWidget(container, viewWriter);
+      view(modelElement, { writer }) {
+        const container = writer.createContainerElement('shortcode-block', modelElement.getAttributes());
+        return toWidget(container, writer);
       },
     });
 
@@ -56,9 +56,9 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreConvertersBlock', {
 
     this.editor.conversion.for('editingDowncast').elementToElement({
       model: 'shortcode-block-editable',
-      view(modelElement, viewWriter) {
-        const container = viewWriter.createEditableElement('shortcode-block-editable', modelElement.getAttributes());
-        return toWidgetEditable(container, viewWriter);
+      view(modelElement, { writer }) {
+        const container = writer.createEditableElement('shortcode-block-editable', modelElement.getAttributes());
+        return toWidgetEditable(container, writer);
       },
     });
 
@@ -92,23 +92,23 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreConvertersInline', {
 
     this.editor.conversion.for('upcast').elementToElement({
       view: 'shortcode-inline',
-      model(viewElement, modelWriter) {
-        return modelWriter.createElement('shortcode-inline', viewElement.getAttributes());
+      model(viewElement, { writer }) {
+        return writer.createElement('shortcode-inline', viewElement.getAttributes());
       },
     });
 
     this.editor.conversion.for('dataDowncast').elementToElement({
       model: 'shortcode-inline',
-      view(modelElement, viewWriter) {
-        return viewWriter.createContainerElement('shortcode-inline', modelElement.getAttributes());
+      view(modelElement, { writer }) {
+        return writer.createContainerElement('shortcode-inline', modelElement.getAttributes());
       },
     });
 
     this.editor.conversion.for('editingDowncast').elementToElement({
       model: 'shortcode-inline',
-      view(modelElement, viewWriter) {
-        const container = viewWriter.createContainerElement('shortcode-inline', modelElement.getAttributes());
-        return toWidget(container, viewWriter);
+      view(modelElement, { writer }) {
+        const container = writer.createContainerElement('shortcode-inline', modelElement.getAttributes());
+        return toWidget(container, writer);
       },
     });
 
@@ -130,9 +130,9 @@ window.nextgenEditor.addPlugin('GravShortcodeCoreConvertersInline', {
 
     this.editor.conversion.for('editingDowncast').elementToElement({
       model: 'shortcode-inline-editable',
-      view(modelElement, viewWriter) {
-        const container = viewWriter.createEditableElement('shortcode-inline-editable', modelElement.getAttributes());
-        return toWidgetEditable(container, viewWriter);
+      view(modelElement, { writer }) {
+        const container = writer.createEditableElement('shortcode-inline-editable', modelElement.getAttributes());
+        return toWidgetEditable(container, writer);
       },
     });
 

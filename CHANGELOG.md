@@ -1,3 +1,9 @@
+# v5.0.3
+## 01/15/2021
+
+1. [](#improved)
+   * NextGen Editor: Update to support latest version
+
 # v5.0.2
 ## 12/18/2020
 
