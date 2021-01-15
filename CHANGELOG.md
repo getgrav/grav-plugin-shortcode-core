@@ -1,5 +1,5 @@
 # v5.0.3
-## mm/dd/2021
+## 01/15/2021
 
 1. [](#improved)
    * NextGen Editor: Update to support latest version
