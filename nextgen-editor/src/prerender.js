@@ -10,7 +10,7 @@ window.nextgenEditor.addHook('hookMarkdowntoHTML', {
       .map((name) => `(\\[${name}[^\\]]*\\])`).join('|');
 
     realNames.forEach((name) => {
-      const regexp = `\\[${name}(?<attributes>(=| +).*)?\\/\\]`;
+      const regexp = `\\[${name}(?<attributes>(=| +).+?(?=/]))?\\/\\]`;
 
       output = output.replace(new RegExp(regexp, 'g'), (...matches) => {
         const groups = matches.pop();
