@@ -1,5 +1,5 @@
 # v5.0.4
-## 01/dd/2021
+## 01/26/2021
 
 1. [](#bugfix)
    * NextGen Editor: Fixed regexp regression preventing multiple shortcodes to be parsed in certain circumstances
