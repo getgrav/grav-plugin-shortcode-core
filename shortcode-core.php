@@ -113,6 +113,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     protected function processShortcodes(PageInterface $page, $type = 'processContent') {
         $meta = [];
+        $this->shortcodes->resetObjects(); // clear shortcodes that may have been processed in this execution thread before
         $config = $this->mergeConfig($page);
 
         // Don't run in admin pages other than content
