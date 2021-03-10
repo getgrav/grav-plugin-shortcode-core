@@ -1,3 +1,9 @@
+# v5.0.5
+## 01/26/2021
+
+1. [](#bugfix)
+    * `SafeEmailShortcode` fixed to be compatible with PHP 7.4
+
 # v5.0.4
 ## 01/26/2021
 

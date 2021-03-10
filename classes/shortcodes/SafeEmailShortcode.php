@@ -16,6 +16,7 @@ class SafeEmailShortcode extends Shortcode
             // Get shortcode content and parameters
             $str = $sc->getContent();
             $icon = $sc->getParameter('icon', false);
+            $icon_base = "fa fa-";
             $autolink = $sc->getParameter('autolink', false);
 
             // Encode email
@@ -39,8 +40,6 @@ class SafeEmailShortcode extends Shortcode
                         $icon_base = $icon_parts["weight"] . " fa-";
                         $icon = $icon_parts["icon"];
                     }
-                } else {
-                    $icon_base = "fa fa-";
                 }
 
                 $output = '<i class="'. $icon_base . $icon . '"></i> ' . $output;
