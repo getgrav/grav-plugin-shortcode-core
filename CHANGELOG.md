@@ -1,3 +1,10 @@
+# v5.0.5
+## 03/10/2021
+
+1. [](#bugfix)
+    * `SafeEmailShortcode` fixed to be compatible with PHP 7.4
+    * Addresses shortcodes getting repeated in modular subpages [#101](https://github.com/getgrav/grav-plugin-shortcode-core/pull/101)
+
 # v5.0.4
 ## 01/26/2021
 
