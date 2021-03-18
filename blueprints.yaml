@@ -84,6 +84,18 @@ form:
       placeholder: '/user/custom/shortcodes'
       size: large
 
+    css.notice_enabled:
+      type: toggle
+      label: Enbable Notice Shortcode CSS
+      help: Enable the default notice CSS by default. Disable if you want to use your own custom CSS.
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+
     fontawesome.load:
       type: toggle
       label: Load Fontawesome Library
