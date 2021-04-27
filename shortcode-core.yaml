@@ -4,6 +4,8 @@ active_admin: true
 admin_pages_only: true
 parser: regular
 include_default_shortcodes: true
+css:
+  notice_enabled: true
 custom_shortcodes:
 fontawesome:
   load: true
