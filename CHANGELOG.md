@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Added the ability to enable/disable built-in notice CSS
+    * NextGen Editor: Added support for multiple editor instances
 
 # v5.0.5
 ## 03/12/2021
