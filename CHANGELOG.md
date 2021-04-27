@@ -1,5 +1,5 @@
 # v5.0.6
-## mm/dd/2021
+## 04/27/2021
 
 1. [](#improved)
     * Added the ability to enable/disable built-in notice CSS
