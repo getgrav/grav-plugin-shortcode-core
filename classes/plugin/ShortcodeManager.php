@@ -283,14 +283,25 @@ class ShortcodeManager
      * For example when used by Twig directly
      *
      * @param $str
+     * @param null $handlers
      * @return string
      */
-    public function processShortcodes($str)
+    public function processShortcodes($str, $handlers = null)
     {
         $parser = $this->getParser($this->config->get('parser'));
-        $processor = new Processor(new $parser(new CommonSyntax()), $this->handlers);
+
+        if (!$handlers) {
+            $handlers = $this->handlers;
+        }
+
+        $processor = new Processor(new $parser(new CommonSyntax()), $handlers);
 
         return $processor->process($str);
+    }
+
+    public function processShortcodesRaw($str)
+    {
+        return $this->processShortcodes($str, $this->raw_handlers);
     }
 
     /**
