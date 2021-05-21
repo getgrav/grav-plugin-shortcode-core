@@ -1,3 +1,9 @@
+# v5.0.7
+## mm/dd/2021
+
+1. [](#improved)
+* Added `processShortcodesRaw()` using raw_handlers [#104](https://github.com/getgrav/grav-plugin-shortcode-core/pull/104)
+
 # v5.0.6
 ## 04/27/2021
 
