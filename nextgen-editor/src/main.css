@@ -234,6 +234,7 @@ shortcode-inline {
   display: inline-flex;
   margin-left: 2px;
   margin-right: 1px;
+  vertical-align: middle;
 }
 
 shortcode-inline-editable,
@@ -244,6 +245,7 @@ shortcode-inline-readonly {
 
 shortcode-inline > .sc-content {
   display: inline-flex;
+  align-items: center;
 }
 
 shortcode-inline > .sc-settings {
