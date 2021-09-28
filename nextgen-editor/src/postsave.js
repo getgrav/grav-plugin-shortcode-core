@@ -66,6 +66,10 @@ window.nextgenEditor.addHook('hookHTMLtoMarkdown', {
             content = `\n${content}\n`;
           }
 
+          if (shortcode.parent) {
+            content = `\n${content}\n`;
+          }
+
           output = output.replace(hash, `${groups.opening}${content}${groups.closing}`);
         }
 
