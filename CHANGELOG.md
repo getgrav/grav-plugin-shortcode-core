@@ -1,5 +1,5 @@
 # v5.0.7
-## mm/dd/2021
+## 09/28/2021
 
 1. [](#bugfix)
     * NextGen Editor: Ensure content of children shortcode elements, such as UI Tab content, have a new empty line as prefix and suffix, to ensure Markdown lists are not lost [getgrav/grav-premium-issues#123](https://github.com/getgrav/grav-premium-issues/issues/123)
