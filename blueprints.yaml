@@ -1,7 +1,7 @@
 name: Shortcode Core
 slug: shortcode-core
 type: plugin
-version: 5.0.6
+version: 5.0.7
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -86,7 +86,7 @@ form:
 
     css.notice_enabled:
       type: toggle
-      label: Enbable Notice Shortcode CSS
+      label: Enable Notice Shortcode CSS
       help: Enable the default notice CSS by default. Disable if you want to use your own custom CSS.
       highlight: 1
       default: 1

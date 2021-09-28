@@ -1,3 +1,12 @@
+# v5.0.7
+## 09/28/2021
+
+1. [](#bugfix)
+    * NextGen Editor: Ensure content of children shortcode elements, such as UI Tab content, have a new empty line as prefix and suffix, to ensure Markdown lists are not lost [getgrav/grav-premium-issues#123](https://github.com/getgrav/grav-premium-issues/issues/123)
+2. [](#improved)
+    * Added `processShortcodesRaw()` using raw_handlers [#104](https://github.com/getgrav/grav-plugin-shortcode-core/pull/104)
+    * Better vertical alignment for inline shortcodes in NextGen Editor
+
 # v5.0.6
 ## 04/27/2021
 
