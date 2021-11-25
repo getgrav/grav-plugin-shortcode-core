@@ -12,9 +12,13 @@ class NoticeShortcode extends Shortcode
             if ($css_enabled) {
                 $this->shortcode->addAssets('css', 'plugin://shortcode-core/css/shortcode-notice.css');
             }
-            $type = $sc->getParameter('notice', $this->getBbCode($sc)) ?: 'info';
 
-            return '<div class="sc-notice '.$type.'"><div>'.$sc->getContent().'</div></div>';
+            $output = $this->twig->processTemplate('shortcodes/notice.html.twig', [
+                'type' => $sc->getParameter('notice', $this->getBbCode($sc)) ?: 'info',
+                'content' => $sc->getContent(),
+            ]);
+
+          return $output;
         });
     }
 }
