@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "v0.7.3",
+            "version": "v0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "084ed05cdd759d318f7b75e370830bd135eadc8a"
+                "reference": "79a219febd774ba1ee66a2992fee1145b4367561"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/084ed05cdd759d318f7b75e370830bd135eadc8a",
-                "reference": "084ed05cdd759d318f7b75e370830bd135eadc8a",
+                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/79a219febd774ba1ee66a2992fee1145b4367561",
+                "reference": "79a219febd774ba1ee66a2992fee1145b4367561",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,11 @@
                 "parser",
                 "shortcode"
             ],
-            "time": "2019-12-03T22:05:36+00:00"
+            "support": {
+                "issues": "https://github.com/thunderer/Shortcode/issues",
+                "source": "https://github.com/thunderer/Shortcode/tree/v0.7.4"
+            },
+            "time": "2020-03-08T11:25:13+00:00"
         }
     ],
     "packages-dev": [],
@@ -71,5 +75,6 @@
     "platform-dev": [],
     "platform-overrides": {
         "php": "7.1.3"
-    }
+    },
+    "plugin-api-version": "2.1.0"
 }

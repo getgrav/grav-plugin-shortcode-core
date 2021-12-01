@@ -34,6 +34,7 @@ class ComposerStaticInitd0b6ad2d0f2308b1099bc12e8c596f66
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Grav\\Plugin\\ShortcodeCorePlugin' => __DIR__ . '/../..' . '/shortcode-core.php',
     );
 
