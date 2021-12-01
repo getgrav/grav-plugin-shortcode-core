@@ -3,6 +3,7 @@
 
 2. [](#improved)
    * Notice shortcode now uses a twig template to allow for easy overriding of style
+   * Updated vendor libraries to latest
 
 # v5.0.7
 ## 09/28/2021
