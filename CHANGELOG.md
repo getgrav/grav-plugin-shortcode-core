@@ -1,8 +1,9 @@
 # v5.1.0
-## mm/dd/2021
+## 12/09/2021
 
-2. [](#improved)
+1. [](#new)
    * Notice shortcode now uses a twig template to allow for easy overriding of style
+1. [](#improved)
    * Updated vendor libraries to latest
 
 # v5.0.7
