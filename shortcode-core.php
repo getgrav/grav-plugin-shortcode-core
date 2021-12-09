@@ -62,7 +62,8 @@ class ShortcodeCorePlugin extends Plugin
             'onPageContentRaw'          => ['onPageContentRaw', 0],
             'onPageContentProcessed'    => ['onPageContentProcessed', -10],
             'onPageContent'             => ['onPageContent', 0],
-            'onTwigInitialized'         => ['onTwigInitialized', 0]
+            'onTwigInitialized'         => ['onTwigInitialized', 0],
+            'onTwigTemplatePaths'       => ['onTwigTemplatePaths', 0],
         ]);
 
         $this->grav['shortcode'] = $this->shortcodes = new ShortcodeManager();
@@ -232,6 +233,11 @@ class ShortcodeCorePlugin extends Plugin
     {
         $this->grav['twig']->twig()->addFilter(new \Twig_SimpleFilter('shortcodes', [$this->shortcodes, 'processShortcodes']));
         $this->grav['twig']->twig_vars['shortcode'] = new ShortcodeTwigVar();
+    }
+
+    public function onTwigTemplatePaths()
+    {
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
     }
 
     public function registerNextGenEditorPlugin($event) {
