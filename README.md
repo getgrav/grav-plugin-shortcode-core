@@ -45,10 +45,15 @@ enabled: true
 active: true
 active_admin: true
 admin_pages_only: true
-parser: regex
+parser: regular
 include_default_shortcodes: true
+css:
+  notice_enabled: true
 custom_shortcodes:
-load_fontawesome: false
+fontawesome:
+  load: true
+  url: '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'
+  v5: false
 ```
 
 * `enabled: true|false` toggles if the shortcodes plugin is turned on or off
@@ -58,7 +63,9 @@ load_fontawesome: false
 * `parser: wordpress|regex|regular` let's you configure the parser to use
 * `include_default_shortcodes: true|false` toggle the inclusion of shortcodes provided by this plugin
 * `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/custom/shortcodes`)
-* `load_fontawesome: true|false` toggles if the fontawesome icon library should be loaded or not
+* `fontawesome.load: true|false` toggles if the fontawesome icon library should be loaded or not
+* `fontawesome.url:` the CDN Url to use for fontawesome
+* `v5:` Version 5 flag as it requires some additional logic
 
 > NOTE: In previous versions the `wordpress` parser was preferred.  However with version `2.4.0`, the `regex` parser is now default.  If you have saved configuration, you should manually change this to `regex` or you may receive errors or bad output.
 
