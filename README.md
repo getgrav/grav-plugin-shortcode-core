@@ -274,7 +274,7 @@ This we be removed from the page content and made available in Twig variables so
 
 <div id="article">
     <div class="left">
-        {{ page.content }}
+        {{ page.content|raw }}
     </div>
     <div class="right">
         {{ shortcode.section.quote }}

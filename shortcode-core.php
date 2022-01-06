@@ -9,6 +9,7 @@ use Grav\Common\Utils;
 use Grav\Plugin\ShortcodeCore\ShortcodeManager;
 use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
+use Twig\TwigFilter;
 
 
 class ShortcodeCorePlugin extends Plugin
@@ -231,7 +232,7 @@ class ShortcodeCorePlugin extends Plugin
      */
     public function onTwigInitialized()
     {
-        $this->grav['twig']->twig()->addFilter(new \Twig_SimpleFilter('shortcodes', [$this->shortcodes, 'processShortcodes']));
+        $this->grav['twig']->twig()->addFilter(new TwigFilter('shortcodes', [$this->shortcodes, 'processShortcodes']));
         $this->grav['twig']->twig_vars['shortcode'] = new ShortcodeTwigVar();
     }
 
