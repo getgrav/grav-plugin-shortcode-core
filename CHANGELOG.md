@@ -2,7 +2,7 @@
 ## mm/dd/2022
 
 1. [](#improved)
-    * Twig 2 support
+    * Improved Twig 2 support
 
 # v5.1.0
 ## 12/09/2021
