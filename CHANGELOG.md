@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Improved Twig 2 support
+    * Bugfixes to support latest NextGen version (v1.1.8)
 
 # v5.1.0
 ## 12/09/2021
