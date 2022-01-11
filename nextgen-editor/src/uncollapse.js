@@ -146,7 +146,6 @@ document.addEventListener('click', (event) => {
   });
 
   if (isAction) {
-    console.log(action.className);
     switch (action.className) {
       case 'sc-move':
         window.scBlockMoveChild.call(action.element, event, action.element.classList.contains('sc-move-up') ? 'up' : 'down');
