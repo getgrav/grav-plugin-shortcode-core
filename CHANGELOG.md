@@ -1,3 +1,9 @@
+# v5.1.2
+## mm/dd/2022
+
+1. [](#bugfix)
+    * Upgraded `thunderer/shortcode` to 0.7.5 to address a security issue
+
 # v5.1.1
 ## 01/11/2022
 
