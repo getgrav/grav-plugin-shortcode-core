@@ -1,3 +1,9 @@
+# v5.1.3
+## mm/dd/2022
+
+1. [](#improved)
+   * Added a new `display` CLI command to show all registered shortcodes
+
 # v5.1.2
 ## 05/10/2022
 

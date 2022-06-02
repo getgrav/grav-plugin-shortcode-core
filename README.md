@@ -565,3 +565,11 @@ $this->shortcode->getRawHandlers()->add('prism', function(ProcessedShortcode $sc
 ```
 
 The difference here is it uses `getRawHandlers()` to ensure the handler is processed to the content in the _raw_ state.
+
+## Display All Shortcodes
+
+You can now display all available shortcodes by using the CLI command:
+
+```shell
+bin/plugin shortcode-core display
+```
