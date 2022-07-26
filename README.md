@@ -241,10 +241,10 @@ Do not process the shortcodes between these raw shortcode tags
 
 #### Safe-Email
 
-Encode an email address so that it's not so easily 'scrapable' by nefarious scripts.  This one has a couple of options: `autolink` toggle to turn the email into a link, and an `icon` option that lets you pick a font-awesome icon to prefix the email.  Both settings are optional.
+Encode an email address so that it's not so easily 'scrapable' by nefarious scripts.  This one has a couple of options: `autolink` toggle to turn the email into a link, an `icon` option that lets you pick a font-awesome icon to prefix the email, and a `subject` option that let's you specify the subject line for the user's mail agent to prefill.  All settings are optional.
 
 ```
-Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.com[/safe-email]
+Safe-Email Address: [safe-email autolink="true" icon="envelope-o" subject="Feedback"]user@domain.com[/safe-email]
 ```
 
 #### Section
