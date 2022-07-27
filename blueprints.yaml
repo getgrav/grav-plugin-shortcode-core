@@ -81,7 +81,7 @@ form:
       type: text
       label: Custom Shortcodes
       help: The path to a location where you store custom shortcodes.
-      placeholder: '/user/custom/shortcodes'
+      placeholder: '/user/data/shortcodes'
       size: large
 
     css.notice_enabled:

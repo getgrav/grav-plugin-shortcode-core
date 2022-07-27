@@ -62,7 +62,7 @@ fontawesome:
 * `admin_pages_only: true|false` toggles if admin should only process shortcodes for Grav pages
 * `parser: wordpress|regex|regular` let's you configure the parser to use
 * `include_default_shortcodes: true|false` toggle the inclusion of shortcodes provided by this plugin
-* `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/custom/shortcodes`)
+* `custom_shortcodes:` the path to a directory where you can put your custom shortcodes (e.g. `/user/data/shortcodes`)
 * `fontawesome.load: true|false` toggles if the fontawesome icon library should be loaded or not
 * `fontawesome.url:` the CDN Url to use for fontawesome
 * `v5:` Version 5 flag as it requires some additional logic
@@ -461,10 +461,10 @@ You can now use shortcodes in Twig templates and process them with the `|shortco
 First, configure a directory from which custom shortcodes are loaded. Edit `user/config/plugins/shortcode-core.yaml` like follows (create it if it does not exist):
 
 ```yaml
-custom_shortcodes: '/user/custom/shortcodes'
+custom_shortcodes: '/user/data/shortcodes'
 ```
 
-To add a custom shortcode, create a PHP file that defines a new shortcode class. For example, to create a shortcode for ~~strikethrough~~ text, save the following code as `user/custom/shortcodes/StrikeShortcode.php`:
+To add a custom shortcode, create a PHP file that defines a new shortcode class. For example, to create a shortcode for ~~strikethrough~~ text, save the following code as `user/data/shortcodes/StrikeShortcode.php`:
 
 ```php
 <?php
