@@ -14,23 +14,28 @@ class SafeEmailShortcode extends Shortcode
             }
 
             // Get shortcode content and parameters
-            $str = $sc->getContent();
+            $addr_str = $sc->getContent();
             $icon = $sc->getParameter('icon', false);
             $icon_base = "fa fa-";
             $autolink = $sc->getParameter('autolink', false);
+            $subject = $sc->getParameter('subject', false);
 
-            // Encode email
-            $email = '';
-            $str_len = strlen($str);
-            for ($i = 0; $i < $str_len; $i++) {
-                $email .= '&#' . ord($str[$i]). ';';
+            // Add subject, if any, to the link target.
+            $link_str = $addr_str;
+            if ($subject) {
+              $subject = html_entity_decode($subject);
+              $link_str .= '?subject=' . rawurlencode($subject);
             }
+
+            // Encode display text and link target
+            $email_disp = static::encodeText($addr_str);
+            $email_link = static::encodeText($link_str);
 
             // Handle autolinking
             if ($autolink) {
-                $output = '<a href="mailto:' . $email . '">' . $email . '</a>';
+                $output = '<a href="mailto:' . $email_link . '">' . $email_disp . '</a>';
             } else {
-                $output = $email;
+                $output = $email_disp;
             }
 
             // Handle icon option
@@ -47,5 +52,22 @@ class SafeEmailShortcode extends Shortcode
 
             return $output;
         });
+    }
+
+    /**
+     * encodes text as numeric HTML entities
+     * @param string $text the text to encode
+     * @return string the encoded text
+     */
+    private static function encodeText($text)
+    {
+      $encoded = '';
+      $str_len = strlen($text);
+
+      for ($i = 0; $i < $str_len; $i++) {
+        $encoded .= '&#' . ord($text[$i]). ';';
+      }
+
+      return $encoded;
     }
 }

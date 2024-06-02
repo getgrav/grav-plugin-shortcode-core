@@ -1,8 +1,17 @@
+# v5.2.0
+## 06/02/2024
+
+1. [](#new)
+   * Added the ability to display a section from another page. See README.txt for example
+1. [](#bugfix)
+   * Fix for `lorem` shortcode that broke when count was provided
+
 # v5.1.3
 ## 06/01/2022
 
 1. [](#improved)
    * Added a new `display` CLI command to show all registered shortcodes
+
 
 # v5.1.2
 ## 05/10/2022

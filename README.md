@@ -241,10 +241,10 @@ Do not process the shortcodes between these raw shortcode tags
 
 #### Safe-Email
 
-Encode an email address so that it's not so easily 'scrapable' by nefarious scripts.  This one has a couple of options: `autolink` toggle to turn the email into a link, and an `icon` option that lets you pick a font-awesome icon to prefix the email.  Both settings are optional.
+Encode an email address so that it's not so easily 'scrapable' by nefarious scripts.  This one has a couple of options: `autolink` toggle to turn the email into a link, an `icon` option that lets you pick a font-awesome icon to prefix the email, and a `subject` option that let's you specify the subject line for the user's mail agent to prefill.  All settings are optional.
 
 ```
-Safe-Email Address: [safe-email autolink="true" icon="envelope-o"]user@domain.com[/safe-email]
+Safe-Email Address: [safe-email autolink="true" icon="envelope-o" subject="Feedback"]user@domain.com[/safe-email]
 ```
 
 #### Section
@@ -284,11 +284,19 @@ This we be removed from the page content and made available in Twig variables so
 
 #### Sections from other pages
 
-You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this syntax:
+You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this Twig syntax:
 
 ```
 <div id="author">{{ page.find('/my/custom/page').contentMeta.shortcodeMeta.shortcode.section.author }}</div>
 ```
+
+There may be a scenario where you define a section in another page, but want to use it in the content of a page.  You can now do so with the same `[section]` shortcode by providing the page where the section is defined, and also the name of the section with no shortcode body.  For example
+
+```markdown
+[section page="/my/custom/page" name="author" /]
+```
+
+!! NOTE for this to work, the shortcode needs to be defined a parent page, or page that has been processed before the current page.
 
 #### Notice
 
