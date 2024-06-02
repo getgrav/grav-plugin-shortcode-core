@@ -145,7 +145,7 @@ class LoremShortcode extends Shortcode
                 }
             }
         }
-        $words = array_slice($words, 0, $count);
+        $words = array_slice($words, 0, (int) $count);
 
         return $this->output($words, $tags, $array);
     }

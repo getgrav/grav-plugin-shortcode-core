@@ -284,11 +284,19 @@ This we be removed from the page content and made available in Twig variables so
 
 #### Sections from other pages
 
-You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this syntax:
+You can even retrieve a section from another page utilizing the shortcodes as they are stored in the page's `contentMeta` with this Twig syntax:
 
 ```
 <div id="author">{{ page.find('/my/custom/page').contentMeta.shortcodeMeta.shortcode.section.author }}</div>
 ```
+
+There may be a scenario where you define a section in another page, but want to use it in the content of a page.  You can now do so with the same `[section]` shortcode by providing the page where the section is defined, and also the name of the section with no shortcode body.  For example
+
+```markdown
+[section page="/my/custom/page" name="author" /]
+```
+
+!! NOTE for this to work, the shortcode needs to be defined a parent page, or page that has been processed before the current page.
 
 #### Notice
 
