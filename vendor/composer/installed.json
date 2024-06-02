@@ -60,6 +60,6 @@
             "install-path": "../thunderer/shortcode"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }

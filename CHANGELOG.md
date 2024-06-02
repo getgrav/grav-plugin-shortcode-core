@@ -6,7 +6,6 @@
 1. [](#bugfix)
    * Fix for `lorem` shortcode that broke when count was provided
 
-
 # v5.1.3
 ## 06/01/2022
 
