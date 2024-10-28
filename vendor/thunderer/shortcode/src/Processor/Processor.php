@@ -89,7 +89,7 @@ final class Processor implements ProcessorInterface
      *
      * @return string
      */
-    private function processIteration($text, ProcessorContext $context, ProcessedShortcode $parent = null)
+    private function processIteration($text, ProcessorContext $context, ?ProcessedShortcode $parent = null)
     {
         if (null !== $this->recursionDepth && $context->recursionLevel > $this->recursionDepth) {
             return $text;

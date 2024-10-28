@@ -35,7 +35,7 @@ final class RegularParser implements ParserInterface
     const TOKEN_STRING = 6;
     const TOKEN_WS = 7;
 
-    public function __construct(SyntaxInterface $syntax = null)
+    public function __construct(?SyntaxInterface $syntax = null)
     {
         $this->lexerRegex = $this->prepareLexer($syntax ?: new CommonSyntax());
         $this->nameRegex = '~^'.RegexBuilderUtility::buildNameRegex().'$~us';

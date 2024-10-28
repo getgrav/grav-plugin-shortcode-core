@@ -19,7 +19,7 @@ class FilterShortcodesEvent
     private $shortcodes = array();
 
     /** @param ParsedShortcodeInterface[] $shortcodes */
-    public function __construct(array $shortcodes, ProcessedShortcode $parent = null)
+    public function __construct(array $shortcodes, ?ProcessedShortcode $parent = null)
     {
         $this->parent = $parent;
         $this->setShortcodes($shortcodes);

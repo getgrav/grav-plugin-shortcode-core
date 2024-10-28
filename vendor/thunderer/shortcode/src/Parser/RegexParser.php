@@ -21,7 +21,7 @@ final class RegexParser implements ParserInterface
     /** @var string */
     private $parametersRegex;
 
-    public function __construct(SyntaxInterface $syntax = null)
+    public function __construct(?SyntaxInterface $syntax = null)
     {
         $this->syntax = $syntax ?: new Syntax();
         $this->shortcodeRegex = RegexBuilderUtility::buildShortcodeRegex($this->syntax);

@@ -4,6 +4,7 @@ namespace Thunder\Shortcode\Parser;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Shortcode\ParsedShortcode;
 use Thunder\Shortcode\Shortcode\Shortcode;
+use Thunder\Shortcode\Syntax\SyntaxInterface;
 use Thunder\Shortcode\Utility\RegexBuilderUtility;
 
 /**
@@ -34,7 +35,7 @@ final class WordpressParser implements ParserInterface
     /** @var string[] */
     private $names = array();
 
-    public function __construct()
+    public function __construct(?SyntaxInterface $syntax = null)
     {
     }
 

@@ -3,7 +3,7 @@
         'name' => 'getgrav/shortcode-core',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => 'be1b12ecc2b9807da0a5415ef7432a6ae2ac9cee',
+        'reference' => 'dc33833d77d2acf285384fcacf9d0e2e2c6787a8',
         'type' => 'grav-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'getgrav/shortcode-core' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => 'be1b12ecc2b9807da0a5415ef7432a6ae2ac9cee',
+            'reference' => 'dc33833d77d2acf285384fcacf9d0e2e2c6787a8',
             'type' => 'grav-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -26,7 +26,7 @@ class ReplaceShortcodesEvent
      * @param string $text
      * @param ReplacedShortcode[] $replacements
      */
-    public function __construct($text, array $replacements, ShortcodeInterface $shortcode = null)
+    public function __construct($text, array $replacements, ?ShortcodeInterface $shortcode = null)
     {
         $this->shortcode = $shortcode;
         $this->text = $text;

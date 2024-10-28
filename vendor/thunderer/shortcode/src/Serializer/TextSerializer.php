@@ -15,7 +15,7 @@ final class TextSerializer implements SerializerInterface
     /** @var SyntaxInterface */
     private $syntax;
 
-    public function __construct(SyntaxInterface $syntax = null)
+    public function __construct(?SyntaxInterface $syntax = null)
     {
         $this->syntax = $syntax ?: new Syntax();
     }
