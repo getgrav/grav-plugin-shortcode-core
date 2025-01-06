@@ -14,15 +14,20 @@ final class RegexParser implements ParserInterface
 {
     /** @var SyntaxInterface */
     private $syntax;
-    /** @var string */
+    /** @var non-empty-string */
     private $shortcodeRegex;
-    /** @var string */
+    /** @var non-empty-string */
     private $singleShortcodeRegex;
-    /** @var string */
+    /** @var non-empty-string */
     private $parametersRegex;
 
-    public function __construct(SyntaxInterface $syntax = null)
+    /** @param SyntaxInterface|null $syntax */
+    public function __construct($syntax = null)
     {
+        if(null !== $syntax && false === $syntax instanceof SyntaxInterface) {
+            throw new \LogicException('Parameter $syntax must be an instance of SyntaxInterface.');
+        }
+
         $this->syntax = $syntax ?: new Syntax();
         $this->shortcodeRegex = RegexBuilderUtility::buildShortcodeRegex($this->syntax);
         $this->singleShortcodeRegex = RegexBuilderUtility::buildSingleShortcodeRegex($this->syntax);

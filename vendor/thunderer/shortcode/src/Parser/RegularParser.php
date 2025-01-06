@@ -12,9 +12,9 @@ use Thunder\Shortcode\Utility\RegexBuilderUtility;
  */
 final class RegularParser implements ParserInterface
 {
-    /** @var string */
+    /** @var non-empty-string */
     private $lexerRegex;
-    /** @var string */
+    /** @var non-empty-string */
     private $nameRegex;
     /** @psalm-var list<array{0:int,1:string,2:int}> */
     private $tokens = array();
@@ -35,8 +35,13 @@ final class RegularParser implements ParserInterface
     const TOKEN_STRING = 6;
     const TOKEN_WS = 7;
 
-    public function __construct(SyntaxInterface $syntax = null)
+    /** @param SyntaxInterface|null $syntax */
+    public function __construct($syntax = null)
     {
+        if(null !== $syntax && false === $syntax instanceof SyntaxInterface) {
+            throw new \LogicException('Parameter $syntax must be an instance of SyntaxInterface.');
+        }
+
         $this->lexerRegex = $this->prepareLexer($syntax ?: new CommonSyntax());
         $this->nameRegex = '~^'.RegexBuilderUtility::buildNameRegex().'$~us';
     }
@@ -142,7 +147,6 @@ final class RegularParser implements ParserInterface
             }
 
             $this->beginBacktrack();
-            /** @psalm-suppress MixedArgumentTypeCoercion */
             $contentMatchedShortcodes = $this->shortcode($names);
             if(\is_string($contentMatchedShortcodes)) {
                 $closingName = $contentMatchedShortcodes;
@@ -185,6 +189,7 @@ final class RegularParser implements ParserInterface
             return array_merge(array($this->getObject($name, $parameters, $bbCode, $offset, null, $text)), $shortcodes);
         }
         $content = $this->getBacktrack();
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if(!$this->close($names)) { return false; }
         array_pop($names);
 
@@ -315,6 +320,7 @@ final class RegularParser implements ParserInterface
         }
 
         $token = $this->tokens[$this->position];
+        /** @psalm-suppress RiskyTruthyFalsyComparison */
         if(!empty($type) && $token[0] !== $type) {
             return '';
         }
@@ -353,7 +359,7 @@ final class RegularParser implements ParserInterface
                 case -1 !== $match['separator'][1]: { $token = $match['separator'][0]; $type = self::TOKEN_SEPARATOR; break; }
                 case -1 !== $match['open'][1]: { $token = $match['open'][0]; $type = self::TOKEN_OPEN; break; }
                 case -1 !== $match['close'][1]: { $token = $match['close'][0]; $type = self::TOKEN_CLOSE; break; }
-                default: { throw new \RuntimeException(sprintf('Invalid token.')); }
+                default: { throw new \RuntimeException('Invalid token.'); }
             }
             $tokens[] = array($type, $token, $position);
             $position += mb_strlen($token, 'utf-8');
@@ -362,7 +368,7 @@ final class RegularParser implements ParserInterface
         return $tokens;
     }
 
-    /** @return string */
+    /** @return non-empty-string */
     private function prepareLexer(SyntaxInterface $syntax)
     {
         // FIXME: for some reason Psalm does not understand the `@psalm-var callable() $var` annotation
