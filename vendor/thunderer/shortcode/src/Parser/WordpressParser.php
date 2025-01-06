@@ -4,7 +4,6 @@ namespace Thunder\Shortcode\Parser;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Shortcode\ParsedShortcode;
 use Thunder\Shortcode\Shortcode\Shortcode;
-use Thunder\Shortcode\Syntax\SyntaxInterface;
 use Thunder\Shortcode\Utility\RegexBuilderUtility;
 
 /**
@@ -22,20 +21,21 @@ use Thunder\Shortcode\Utility\RegexBuilderUtility;
  *
  * @see https://core.trac.wordpress.org/browser/tags/4.3.1/src/wp-includes/shortcodes.php#L239
  * @see https://core.trac.wordpress.org/browser/tags/4.3.1/src/wp-includes/shortcodes.php#L448
+ * @psalm-suppress RiskyTruthyFalsyComparison
  *
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
  */
 final class WordpressParser implements ParserInterface
 {
-    /** @var string */
+    /** @var non-empty-string */
     private static $shortcodeRegex = '/\\[(\\[?)(<NAMES>)(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)/s';
-    /** @var string */
+    /** @var non-empty-string */
     private static $argumentsRegex = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
 
     /** @var string[] */
     private $names = array();
 
-    public function __construct(?SyntaxInterface $syntax = null)
+    public function __construct()
     {
     }
 
@@ -75,6 +75,7 @@ final class WordpressParser implements ParserInterface
         $names = $this->names
             ? implode('|', array_map(function($name) { return preg_quote($name, '/'); }, $this->names))
             : RegexBuilderUtility::buildNameRegex();
+        /** @var non-empty-string $regex */
         $regex = str_replace('<NAMES>', $names, static::$shortcodeRegex);
         preg_match_all($regex, $text, $matches, PREG_OFFSET_CAPTURE);
 
