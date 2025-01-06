@@ -1,5 +1,5 @@
 # v5.2.1
-## 01/016/2025
+## 01/06/2025
 
 1. [](#improved)
     * Updated to latest Shortcode library v0.7.6 with PHP 8.4 support
