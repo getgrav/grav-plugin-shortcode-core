@@ -40,7 +40,7 @@ final class RegexBuilderUtility
         // equals sign and value without unescaped string delimiters enclosed in them
         $complex = $space.$equals.$space.$string.'([^'.$string.'\\\\]*(?:\\\\.[^'.$string.'\\\\]*)*?)'.$string;
 
-        return '~(?:\s*(\w+(?:'.$complex.'|'.$simple.'|'.$empty.')))~us';
+        return '~(?:\s*([\w-]+(?:'.$complex.'|'.$simple.'|'.$empty.')))~us';
     }
 
     /** @return non-empty-string */
@@ -63,7 +63,7 @@ final class RegexBuilderUtility
         // equals sign and value without unescaped string delimiters enclosed in them
         $complex = $string.'(?:[^'.$string.'\\\\]*(?:\\\\.[^'.$string.'\\\\]*)*)'.$string;
         // complete parameters matching regex
-        $parameters = '(?<parameters>(?:\s*(?:\w+(?:'.$equalsSpaced.$complex.'|'.$equalsSpaced.$simple.'|'.$empty.')))*)';
+        $parameters = '(?<parameters>(?:\s*(?:[\w-]+(?:'.$equalsSpaced.$complex.'|'.$equalsSpaced.$simple.'|'.$empty.')))*)';
         // BBCode is the part after name that makes it behave like a non-empty parameter value
         $bbCode = '(?:'.$equals.$space.'(?<bbCode>'.$complex.'|'.$simple.'))?';
 
