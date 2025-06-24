@@ -30,6 +30,12 @@ class ShortcodeCorePlugin extends Plugin
             'registerNextGenEditorPlugin' => [
                 ['registerNextGenEditorPlugin', 0],
                 ['registerNextGenEditorPluginShortcodes', 0],
+            ],
+            'registerEditorProPlugin' => [
+                ['registerEditorProPlugin', 0],
+            ],
+            'onEditorProShortcodeRegister' => [
+                ['onEditorProShortcodeRegister', 0],
             ]
         ];
     }
@@ -287,6 +293,226 @@ class ShortcodeCorePlugin extends Plugin
 
             $event['plugins']  = $plugins;
         }
+        return $event;
+    }
+
+    public function registerEditorProPlugin($event) {
+        $plugins = $event['plugins'];
+        
+        // Add Editor Pro shortcode integration JavaScript
+        $plugins['js'][] = 'plugin://shortcode-core/editor-pro/shortcode-integration.js';
+        
+        $event['plugins'] = $plugins;
+        return $event;
+    }
+
+    public function onEditorProShortcodeRegister($event) {
+        error_log('ShortcodeCore: onEditorProShortcodeRegister called');
+        $shortcodes = $event['shortcodes'];
+        
+        // Register core shortcodes for Editor Pro
+        $coreShortcodes = [
+            [
+                'name' => 'align',
+                'title' => 'Align Content',
+                'description' => 'Align content left, center, or right',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'direction' => [
+                        'type' => 'select',
+                        'title' => 'Direction',
+                        'options' => ['left', 'center', 'right'],
+                        'default' => 'center',
+                        'required' => true
+                    ]
+                ],
+                'titleBarAttributes' => ['direction'],
+                'hasContent' => true,
+                'cssTemplate' => 'text-align: {{direction}};'
+            ],
+            [
+                'name' => 'columns',
+                'title' => 'Columns Layout',
+                'description' => 'Create multi-column layout with customizable spacing',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'count' => [
+                        'type' => 'number',
+                        'title' => 'Column Count',
+                        'min' => 2,
+                        'max' => 6,
+                        'default' => 2,
+                        'required' => true
+                    ],
+                    'width' => [
+                        'type' => 'text',
+                        'title' => 'Column Width',
+                        'default' => '200px',
+                        'placeholder' => 'e.g., 200px or auto'
+                    ],
+                    'gap' => [
+                        'type' => 'text',
+                        'title' => 'Gap',
+                        'default' => '30px',
+                        'placeholder' => 'e.g., 30px or 1rem'
+                    ],
+                    'rule' => [
+                        'type' => 'text',
+                        'title' => 'Column Rule',
+                        'default' => '',
+                        'placeholder' => 'e.g., 1px solid #930'
+                    ]
+                ],
+                'titleBarAttributes' => ['count', 'width'],
+                'hasContent' => true,
+                'cssTemplate' => 'columns: {{count}} {{width}}; column-gap: {{gap}};, column-rule: {{rule}};'
+            ],
+            [
+                'name' => 'div',
+                'title' => 'Div element',
+                'description' => 'Create a custom Div element',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => null,
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => null,
+                        'placeholder' => 'e.g., font-bold text-blue-500'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'span',
+                'title' => 'Span element',
+                'description' => 'Create a custom Span element',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => null,
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => null,
+                        'placeholder' => 'e.g., font-bold text-blue-500'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'section',
+                'title' => 'Section Container',
+                'description' => 'Semantic section with optional styling',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'name' => [
+                        'type' => 'text',
+                        'title' => 'Section Name',
+                        'default' => '',
+                        'placeholder' => 'Optional section identifier'
+                    ],
+                    'page' => [
+                        'type' => 'text',
+                        'title' => 'Page of Content',
+                        'default' => '',
+                        'placeholder' => '/content/my-page',
+                        'required' => false
+                    ],
+                ],
+                'titleBarAttributes' => ['name'],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'notice',
+                'title' => 'Notice Box',
+                'description' => 'Create styled notice/alert boxes',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'type' => [
+                        'type' => 'select',
+                        'title' => 'Notice Type',
+                        'options' => ['note', 'info', 'warning', 'error'],
+                        'default' => 'note',
+                        'required' => true
+                    ]
+                ],
+                'titleBarAttributes' => ['type'],
+                'hasContent' => true,
+                'cssTemplate' => 'padding: 12px 16px; border-radius: 4px; margin: 16px 0; border-left: 4px solid #0ea5e9; background: #f0f9ff; color: #0c4a6e;'
+            ],
+            [
+                'name' => 'mark',
+                'title' => 'Highlight Text',
+                'description' => 'Highlight text with background color',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'color' => [
+                        'type' => 'color',
+                        'title' => 'Highlight Color',
+                        'default' => '#ffff00'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => 'background-color: {{color}}; padding: 1px 2px; border-radius: 2px;'
+            ],
+            [
+                'name' => 'fontawesome',
+                'title' => 'Font Awesome Icon',
+                'description' => 'Insert Font Awesome icon',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'attributes' => [
+                    'icon' => [
+                        'type' => 'text',
+                        'title' => 'Icon Name',
+                        'default' => 'heart',
+                        'required' => true,
+                        'placeholder' => 'e.g., heart, star, user'
+                    ],
+                    'size' => [
+                        'type' => 'select',
+                        'title' => 'Size',
+                        'options' => ['', 'xs', 'sm', 'lg', 'xl', '2x', '3x'],
+                        'default' => ''
+                    ]
+                ],
+                'titleBarAttributes' => ['icon'],
+                'hasContent' => false,
+                'cssTemplate' => 'font-family: "Font Awesome 5 Free"; font-weight: 900; display: inline-block;'
+            ]
+        ];
+        
+        // Add all core shortcodes to the registry
+        foreach ($coreShortcodes as $shortcode) {
+            $shortcodes[] = $shortcode;
+        }
+        
+        error_log('ShortcodeCore: Added ' . count($coreShortcodes) . ' shortcodes, total: ' . count($shortcodes));
+        
+        $event['shortcodes'] = $shortcodes;
         return $event;
     }
 
