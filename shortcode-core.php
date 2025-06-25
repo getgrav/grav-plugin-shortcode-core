@@ -318,6 +318,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Align content left, center, or right',
                 'type' => 'inline',
                 'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '⭯',
                 'attributes' => [
                     'direction' => [
                         'type' => 'select',
@@ -337,6 +340,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Create multi-column layout with customizable spacing',
                 'type' => 'block',
                 'plugin' => 'shortcode-core',
+                'category' => 'layout',
+                'group' => 'Core Shortcodes',
+                'icon' => '⫸',
                 'attributes' => [
                     'count' => [
                         'type' => 'number',
@@ -375,6 +381,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Create a custom Div element',
                 'type' => 'block',
                 'plugin' => 'shortcode-core',
+                'category' => 'layout',
+                'group' => 'Core Shortcodes',
+                'icon' => '⧈',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -399,6 +408,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Create a custom Span element',
                 'type' => 'inline',
                 'plugin' => 'shortcode-core',
+                'category' => 'layout',
+                'group' => 'Core Shortcodes',
+                'icon' => '⧉',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -423,6 +435,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Semantic section with optional styling',
                 'type' => 'block',
                 'plugin' => 'shortcode-core',
+                'category' => 'layout',
+                'group' => 'Core Shortcodes',
+                'icon' => '⧇',
                 'attributes' => [
                     'name' => [
                         'type' => 'text',
@@ -448,6 +463,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Create styled notice/alert boxes',
                 'type' => 'block',
                 'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '⚠',
                 'attributes' => [
                     'type' => [
                         'type' => 'select',
@@ -467,6 +485,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Highlight text with background color',
                 'type' => 'inline',
                 'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '🖍',
                 'attributes' => [
                     'color' => [
                         'type' => 'color',
@@ -484,6 +505,9 @@ class ShortcodeCorePlugin extends Plugin
                 'description' => 'Insert Font Awesome icon',
                 'type' => 'inline',
                 'plugin' => 'shortcode-core',
+                'category' => 'media',
+                'group' => 'Core Shortcodes',
+                'icon' => '★',
                 'attributes' => [
                     'icon' => [
                         'type' => 'text',
