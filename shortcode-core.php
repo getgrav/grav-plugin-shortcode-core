@@ -525,7 +525,46 @@ class ShortcodeCorePlugin extends Plugin
                 ],
                 'titleBarAttributes' => ['icon'],
                 'hasContent' => false,
-                'cssTemplate' => ''
+                'cssTemplate' => '',
+                'customRenderer' => 'function(blockData, config) {
+                    // Extract icon name from params or content
+                    let iconName = "";
+                    
+                    // Try to get icon from attributes first
+                    if (blockData.attributes && blockData.attributes.icon) {
+                        iconName = blockData.attributes.icon;
+                    } else if (blockData.params) {
+                        const iconMatch = blockData.params.match(/icon\\s*=\\s*["\']([^"\']+)["\']|icon\\s*=\\s*([^\\s\\]]+)/);
+                        iconName = iconMatch ? (iconMatch[1] || iconMatch[2]) : "";
+                    }
+                    
+                    // If no icon in params, check if content is the icon name
+                    if (!iconName && blockData.content && !blockData.content.includes(" ") && !blockData.content.includes("<")) {
+                        iconName = blockData.content;
+                    }
+                    
+                    if (iconName) {
+                        // Create FontAwesome icon HTML
+                        const iconClass = iconName.startsWith("fa-") ? iconName : "fa-" + iconName;
+                        let sizeClass = "";
+                        
+                        // Add size class if specified
+                        if (blockData.attributes && blockData.attributes.size) {
+                            sizeClass = " fa-" + blockData.attributes.size;
+                        }
+                        
+                        let displayText = "<i class=\"fa " + iconClass + sizeClass + "\" style=\"margin: 0 4px;\"></i>";
+                        
+                        // Add any additional content after the icon if it is not the icon name
+                        if (blockData.content && blockData.content !== iconName) {
+                            displayText += " " + blockData.content;
+                        }
+                        return displayText;
+                    } else {
+                        // Fallback to showing the content or tagName
+                        return blockData.content || blockData.tagName;
+                    }
+                }'
             ]
         ];
         
