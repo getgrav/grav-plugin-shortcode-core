@@ -525,7 +525,7 @@ class ShortcodeCorePlugin extends Plugin
                 ],
                 'titleBarAttributes' => ['icon'],
                 'hasContent' => false,
-                'cssTemplate' => 'font-family: "Font Awesome 5 Free"; font-weight: 900; display: inline-block;'
+                'cssTemplate' => ''
             ]
         ];
         
