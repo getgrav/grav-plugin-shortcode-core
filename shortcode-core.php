@@ -368,12 +368,12 @@ class ShortcodeCorePlugin extends Plugin
                         'type' => 'text',
                         'title' => 'Column Rule',
                         'default' => '',
-                        'placeholder' => 'e.g., 1px solid #930'
+                        'placeholder' => 'e.g., 1px solid #ccc'
                     ]
                 ],
                 'titleBarAttributes' => ['count', 'width'],
                 'hasContent' => true,
-                'cssTemplate' => 'columns: {{count}} {{width}}; column-gap: {{gap}};, column-rule: {{rule}};'
+                'cssTemplate' => 'columns: {{count}} {{width}}; column-gap: {{gap}}; column-rule: {{rule}};'
             ],
             [
                 'name' => 'div',
@@ -455,7 +455,7 @@ class ShortcodeCorePlugin extends Plugin
                 ],
                 'titleBarAttributes' => ['name'],
                 'hasContent' => true,
-                'cssTemplate' => ''
+                'cssTemplate' => null
             ],
             [
                 'name' => 'notice',
