@@ -313,26 +313,60 @@ class ShortcodeCorePlugin extends Plugin
         // Register core shortcodes for Editor Pro
         $coreShortcodes = [
             [
-                'name' => 'align',
-                'title' => 'Align Content',
-                'description' => 'Align content left, center, or right',
-                'type' => 'inline',
+                'name' => 'center',
+                'title' => 'Center Align',
+                'description' => 'Center align content',
+                'type' => 'block',
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '⭯',
-                'attributes' => [
-                    'direction' => [
-                        'type' => 'select',
-                        'title' => 'Direction',
-                        'options' => ['left', 'center', 'right'],
-                        'default' => 'center',
-                        'required' => true
-                    ]
-                ],
-                'titleBarAttributes' => ['direction'],
+                'icon' => '⊡',
+                'attributes' => [],
+                'titleBarAttributes' => [],
                 'hasContent' => true,
-                'cssTemplate' => 'text-align: {{direction}};'
+                'cssTemplate' => 'text-align: center;'
+            ],
+            [
+                'name' => 'left',
+                'title' => 'Left Align',
+                'description' => 'Left align content',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '⊣',
+                'attributes' => [],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => 'text-align: left;'
+            ],
+            [
+                'name' => 'right',
+                'title' => 'Right Align',
+                'description' => 'Right align content',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '⊢',
+                'attributes' => [],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => 'text-align: right;'
+            ],
+            [
+                'name' => 'justify',
+                'title' => 'Justify Align',
+                'description' => 'Justify align content',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '⊞',
+                'attributes' => [],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => 'text-align: justify;'
             ],
             [
                 'name' => 'columns',
@@ -500,7 +534,7 @@ class ShortcodeCorePlugin extends Plugin
                 'cssTemplate' => 'background-color: {{color}}; padding: 1px 2px; border-radius: 2px;'
             ],
             [
-                'name' => 'fontawesome',
+                'name' => 'fa',
                 'title' => 'Font Awesome Icon',
                 'description' => 'Insert Font Awesome icon',
                 'type' => 'inline',
@@ -564,6 +598,411 @@ class ShortcodeCorePlugin extends Plugin
                         // Fallback to showing the content or tagName
                         return blockData.content || blockData.tagName;
                     }
+                }'
+            ],
+            [
+                'name' => 'color',
+                'title' => 'Text Color',
+                'description' => 'Apply color to text',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '🎨',
+                'attributes' => [
+                    'color' => [
+                        'type' => 'color',
+                        'title' => 'Text Color',
+                        'default' => '#000000',
+                        'required' => true
+                    ]
+                ],
+                'titleBarAttributes' => ['color'],
+                'hasContent' => true,
+                'cssTemplate' => 'color: {{color}};'
+            ],
+            [
+                'name' => 'size',
+                'title' => 'Text Size',
+                'description' => 'Change text size',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => '↕',
+                'attributes' => [
+                    'size' => [
+                        'type' => 'text',
+                        'title' => 'Font Size',
+                        'default' => '16px',
+                        'required' => true,
+                        'placeholder' => 'e.g., 16px, 1.2em, 120%'
+                    ]
+                ],
+                'titleBarAttributes' => ['size'],
+                'hasContent' => true,
+                'cssTemplate' => 'font-size: {{size}};'
+            ],
+            [
+                'name' => 'u',
+                'title' => 'Underline',
+                'description' => 'Underline text',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'category' => 'formatting',
+                'group' => 'Core Shortcodes',
+                'icon' => 'U̲',
+                'attributes' => [],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => 'text-decoration: underline;'
+            ],
+            [
+                'name' => 'figure',
+                'title' => 'Figure',
+                'description' => 'Figure with optional caption',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'media',
+                'group' => 'Core Shortcodes',
+                'icon' => '🖼',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., full-width centered'
+                    ],
+                    'caption' => [
+                        'type' => 'text',
+                        'title' => 'Caption',
+                        'default' => '',
+                        'placeholder' => 'Figure caption text'
+                    ]
+                ],
+                'titleBarAttributes' => ['caption'],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'details',
+                'title' => 'Details/Summary',
+                'description' => 'Collapsible content section',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '▶',
+                'attributes' => [
+                    'summary' => [
+                        'type' => 'text',
+                        'title' => 'Summary Text',
+                        'default' => 'Click to expand',
+                        'required' => true
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., accordion-item'
+                    ]
+                ],
+                'titleBarAttributes' => ['summary'],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h1',
+                'title' => 'Heading 1',
+                'description' => 'Level 1 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₁',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., section-title'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h2',
+                'title' => 'Heading 2',
+                'description' => 'Level 2 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₂',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., subsection-title'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h3',
+                'title' => 'Heading 3',
+                'description' => 'Level 3 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₃',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., minor-heading'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h4',
+                'title' => 'Heading 4',
+                'description' => 'Level 4 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₄',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., minor-heading'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h5',
+                'title' => 'Heading 5',
+                'description' => 'Level 5 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₅',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., minor-heading'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'h6',
+                'title' => 'Heading 6',
+                'description' => 'Level 6 heading',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => 'H₆',
+                'attributes' => [
+                    'id' => [
+                        'type' => 'text',
+                        'title' => 'ID',
+                        'default' => '',
+                        'required' => false
+                    ],
+                    'class' => [
+                        'type' => 'text',
+                        'title' => 'Class',
+                        'default' => '',
+                        'placeholder' => 'e.g., minor-heading'
+                    ]
+                ],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'raw',
+                'title' => 'Raw Content',
+                'description' => 'Prevent shortcode processing in content',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '</>',
+                'attributes' => [],
+                'titleBarAttributes' => [],
+                'hasContent' => true,
+                'cssTemplate' => '',
+                'customRenderer' => 'function(blockData, config) {
+                    // Raw content should be displayed as-is without processing
+                    return blockData.content || "";
+                }'
+            ],
+            [
+                'name' => 'lang',
+                'title' => 'Language Filter',
+                'description' => 'Show content only for specific languages',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '🌐',
+                'attributes' => [
+                    'lang' => [
+                        'type' => 'text',
+                        'title' => 'Language Codes',
+                        'default' => 'en',
+                        'required' => true,
+                        'placeholder' => 'e.g., en, fr, de (comma-separated)'
+                    ]
+                ],
+                'titleBarAttributes' => ['lang'],
+                'hasContent' => true,
+                'cssTemplate' => ''
+            ],
+            [
+                'name' => 'lorem',
+                'title' => 'Lorem Ipsum',
+                'description' => 'Generate placeholder text',
+                'type' => 'block',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '¶',
+                'attributes' => [
+                    'p' => [
+                        'type' => 'number',
+                        'title' => 'Paragraphs',
+                        'default' => 1,
+                        'min' => 1,
+                        'max' => 10
+                    ],
+                    's' => [
+                        'type' => 'number',
+                        'title' => 'Sentences',
+                        'default' => 0,
+                        'min' => 0,
+                        'max' => 20
+                    ],
+                    'w' => [
+                        'type' => 'number',
+                        'title' => 'Words',
+                        'default' => 0,
+                        'min' => 0,
+                        'max' => 100
+                    ]
+                ],
+                'titleBarAttributes' => ['p', 's', 'w'],
+                'hasContent' => false,
+                'cssTemplate' => '',
+                'customRenderer' => 'function(blockData, config) {
+                    const p = blockData.attributes?.p || 1;
+                    const s = blockData.attributes?.s || 0;
+                    const w = blockData.attributes?.w || 0;
+                    
+                    let display = "Lorem ipsum";
+                    if (p > 0) display += " - " + p + " paragraph" + (p > 1 ? "s" : "");
+                    if (s > 0) display += ", " + s + " sentence" + (s > 1 ? "s" : "");
+                    if (w > 0) display += ", " + w + " word" + (w > 1 ? "s" : "");
+                    
+                    return display;
+                }'
+            ],
+            [
+                'name' => 'safe-email',
+                'title' => 'Safe Email',
+                'description' => 'Obfuscated email address',
+                'type' => 'inline',
+                'plugin' => 'shortcode-core',
+                'category' => 'content',
+                'group' => 'Core Shortcodes',
+                'icon' => '@',
+                'attributes' => [
+                    'email' => [
+                        'type' => 'text',
+                        'title' => 'Email Address',
+                        'default' => '',
+                        'required' => true,
+                        'placeholder' => 'user@example.com'
+                    ],
+                    'autolink' => [
+                        'type' => 'checkbox',
+                        'title' => 'Auto Link',
+                        'default' => true
+                    ]
+                ],
+                'titleBarAttributes' => ['email'],
+                'hasContent' => false,
+                'cssTemplate' => '',
+                'customRenderer' => 'function(blockData, config) {
+                    const email = blockData.attributes?.email || blockData.content || "";
+                    if (email) {
+                        // Display obfuscated version in editor
+                        const parts = email.split("@");
+                        if (parts.length === 2) {
+                            return parts[0] + "[at]" + parts[1].replace(/\\./g, "[dot]");
+                        }
+                    }
+                    return email || "safe-email";
                 }'
             ]
         ];
