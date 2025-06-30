@@ -320,7 +320,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '⊡',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="17" y1="6" x2="7" y2="6"></line><line x1="17" y1="14" x2="7" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -334,7 +334,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '⊣',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -348,7 +348,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '⊢',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -362,7 +362,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '⊞',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -376,7 +376,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'layout',
                 'group' => 'Core Shortcodes',
-                'icon' => '⫸',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1"></rect><rect x="14" y="3" width="7" height="18" rx="1"></rect></svg>',
                 'attributes' => [
                     'count' => [
                         'type' => 'number',
@@ -417,7 +417,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'layout',
                 'group' => 'Core Shortcodes',
-                'icon' => '⧈',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -444,7 +444,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'layout',
                 'group' => 'Core Shortcodes',
-                'icon' => '⧉',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4a2 2 0 0 1 2-2h8"></path><path d="M4 17v3a2 2 0 0 0 2 2h8"></path><path d="M20 7V4a2 2 0 0 0-2-2h-8"></path><path d="M20 17v3a2 2 0 0 1-2 2h-8"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -471,7 +471,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'layout',
                 'group' => 'Core Shortcodes',
-                'icon' => '⧇',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 22h2a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v3"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M3 15h6"></path><path d="M6 12v6"></path></svg>',
                 'attributes' => [
                     'name' => [
                         'type' => 'text',
@@ -499,7 +499,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '⚠',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
                 'attributes' => [
                     'type' => [
                         'type' => 'select',
@@ -521,7 +521,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '🖍',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"></path><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"></path></svg>',
                 'attributes' => [
                     'color' => [
                         'type' => 'color',
@@ -541,7 +541,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'media',
                 'group' => 'Core Shortcodes',
-                'icon' => '★',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>',
                 'attributes' => [
                     'icon' => [
                         'type' => 'text',
@@ -608,7 +608,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '🎨',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>',
                 'attributes' => [
                     'color' => [
                         'type' => 'color',
@@ -629,7 +629,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => '↕',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"></path><path d="M12 4v16"></path><path d="M6 20h12"></path></svg>',
                 'attributes' => [
                     'size' => [
                         'type' => 'text',
@@ -651,7 +651,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'formatting',
                 'group' => 'Core Shortcodes',
-                'icon' => 'U̲',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v7a6 6 0 0 0 12 0V4"></path><line x1="4" y1="20" x2="20" y2="20"></line></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -665,7 +665,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'media',
                 'group' => 'Core Shortcodes',
-                'icon' => '🖼',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -698,7 +698,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '▶',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>',
                 'attributes' => [
                     'summary' => [
                         'type' => 'text',
@@ -725,7 +725,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₁',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="m17 12 3-2v8"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -752,7 +752,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₂',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-3.5-1.5-.5.5-.5 1.5-.5 1.5"></path><path d="M17 18v-2"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -779,7 +779,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₃',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="M17.5 10.5c1.7-1 3.5 0 3.5 1.5a2 2 0 0 1-2 2"></path><path d="M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -806,7 +806,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₄',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="M17 10v4h4"></path><path d="M21 10v8"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -833,7 +833,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₅',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><path d="M17 13v-3h4"></path><path d="M17 17.7c.4.2.8.3 1.3.3 1.5 0 2.7-1.1 2.7-2.5S19.8 13 18.3 13c-.5 0-1 .2-1.3.5"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -860,7 +860,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => 'H₆',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"></path><path d="M4 18V6"></path><path d="M12 18V6"></path><circle cx="19" cy="16" r="2"></circle><path d="M20 10c-2 2-3 3.5-3 6"></path></svg>',
                 'attributes' => [
                     'id' => [
                         'type' => 'text',
@@ -887,7 +887,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '</>',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
                 'attributes' => [],
                 'titleBarAttributes' => [],
                 'hasContent' => true,
@@ -905,7 +905,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '🌐',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
                 'attributes' => [
                     'lang' => [
                         'type' => 'text',
@@ -927,7 +927,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '¶',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>',
                 'attributes' => [
                     'p' => [
                         'type' => 'number',
@@ -975,7 +975,7 @@ class ShortcodeCorePlugin extends Plugin
                 'plugin' => 'shortcode-core',
                 'category' => 'content',
                 'group' => 'Core Shortcodes',
-                'icon' => '@',
+                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>',
                 'attributes' => [
                     'email' => [
                         'type' => 'text',
