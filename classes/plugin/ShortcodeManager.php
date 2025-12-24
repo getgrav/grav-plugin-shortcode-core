@@ -146,6 +146,26 @@ class ShortcodeManager
     }
 
     /**
+     * reset the states
+     */
+    public function resetStates()
+    {
+        $this->states = [];
+    }
+
+    /**
+     * Reset all accumulated state (objects, assets, states).
+     * Useful for batch processing scenarios like search indexing
+     * where memory needs to be freed between pages.
+     */
+    public function resetAll()
+    {
+        $this->objects = [];
+        $this->assets = [];
+        $this->states = [];
+    }
+
+    /**
      * returns the current handler container object
      * 
      * @return HandlerContainer
