@@ -57,8 +57,10 @@ class ShortcodeCorePlugin extends Plugin
     {
         $this->config = $this->grav['config'];
 
+        $forceFrontend = (bool)($this->grav['shortcode_force_frontend'] ?? false);
+
         // don't continue if this is admin and plugin is disabled for admin
-        if (!$this->config->get('plugins.shortcode-core.active_admin') && $this->isAdmin()) {
+        if (!$forceFrontend && !$this->config->get('plugins.shortcode-core.active_admin') && $this->isAdmin()) {
             return;
         }
 
