@@ -432,6 +432,12 @@ class ShortcodeCorePlugin extends Plugin
                         'title' => 'Class',
                         'default' => null,
                         'placeholder' => 'e.g., font-bold text-blue-500'
+                    ],
+                    'style' => [
+                        'type' => 'text',
+                        'title' => 'Style',
+                        'default' => null,
+                        'placeholder' => 'e.g., color: red; padding: 10px;'
                     ]
                 ],
                 'titleBarAttributes' => [],
@@ -459,6 +465,12 @@ class ShortcodeCorePlugin extends Plugin
                         'title' => 'Class',
                         'default' => null,
                         'placeholder' => 'e.g., font-bold text-blue-500'
+                    ],
+                    'style' => [
+                        'type' => 'text',
+                        'title' => 'Style',
+                        'default' => null,
+                        'placeholder' => 'e.g., color: red; font-weight: bold;'
                     ]
                 ],
                 'titleBarAttributes' => [],
