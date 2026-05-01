@@ -1,7 +1,7 @@
 name: Shortcode Core
 slug: shortcode-core
 type: plugin
-version: 5.3.1
+version: 5.3.2
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -13,6 +13,9 @@ demo: http://learn.getgrav.org
 keywords: gui, plugin, tabs, twig
 bugs: https://github.com/getgrav/grav-plugin-shortcode-core/issues
 license: MIT
+
+compatibility:
+  grav: ['1.7', '2.0']
 
 dependencies:
     - { name: grav, version: '>=1.7.32' }
