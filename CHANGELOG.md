@@ -1,3 +1,9 @@
+# v5.4.0
+## 05/07/2026
+
+1. [](#new)
+    * Added `[read-file file="theme://..." /]` shortcode that includes the contents of a Grav-stream-resolved file into the page. Delegates to `Grav\Common\Helpers\FileReader::read()` (Grav 2.0.0-rc.2+), so it inherits the same hardening as the Twig `read_file()` function: stream-only paths, `security.read_file.allowed_streams` allow-list, extension allow-list, canonical realpath containment, and max size cap. Registered as a *raw* handler so it runs before Markdown — included `.md` files become part of the page's Markdown source and render normally; HTML / SVG / JSON pass through verbatim. Companion to the Grav 2 sandbox change that drops `read_file` from the default Twig sandbox allowlist: this shortcode is the supported way to inline file content from page content. The plugin's Grav 1.7 compatibility is preserved — on 1.7 the helper isn't present, so the shortcode emits an HTML comment (`<!-- [read-file] requires Grav >= 2.0.0-rc.2 -->`) instead of leaking as literal text. Themes targeting 1.7 should keep using the legacy Twig `read_file()` function from page content.
+
 # v5.3.2
 ## 05/01/2026
 
