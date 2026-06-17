@@ -132,6 +132,51 @@ shortcode-core:
     parser: regex
 ```
 
+## Building Your Own Shortcodes
+
+You can add your own shortcodes **without writing a PHP class or a plugin** using the **Shortcode Builder**. Each custom shortcode is backed by either a Twig template file or a short inline output snippet, and you wire it up in config or on the dedicated **Shortcode Builder** tab of the plugin settings (which works in both the classic admin and Admin Next).
+
+This is the recommended way to do the dynamic things people used to reach for Twig-in-content to do. In Grav 2.0, Twig in page content is disabled by default for [security reasons](https://learn.getgrav.org/content/twig-in-content); a shortcode keeps the logic in trusted code (a template or admin-authored config) while the author just writes a clean tag.
+
+The plugin ships with two starter examples you can edit or remove — a template-backed `[callout]` and an inline `[badge]`. They are defined under `shortcodes:` in `user/config/plugins/shortcode-core.yaml`:
+
+```yaml
+shortcodes:
+  - name: callout
+    template: 'shortcodes/callout.html.twig'
+  - name: badge
+    output: '<span class="badge badge-{{ params.style|default("default") }}">{{ content }}</span>'
+```
+
+* **`name`** — the shortcode tag. `callout` makes `[callout]…[/callout]` available.
+* **`template`** — a Twig template path (resolved through Grav's normal Twig lookup, so it can live in your theme or a plugin). Takes precedence over `output` when both are set.
+* **`output`** — an inline Twig snippet, handy for simple one-liners that don't warrant a file.
+
+Inside the template or snippet you have three variables:
+
+| Variable | Description |
+| --- | --- |
+| `params` | the shortcode's parameters, e.g. `params.style` for `[badge style="success"]` |
+| `content` | the content between the opening and closing tags |
+| `shortcode` | the raw shortcode object, for advanced use |
+
+A template-backed example (`templates/shortcodes/callout.html.twig` in your theme):
+
+```twig
+<div class="callout callout--{{ params.type|default('info') }}">
+    {% if params.title %}<strong>{{ params.title }}</strong>{% endif %}
+    <div>{{ content }}</div>
+</div>
+```
+
+Used in a page:
+
+```
+[callout type="warning" title="Heads up"]Save your work first.[/callout]
+```
+
+> **Safety:** the template/output is trusted code, but the author-supplied `params` and `content` it receives are auto-escaped by Twig on output, so untrusted input can't inject markup. Keep attribute values quoted in your templates (e.g. `class="{{ params.x }}"`) so the escaping protects you, exactly as in any Twig template.
+
 ## Shortcode Reference
 
 ### Text Formatting

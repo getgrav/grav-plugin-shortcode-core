@@ -1,0 +1,15 @@
+{# Example template for a config-defined shortcode (the "shortcode builder").
+   Shipped as the `[callout]` example in the plugin's default config:
+
+     shortcodes:
+       - name: callout
+         template: 'shortcodes/callout.html.twig'
+
+   Use it in a page:  [callout type="warning" title="Heads up"]Body text[/callout]
+
+   `params`, `content` and the raw `shortcode` object are available. All
+   `params`/`content` output is auto-escaped by Twig, so author input is safe. #}
+<div class="sc-callout sc-callout--{{ params.type|default('info') }}">
+    {% if params.title %}<strong class="sc-callout__title">{{ params.title }}</strong>{% endif %}
+    <div class="sc-callout__body">{{ content }}</div>
+</div>
