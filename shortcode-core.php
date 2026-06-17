@@ -9,6 +9,7 @@ use Grav\Common\Utils;
 use Grav\Plugin\ShortcodeCore\ShortcodeManager;
 use Grav\Plugin\ShortcodeCore\ShortcodeTwigVar;
 use RocketTheme\Toolbox\Event\Event;
+use Thunder\Shortcode\Shortcode\ShortcodeInterface;
 use Twig\TwigFilter;
 
 
@@ -232,6 +233,61 @@ class ShortcodeCorePlugin extends Plugin
         $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');
         if (isset($custom_shortcodes)) {
             $this->shortcodes->registerAllShortcodes(GRAV_ROOT . $custom_shortcodes);
+        }
+
+        // Register config-defined shortcodes (the "shortcode builder" — no PHP class needed)
+        $this->registerConfigShortcodes();
+    }
+
+    /**
+     * Register shortcodes defined in config, each backed by a Twig template or
+     * an inline Twig output string — the "shortcode builder". Lets a site add
+     * its own shortcodes without writing a PHP class or a plugin.
+     *
+     * Config (`plugins.shortcode-core.shortcodes`) is a list of definitions,
+     * each `{ name, template? | output? }`. A keyed map (tag => definition) is
+     * also accepted. The template/output is trusted code (it lives on disk or
+     * in admin-authored config, not in page content), and the author-supplied
+     * `params`/`content` it receives are auto-escaped by Twig on output — so
+     * this stays inside the Grav 2 content-security model.
+     */
+    protected function registerConfigShortcodes(): void
+    {
+        $defined = $this->config->get('plugins.shortcode-core.shortcodes');
+        if (!is_array($defined)) {
+            return;
+        }
+
+        $twig = $this->grav['twig'];
+
+        foreach ($defined as $key => $def) {
+            if (!is_array($def)) {
+                continue;
+            }
+
+            // `name` field (list form) or the map key (keyed form).
+            $name = trim((string) ($def['name'] ?? (is_string($key) ? $key : '')));
+            $template = trim((string) ($def['template'] ?? ''));
+            $output = (string) ($def['output'] ?? '');
+
+            if ($name === '' || ($template === '' && $output === '')) {
+                continue;
+            }
+
+            $this->shortcodes->getHandlers()->add($name, static function (ShortcodeInterface $sc) use ($twig, $template, $output) {
+                $vars = [
+                    'params'    => $sc->getParameters(),
+                    'content'   => $sc->getContent(),
+                    'shortcode' => $sc,
+                ];
+
+                // A template file wins over inline output when both are set.
+                if ($template !== '') {
+                    return $twig->processTemplate($template, $vars);
+                }
+
+                return $twig->processString($output, $vars);
+            });
         }
     }
 

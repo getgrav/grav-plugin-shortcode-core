@@ -7,6 +7,7 @@ include_default_shortcodes: true
 css:
   notice_enabled: true
 custom_shortcodes:
+shortcodes: []
 fontawesome:
   load: true
   url: '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'

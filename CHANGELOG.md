@@ -4,6 +4,8 @@
 1. [](#new)
     * Added a `[translate]KEY[/translate]` shortcode that looks up a language string, the safe in-content replacement for `{{ 'KEY'|t }}` when Twig in content is disabled.
     * Added a `[uri param="foo" /]` shortcode that prints a value from the current URL with its output HTML-escaped by default, the safe in-content replacement for `{{ uri.param('foo') }}`.
+    * Added a Shortcode Builder that lets you define your own shortcodes in config, each backed by a Twig template or an inline output snippet, with no plugin or PHP class needed.
+    * Added a Shortcode Builder editor to the plugin settings that works in both the classic admin and Admin Next.
 
 # v5.4.0
 ## 05/07/2026

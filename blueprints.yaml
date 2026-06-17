@@ -82,10 +82,34 @@ form:
 
     custom_shortcodes:
       type: text
-      label: Custom Shortcodes
-      help: The path to a location where you store custom shortcodes.
+      label: Custom Shortcodes Path
+      help: The path to a location where you store custom shortcode PHP classes.
       placeholder: '/user/custom/shortcodes'
       size: large
+
+    shortcodes:
+      type: list
+      label: Shortcode Builder
+      help: 'Define your own shortcodes without writing a plugin. Each one is backed by a Twig template or an inline output snippet. Author-supplied parameters and content are auto-escaped on output.'
+      style: vertical
+      collapsed: true
+      btnLabel: Add Shortcode
+      fields:
+        .name:
+          type: text
+          label: Tag
+          help: 'The shortcode name — "callout" makes [callout]…[/callout] available.'
+          placeholder: callout
+        .template:
+          type: text
+          label: Template
+          help: 'A Twig template path, e.g. shortcodes/callout.html.twig. Receives params, content and shortcode. Takes precedence over Output when both are set.'
+          placeholder: 'shortcodes/callout.html.twig'
+        .output:
+          type: textarea
+          label: Inline Output
+          help: 'Inline Twig, used when no Template is set, e.g. <span class="badge">{{ content }}</span>'
+          rows: 3
 
     css.notice_enabled:
       type: toggle
