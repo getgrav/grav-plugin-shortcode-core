@@ -7,7 +7,13 @@ include_default_shortcodes: true
 css:
   notice_enabled: true
 custom_shortcodes:
-shortcodes: []
+shortcodes:
+  # Two starter examples — one Twig-template-backed, one inline. Edit or remove
+  # them in Plugins → Shortcode Core → Shortcode Builder.
+  - name: callout
+    template: 'shortcodes/callout.html.twig'
+  - name: badge
+    output: '<span class="badge badge-{{ params.style|default("default") }}">{{ content }}</span>'
 fontawesome:
   load: true
   url: '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'

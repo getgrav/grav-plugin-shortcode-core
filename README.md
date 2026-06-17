@@ -134,11 +134,11 @@ shortcode-core:
 
 ## Building Your Own Shortcodes
 
-You can add your own shortcodes **without writing a PHP class or a plugin** using the **Shortcode Builder**. Each custom shortcode is backed by either a Twig template file or a short inline output snippet, and you wire it up in config (or in the **Shortcode Builder** section of the plugin settings, which works in both the classic admin and Admin Next).
+You can add your own shortcodes **without writing a PHP class or a plugin** using the **Shortcode Builder**. Each custom shortcode is backed by either a Twig template file or a short inline output snippet, and you wire it up in config or on the dedicated **Shortcode Builder** tab of the plugin settings (which works in both the classic admin and Admin Next).
 
 This is the recommended way to do the dynamic things people used to reach for Twig-in-content to do. In Grav 2.0, Twig in page content is disabled by default for [security reasons](https://learn.getgrav.org/content/twig-in-content); a shortcode keeps the logic in trusted code (a template or admin-authored config) while the author just writes a clean tag.
 
-Define your shortcodes under `shortcodes:` in `user/config/plugins/shortcode-core.yaml`:
+The plugin ships with two starter examples you can edit or remove — a template-backed `[callout]` and an inline `[badge]`. They are defined under `shortcodes:` in `user/config/plugins/shortcode-core.yaml`:
 
 ```yaml
 shortcodes:

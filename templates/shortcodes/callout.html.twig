@@ -1,11 +1,11 @@
 {# Example template for a config-defined shortcode (the "shortcode builder").
-   Wire it up in user/config/plugins/shortcode-core.yaml:
+   Shipped as the `[callout]` example in the plugin's default config:
 
      shortcodes:
        - name: callout
-         template: 'shortcodes/example.html.twig'
+         template: 'shortcodes/callout.html.twig'
 
-   then in a page:  [callout type="warning" title="Heads up"]Body text[/callout]
+   Use it in a page:  [callout type="warning" title="Heads up"]Body text[/callout]
 
    `params`, `content` and the raw `shortcode` object are available. All
    `params`/`content` output is auto-escaped by Twig, so author input is safe. #}

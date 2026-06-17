@@ -23,132 +23,151 @@ dependencies:
 form:
   validation: strict
   fields:
-    enabled:
-      type: toggle
-      label: Plugin Enabled
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
+    shortcode_tabs:
+      type: tabs
+      active: 1
 
-    active:
-      type: toggle
-      label: Activated
-      help: Site-Wide activation
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-
-    active_admin:
-      type: toggle
-      label: Activated in Admin
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-
-    admin_pages_only:
-      type: toggle
-      label: Admin Real-Pages Only
-      help: When activate, only process real-pages
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
-
-    parser:
-      type: select
-      size: medium
-      classes: fancy
-      label: Processor
-      help: Which built-in processor to use. WordPress (fastest), Regular (customizable), Regex (solid)
-      options:
-          wordpress: WordpressParser
-          regex: RegexParser
-          regular: RegularParser
-
-    custom_shortcodes:
-      type: text
-      label: Custom Shortcodes Path
-      help: The path to a location where you store custom shortcode PHP classes.
-      placeholder: '/user/custom/shortcodes'
-      size: large
-
-    shortcodes:
-      type: list
-      label: Shortcode Builder
-      help: 'Define your own shortcodes without writing a plugin. Each one is backed by a Twig template or an inline output snippet. Author-supplied parameters and content are auto-escaped on output.'
-      style: vertical
-      collapsed: true
-      btnLabel: Add Shortcode
       fields:
-        .name:
-          type: text
-          label: Tag
-          help: 'The shortcode name — "callout" makes [callout]…[/callout] available.'
-          placeholder: callout
-        .template:
-          type: text
-          label: Template
-          help: 'A Twig template path, e.g. shortcodes/callout.html.twig. Receives params, content and shortcode. Takes precedence over Output when both are set.'
-          placeholder: 'shortcodes/callout.html.twig'
-        .output:
-          type: textarea
-          label: Inline Output
-          help: 'Inline Twig, used when no Template is set, e.g. <span class="badge">{{ content }}</span>'
-          rows: 3
+        options:
+          type: tab
+          title: Options
 
-    css.notice_enabled:
-      type: toggle
-      label: Enable Notice Shortcode CSS
-      help: Enable the default notice CSS by default. Disable if you want to use your own custom CSS.
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
+          fields:
+            enabled:
+              type: toggle
+              label: Plugin Enabled
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
 
-    fontawesome.load:
-      type: toggle
-      label: Load Fontawesome Library
-      help: Used by the `safe-email` shortcode if your theme doesn't already load it
-      highlight: 1
-      default: 1
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
+            active:
+              type: toggle
+              label: Activated
+              help: Site-Wide activation
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
 
-    fontawesome.url:
-      type: text
-      label: Fontawesome URL
-      help: You can change the location of fontawesome by changing this URL
-      size: large
+            active_admin:
+              type: toggle
+              label: Activated in Admin
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
 
-    fontawesome.v5:
-      type: toggle
-      label: Use Fontawesome Version 5
-      help: Allows usage of the 'fab', 'fas' and other new font families of Fontawesome 5.
-      highlight: 0
-      default: 0
-      options:
-        1: Enabled
-        0: Disabled
-      validate:
-        type: bool
+            admin_pages_only:
+              type: toggle
+              label: Admin Real-Pages Only
+              help: When activate, only process real-pages
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
+            parser:
+              type: select
+              size: medium
+              classes: fancy
+              label: Processor
+              help: Which built-in processor to use. WordPress (fastest), Regular (customizable), Regex (solid)
+              options:
+                  wordpress: WordpressParser
+                  regex: RegexParser
+                  regular: RegularParser
+
+            custom_shortcodes:
+              type: text
+              label: Custom Shortcodes Path
+              help: The path to a location where you store custom shortcode PHP classes.
+              placeholder: '/user/custom/shortcodes'
+              size: large
+
+            css.notice_enabled:
+              type: toggle
+              label: Enable Notice Shortcode CSS
+              help: Enable the default notice CSS by default. Disable if you want to use your own custom CSS.
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
+            fontawesome.load:
+              type: toggle
+              label: Load Fontawesome Library
+              help: Used by the `safe-email` shortcode if your theme doesn't already load it
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
+            fontawesome.url:
+              type: text
+              label: Fontawesome URL
+              help: You can change the location of fontawesome by changing this URL
+              size: large
+
+            fontawesome.v5:
+              type: toggle
+              label: Use Fontawesome Version 5
+              help: Allows usage of the 'fab', 'fas' and other new font families of Fontawesome 5.
+              highlight: 0
+              default: 0
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
+        builder:
+          type: tab
+          title: Shortcode Builder
+
+          fields:
+            shortcodes_intro:
+              type: spacer
+              title: Build your own shortcodes
+
+            shortcodes:
+              type: list
+              label: Shortcodes
+              help: 'Define your own shortcodes here — no plugin or PHP needed. Each one is backed by a Twig template or an inline output snippet, and receives the shortcode''s params, content and the raw shortcode object. Author-supplied parameters and content are auto-escaped on output. The two examples below show both styles.'
+              style: vertical
+              collapsed: true
+              btnLabel: Add Shortcode
+              fields:
+                .name:
+                  type: text
+                  label: Tag
+                  help: 'The shortcode name — "callout" makes [callout]…[/callout] available.'
+                  placeholder: callout
+                .template:
+                  type: text
+                  label: Template
+                  help: 'A Twig template path, e.g. shortcodes/callout.html.twig. Receives params, content and shortcode. Takes precedence over Output when both are set.'
+                  placeholder: 'shortcodes/callout.html.twig'
+                .output:
+                  type: textarea
+                  label: Inline Output
+                  help: 'Inline Twig, used when no Template is set, e.g. <span class="badge">{{ content }}</span>'
+                  rows: 3
