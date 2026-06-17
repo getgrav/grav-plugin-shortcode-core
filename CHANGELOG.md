@@ -1,3 +1,10 @@
+# v5.5.0
+## 06/17/2026
+
+1. [](#new)
+    * Added a `[translate]KEY[/translate]` shortcode that looks up a language string, the safe in-content replacement for `{{ 'KEY'|t }}` when Twig in content is disabled.
+    * Added a `[uri param="foo" /]` shortcode that prints a value from the current URL with its output HTML-escaped by default, the safe in-content replacement for `{{ uri.param('foo') }}`.
+
 # v5.4.0
 ## 05/07/2026
 
