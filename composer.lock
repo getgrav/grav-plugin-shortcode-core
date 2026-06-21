@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rhukster/Shortcode.git",
-                "reference": "26ff61d52363c435d28e91cafb9661a6af2b26c4"
+                "reference": "69024288e7d4074bb04e16940169b65709ced6c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/26ff61d52363c435d28e91cafb9661a6af2b26c4",
-                "reference": "26ff61d52363c435d28e91cafb9661a6af2b26c4",
+                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/69024288e7d4074bb04e16940169b65709ced6c6",
+                "reference": "69024288e7d4074bb04e16940169b65709ced6c6",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
             "support": {
                 "source": "https://github.com/rhukster/Shortcode/tree/feature/tars-parser"
             },
-            "time": "2026-06-18T01:11:21+00:00"
+            "time": "2026-06-18T14:52:56+00:00"
         }
     ],
     "packages-dev": [],
