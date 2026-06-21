@@ -9,6 +9,8 @@ use Thunder\Shortcode\Utility\RegexBuilderUtility;
 
 /**
  * @author Tomasz Kowalczyk <tomasz@kowalczyk.cc>
+ * @psalm-suppress PossiblyUndefinedArrayOffset
+ * @psalm-suppress PossiblyUndefinedVariable
  */
 final class RegularParser implements ParserInterface
 {
@@ -79,6 +81,7 @@ final class RegularParser implements ParserInterface
                 }
             }
         }
+        /** @psalm-suppress PossiblyFalseArgument */
         ini_set('xdebug.max_nesting_level', $nestingLevel);
 
         return $shortcodes;
@@ -269,7 +272,9 @@ final class RegularParser implements ParserInterface
     {
         $position = array_pop($this->backtracks);
         $backtrack = '';
+        /** @psalm-suppress PossiblyNullOperand */
         for($i = $position; $i < $this->position; $i++) {
+            /** @psalm-suppress PossiblyNullArrayOffset */
             $backtrack .= $this->tokens[$i][1];
         }
 
@@ -285,13 +290,17 @@ final class RegularParser implements ParserInterface
     {
         $position = array_pop($this->backtracks);
         if($modifyPosition) {
+            /** @psalm-suppress PossiblyNullPropertyAssignmentValue */
             $this->position = $position;
         }
 
         $backtrack = '';
+        /** @psalm-suppress PossiblyNullOperand */
         for($i = $position; $i < $this->lastBacktrack; $i++) {
+            /** @psalm-suppress PossiblyNullArrayOffset */
             $backtrack .= $this->tokens[$i][1];
         }
+        /** @psalm-suppress PossiblyNullPropertyAssignmentValue */
         $this->lastBacktrack = $position;
 
         return $backtrack;
@@ -339,10 +348,11 @@ final class RegularParser implements ParserInterface
      * @param string $text
      *
      * @psalm-return list<array{0:int,1:string,2:int}>
+     * @psalm-suppress MixedReturnTypeCoercion
      */
     private function tokenize($text)
     {
-        $count = preg_match_all($this->lexerRegex, $text, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        $count = preg_match_all($this->lexerRegex, $text, $matches, PREG_SET_ORDER);
         if(false === $count || preg_last_error() !== PREG_NO_ERROR) {
             throw new \RuntimeException(sprintf('PCRE failure `%s`.', preg_last_error()));
         }
@@ -352,19 +362,21 @@ final class RegularParser implements ParserInterface
 
         foreach($matches as $match) {
             switch(true) {
-                case -1 !== $match['string'][1]: { $token = $match['string'][0]; $type = self::TOKEN_STRING; break; }
-                case -1 !== $match['ws'][1]: { $token = $match['ws'][0]; $type = self::TOKEN_WS; break; }
-                case -1 !== $match['marker'][1]: { $token = $match['marker'][0]; $type = self::TOKEN_MARKER; break; }
-                case -1 !== $match['delimiter'][1]: { $token = $match['delimiter'][0]; $type = self::TOKEN_DELIMITER; break; }
-                case -1 !== $match['separator'][1]: { $token = $match['separator'][0]; $type = self::TOKEN_SEPARATOR; break; }
-                case -1 !== $match['open'][1]: { $token = $match['open'][0]; $type = self::TOKEN_OPEN; break; }
-                case -1 !== $match['close'][1]: { $token = $match['close'][0]; $type = self::TOKEN_CLOSE; break; }
+                case array_key_exists('close', $match): { $token = $match['close']; $type = self::TOKEN_CLOSE; break; }
+                case array_key_exists('open', $match): { $token = $match['open']; $type = self::TOKEN_OPEN; break; }
+                case array_key_exists('separator', $match): { $token = $match['separator']; $type = self::TOKEN_SEPARATOR; break; }
+                case array_key_exists('delimiter', $match): { $token = $match['delimiter']; $type = self::TOKEN_DELIMITER; break; }
+                case array_key_exists('marker', $match): { $token = $match['marker']; $type = self::TOKEN_MARKER; break; }
+                case array_key_exists('ws', $match): { $token = $match['ws']; $type = self::TOKEN_WS; break; }
+                case array_key_exists('string', $match): { $token = $match['string']; $type = self::TOKEN_STRING; break; }
                 default: { throw new \RuntimeException('Invalid token.'); }
             }
             $tokens[] = array($type, $token, $position);
+            /** @psalm-suppress MixedArgument */
             $position += mb_strlen($token, 'utf-8');
         }
 
+        /** @psalm-suppress MixedReturnTypeCoercion */
         return $tokens;
     }
 
@@ -372,13 +384,13 @@ final class RegularParser implements ParserInterface
     private function prepareLexer(SyntaxInterface $syntax)
     {
         // FIXME: for some reason Psalm does not understand the `@psalm-var callable() $var` annotation
-        /** @psalm-suppress MissingClosureParamType, MissingClosureReturnType */
+        /** @psalm-suppress MissingClosureParamType,MissingClosureReturnType,PossiblyNullOperand */
         $group = function($text, $group) {
-            return '(?<'.(string)$group.'>'.preg_replace('/(.)/us', '\\\\$0', (string)$text).')';
+            return '(?<'.(string)$group.'>'.preg_quote((string)$text, '~').')';
         };
-        /** @psalm-suppress MissingClosureParamType, MissingClosureReturnType */
+        /** @psalm-suppress MissingClosureParamType,MissingClosureReturnType */
         $quote = function($text) {
-            return preg_replace('/(.)/us', '\\\\$0', (string)$text);
+            return preg_quote((string)$text, '~');
         };
 
         $rules = array(
@@ -388,6 +400,7 @@ final class RegularParser implements ParserInterface
                 $quote($syntax->getClosingTagMarker()),
                 $quote($syntax->getParameterValueSeparator()),
                 $quote($syntax->getParameterValueDelimiter()),
+                '\\\\',
                 '\s+',
             )).').)+)',
             '(?<ws>\s+)',

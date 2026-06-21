@@ -1,3 +1,10 @@
+# v6.1.0
+## 06/21/2026
+
+1. [](#new)
+    * Added the new `TarsParser`, which matches the Regular parser's correctness but runs several times faster and uses less memory.
+    * Made Tars the default parser for new installs, selectable from the Processor dropdown in the plugin settings.
+
 # v6.0.0
 ## 06/17/2026
 

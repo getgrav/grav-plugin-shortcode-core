@@ -2,7 +2,7 @@ enabled: true
 active: true
 active_admin: true
 admin_pages_only: true
-parser: regular
+parser: tars
 include_default_shortcodes: true
 css:
   notice_enabled: true
@@ -11,12 +11,12 @@ shortcodes:
   # Two starter examples — one Twig-template-backed, one inline. Edit or remove
   # them in Plugins → Shortcode Core → Shortcode Builder.
   - name: callout
-    template: 'shortcodes/callout.html.twig'
+    template: "shortcodes/callout.html.twig"
   - name: badge
     output: '<span class="badge badge-{{ params.style|default("default") }}">{{ content }}</span>'
 fontawesome:
   load: true
-  url: '//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css'
+  url: "//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"
   v5: false
 nextgen-editor:
   env: production

@@ -7,11 +7,11 @@ namespace Composer\Autoload;
 class ComposerStaticInit20dff4ef15e2090e54c04a9aa83321b9
 {
     public static $prefixLengthsPsr4 = array (
-        'T' => 
+        'T' =>
         array (
             'Thunder\\Shortcode\\' => 18,
         ),
-        'G' => 
+        'G' =>
         array (
             'Grav\\Plugin\\Shortcodes\\' => 23,
             'Grav\\Plugin\\ShortcodeCore\\' => 26,
@@ -19,15 +19,15 @@ class ComposerStaticInit20dff4ef15e2090e54c04a9aa83321b9
     );
 
     public static $prefixDirsPsr4 = array (
-        'Thunder\\Shortcode\\' => 
+        'Thunder\\Shortcode\\' =>
         array (
             0 => __DIR__ . '/..' . '/thunderer/shortcode/src',
         ),
-        'Grav\\Plugin\\Shortcodes\\' => 
+        'Grav\\Plugin\\Shortcodes\\' =>
         array (
             0 => __DIR__ . '/../..' . '/classes/shortcodes',
         ),
-        'Grav\\Plugin\\ShortcodeCore\\' => 
+        'Grav\\Plugin\\ShortcodeCore\\' =>
         array (
             0 => __DIR__ . '/../..' . '/classes/plugin',
         ),
