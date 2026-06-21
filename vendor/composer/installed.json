@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "v0.7.6",
-            "version_normalized": "0.7.6.0",
+            "version": "dev-feature/tars-parser",
+            "version_normalized": "dev-feature/tars-parser",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thunderer/Shortcode.git",
-                "reference": "9f81424b4909007483d93c5defc0917d8a58debd"
+                "url": "https://github.com/rhukster/Shortcode.git",
+                "reference": "26ff61d52363c435d28e91cafb9661a6af2b26c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thunderer/Shortcode/zipball/9f81424b4909007483d93c5defc0917d8a58debd",
-                "reference": "9f81424b4909007483d93c5defc0917d8a58debd",
+                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/26ff61d52363c435d28e91cafb9661a6af2b26c4",
+                "reference": "26ff61d52363c435d28e91cafb9661a6af2b26c4",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
                 "ext-json": "if you want to use JSON serializer",
                 "symfony/yaml": "if you want to use YAML serializer"
             },
-            "time": "2024-12-15T21:57:40+00:00",
+            "time": "2026-06-18T01:11:21+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -35,7 +35,11 @@
                     "Thunder\\Shortcode\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Thunder\\Shortcode\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -54,8 +58,7 @@
                 "shortcode"
             ],
             "support": {
-                "issues": "https://github.com/thunderer/Shortcode/issues",
-                "source": "https://github.com/thunderer/Shortcode/tree/v0.7.6"
+                "source": "https://github.com/rhukster/Shortcode/tree/feature/tars-parser"
             },
             "install-path": "../thunderer/shortcode"
         }

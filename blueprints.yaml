@@ -84,8 +84,9 @@ form:
               size: medium
               classes: fancy
               label: Processor
-              help: Which built-in processor to use. WordPress (fastest), Regular (customizable), Regex (solid)
+              help: Which built-in processor to use. Tars (fast and robust), Regular (robust reference), Regex (fast), WordPress (limited)
               options:
+                  tars: TarsParser
                   wordpress: WordpressParser
                   regex: RegexParser
                   regular: RegularParser
