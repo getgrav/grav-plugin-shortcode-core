@@ -114,7 +114,7 @@ final class TarsParser implements ParserInterface
             $byteStart = $whole[1];
             $byteEnd = $byteStart + strlen($whole[0]);
 
-            if($cnames[$i][1] !== -1) {
+            if(isset($cnames[$i][1]) && $cnames[$i][1] !== -1) {
                 // closing tag: match the innermost open node of the same name.
                 // RegularParser rejects a closing name that is falsy in PHP (`'0'`)
                 // via `if(!$closingName = ...)`, so we faithfully ignore it too.
@@ -148,15 +148,15 @@ final class TarsParser implements ParserInterface
                 $offset = $lastChar;
             }
 
-            $self = $selfs[$i][1] !== -1;
+            $self = isset($selfs[$i][1]) && $selfs[$i][1] !== -1;
 
             // node tuple: [0]name [1]paramsRaw [2]bbCodeRaw [3]offset [4]start
             //   [5]openEnd [6]parent [7]closed [8]closeStart [9]closeEnd [10]selfClosing
             // parameter/bbCode parsing is deferred to build() so absorbed nodes never pay for it
             $nodes[] = array(
                 $names[$i][0],
-                $params[$i][1] !== -1 ? $params[$i][0] : '',
-                $bbCodes[$i][1] !== -1 ? $bbCodes[$i][0] : null,
+                isset($params[$i][1]) && $params[$i][1] !== -1 ? $params[$i][0] : '',
+                isset($bbCodes[$i][1]) && $bbCodes[$i][1] !== -1 ? $bbCodes[$i][0] : null,
                 $offset,
                 $byteStart,
                 $byteEnd,
