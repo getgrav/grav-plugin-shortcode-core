@@ -21,7 +21,7 @@
     ],
     "require": {
         "php": ">=7.1.3",
-        "thunderer/shortcode": "dev-feature/tars-parser as 0.7.7"
+        "thunderer/shortcode": "dev-add-tars-parser as 0.7.7"
     },
     "autoload": {
         "psr-4": {

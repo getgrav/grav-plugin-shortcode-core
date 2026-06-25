@@ -1,7 +1,7 @@
 name: Shortcode Core
 slug: shortcode-core
 type: plugin
-version: 6.1.0
+version: 6.2.0
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -84,12 +84,12 @@ form:
               size: medium
               classes: fancy
               label: Processor
-              help: Which built-in processor to use. Tars (fast and robust), Regular (robust reference), Regex (fast), WordPress (limited)
+              help: Which built-in processor to use. Hybrid (fast and robust), Regular (robust reference), Regex (fast), WordPress (limited)
               options:
-                  tars: TarsParser
-                  wordpress: WordpressParser
-                  regex: RegexParser
+                  hybrid: HybridParser
                   regular: RegularParser
+                  regex: RegexParser
+                  wordpress: WordpressParser
 
             custom_shortcodes:
               type: text
