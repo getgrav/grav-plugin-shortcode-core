@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11ceed06803b3f9ae71205ec563f95d9",
+    "content-hash": "06bc9db1ba9743fe3301ce99c3838c79",
     "packages": [
         {
             "name": "thunderer/shortcode",
-            "version": "dev-feature/tars-parser",
+            "version": "dev-add-tars-parser",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rhukster/Shortcode.git",
-                "reference": "69024288e7d4074bb04e16940169b65709ced6c6"
+                "reference": "e4032b4a08ef1011eec2f6f22f25c104923d1fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/69024288e7d4074bb04e16940169b65709ced6c6",
-                "reference": "69024288e7d4074bb04e16940169b65709ced6c6",
+                "url": "https://api.github.com/repos/rhukster/Shortcode/zipball/e4032b4a08ef1011eec2f6f22f25c104923d1fef",
+                "reference": "e4032b4a08ef1011eec2f6f22f25c104923d1fef",
                 "shasum": ""
             },
             "require": {
@@ -61,16 +61,16 @@
                 "shortcode"
             ],
             "support": {
-                "source": "https://github.com/rhukster/Shortcode/tree/feature/tars-parser"
+                "source": "https://github.com/rhukster/Shortcode/tree/add-tars-parser"
             },
-            "time": "2026-06-18T14:52:56+00:00"
+            "time": "2026-06-24T19:42:47+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [
         {
             "package": "thunderer/shortcode",
-            "version": "dev-feature/tars-parser",
+            "version": "dev-add-tars-parser",
             "alias": "0.7.7",
             "alias_normalized": "0.7.7.0"
         }

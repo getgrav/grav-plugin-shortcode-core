@@ -2,7 +2,7 @@ enabled: true
 active: true
 active_admin: true
 admin_pages_only: true
-parser: tars
+parser: hybrid
 include_default_shortcodes: true
 css:
   notice_enabled: true
