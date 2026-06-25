@@ -10,7 +10,7 @@ use Thunder\Shortcode\EventContainer\EventContainer;
 use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Parser\RegularParser;
-use Thunder\Shortcode\Parser\TarsParser;
+use Thunder\Shortcode\Parser\HybridParser;
 use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
@@ -391,14 +391,16 @@ class ShortcodeManager
             case 'regular':
                 $parser = RegularParser::class;
                 break;
-            case 'tars':
-                $parser = TarsParser::class;
+            case 'regex':
+                $parser = RegexParser::class;
                 break;
             case 'wordpress':
                 $parser = WordpressParser::class;
                 break;
+            case 'tars': // legacy alias kept for configs created before the rename to Hybrid
+            case 'hybrid':
             default:
-                $parser = RegexParser::class;
+                $parser = HybridParser::class;
                 break;
         }
 

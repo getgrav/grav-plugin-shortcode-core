@@ -1,3 +1,11 @@
+# v6.2.0
+## 06/24/2026
+
+1. [](#improved)
+    * Renamed the `TarsParser` added in 6.1.0 to `HybridParser`, a name that better describes how it works: one regex pass lexes every tag, then a stack-based pass resolves nesting. It pairs RegexParser's speed with RegularParser's correctness.
+    * Made `hybrid` the default parser for new installs and renamed the matching Processor dropdown option in the plugin settings.
+    * Kept the old `tars` setting working. Sites that selected it keep running unchanged, the value now resolves to `HybridParser` automatically, so no config edits are needed.
+
 # v6.1.0
 ## 06/21/2026
 

@@ -7,7 +7,7 @@ use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Syntax\SyntaxInterface;
 
 /**
- * TarsParser - a fast, robust shortcode parser.
+ * HybridParser - a fast, robust shortcode parser.
  *
  * Strategy: a single PCRE pass lexes every individual shortcode tag (both
  * opening and closing) in C, then a linear stack-based pass resolves nesting
@@ -19,12 +19,12 @@ use Thunder\Shortcode\Syntax\SyntaxInterface;
  *
  * @author Andy Miller
  *
- * @psalm-type TarsNode = array{
+ * @psalm-type HybridNode = array{
  *     0: string, 1: string, 2: string|null, 3: int, 4: int, 5: int,
  *     6: int|null, 7: bool, 8: int|null, 9: int|null, 10: bool
  * }
  */
-final class TarsParser implements ParserInterface
+final class HybridParser implements ParserInterface
 {
     /** @var non-empty-string */
     private $tagRegex;
@@ -46,37 +46,37 @@ final class TarsParser implements ParserInterface
         $this->delimiter = $syntax->getParameterValueDelimiter();
         $this->delimiterLength = strlen($this->delimiter);
 
-        $o = preg_quote($syntax->getOpeningTag(), '~');
-        $c = preg_quote($syntax->getClosingTag(), '~');
-        $m = preg_quote($syntax->getClosingTagMarker(), '~');
-        $e = preg_quote($syntax->getParameterValueSeparator(), '~');
-        $d = preg_quote($this->delimiter, '~');
+        $openTag = preg_quote($syntax->getOpeningTag(), '~');
+        $closeTag = preg_quote($syntax->getClosingTag(), '~');
+        $marker = preg_quote($syntax->getClosingTagMarker(), '~');
+        $separator = preg_quote($syntax->getParameterValueSeparator(), '~');
+        $delimiter = preg_quote($this->delimiter, '~');
 
-        $ws = '\s*';
-        $special = $o.'|'.$c.'|'.$m.'|'.$e.'|'.$d;
+        $space = '\s*';
+        $special = $openTag.'|'.$closeTag.'|'.$marker.'|'.$separator.'|'.$delimiter;
         $notSpecial = '(?!'.$special.')';
         // a single "string token": one escape sequence, or one maximal run of
         // non-special, non-whitespace characters (possessive so it never gives back)
-        $stringTok = '(?:\\\\.|(?:'.$notSpecial.'[^\s\\\\])++)';
+        $stringToken = '(?:\\\\.|(?:'.$notSpecial.'[^\s\\\\])++)';
         // a value globs consecutive string tokens; atomic so the lexer commits like
         // RegularParser instead of backtracking into a different tokenization
-        $stringRun = '(?>'.$stringTok.'+)';
+        $stringRun = '(?>'.$stringToken.'+)';
         // a delimited value; the body is possessive so an escape sequence is never
         // given back to let the value re-close at an earlier (escaped) delimiter
-        $quoted = $d.'(?:\\\\.|(?!'.$d.').)*+'.$d;
+        $quoted = $delimiter.'(?:\\\\.|(?!'.$delimiter.').)*+'.$delimiter;
         $value = '(?>'.$quoted.'|'.$stringRun.')';
         // shortcode name; must end on a token boundary so `[foo.bar]` is rejected wholesale
         $name = '[a-zA-Z0-9_*-]+';
         $boundary = '(?=\s|'.$special.'|$)';
         // a parameter name is a single string token, not a glued run
-        $params = '(?<params>(?:'.$ws.$stringTok.'(?:'.$ws.$e.$ws.$value.')?)*+)';
-        $bbCode = '(?:'.$e.$ws.'(?<bbCode>'.$value.')'.$ws.')?+';
+        $parameters = '(?<params>(?:'.$space.$stringToken.'(?:'.$space.$separator.$space.$value.')?)*+)';
+        $bbCode = '(?:'.$separator.$space.'(?<bbCode>'.$value.')'.$space.')?+';
 
-        $close = $o.$ws.$m.$ws.'(?<cname>'.$name.')'.$ws.$c;
-        $open = $o.$ws.'(?<name>'.$name.')'.$boundary.$ws.$bbCode.$params.$ws.'(?<self>'.$m.')?'.$ws.$c;
+        $closingTagRule = $openTag.$space.$marker.$space.'(?<cname>'.$name.')'.$space.$closeTag;
+        $openingTagRule = $openTag.$space.'(?<name>'.$name.')'.$boundary.$space.$bbCode.$parameters.$space.'(?<self>'.$marker.')?'.$space.$closeTag;
 
-        $this->tagRegex = '~(?:'.$close.'|'.$open.')~us';
-        $this->paramRegex = '~'.$ws.'(?<pn>'.$stringTok.')(?:'.$ws.$e.$ws.'(?<pv>'.$value.'))?~us';
+        $this->tagRegex = '~(?:'.$closingTagRule.'|'.$openingTagRule.')~us';
+        $this->paramRegex = '~'.$space.'(?<pn>'.$stringToken.')(?:'.$space.$separator.$space.'(?<pv>'.$value.'))?~us';
     }
 
     /**
@@ -99,37 +99,37 @@ final class TarsParser implements ParserInterface
         $lastByte = 0;
         $lastChar = 0;
 
-        /** @psalm-var list<TarsNode> $nodes */
+        /** @psalm-var list<HybridNode> $nodes */
         $nodes = array();
         /** @psalm-var list<int> $stack */
         $stack = array();
         $depth = 0;
-        $cnames = $matches['cname'];
+        $closeNames = $matches['cname'];
         $names = $matches['name'];
-        $selfs = $matches['self'];
+        $selfMarkers = $matches['self'];
         $bbCodes = $matches['bbCode'];
-        $params = $matches['params'];
+        $paramStrings = $matches['params'];
 
-        foreach($matches[0] as $i => $whole) {
+        foreach($matches[0] as $index => $whole) {
             $byteStart = $whole[1];
             $byteEnd = $byteStart + strlen($whole[0]);
 
-            if(isset($cnames[$i][1]) && $cnames[$i][1] !== -1) {
+            if(isset($closeNames[$index][1]) && $closeNames[$index][1] !== -1) {
                 // closing tag: match the innermost open node of the same name.
                 // RegularParser rejects a closing name that is falsy in PHP (`'0'`)
                 // via `if(!$closingName = ...)`, so we faithfully ignore it too.
-                $cname = $cnames[$i][0];
-                if('0' === $cname) {
+                $closeName = $closeNames[$index][0];
+                if('0' === $closeName) {
                     continue;
                 }
-                for($s = $depth - 1; $s >= 0; $s--) {
-                    $node = $stack[$s];
-                    if($nodes[$node][0] === $cname) {
-                        $nodes[$node][7] = true;        // closed
-                        $nodes[$node][8] = $byteStart;  // closeStart
-                        $nodes[$node][9] = $byteEnd;    // closeEnd
-                        $stack = array_slice($stack, 0, $s);
-                        $depth = $s;
+                for($stackIndex = $depth - 1; $stackIndex >= 0; $stackIndex--) {
+                    $nodeIndex = $stack[$stackIndex];
+                    if($nodes[$nodeIndex][0] === $closeName) {
+                        $nodes[$nodeIndex][7] = true;        // closed
+                        $nodes[$nodeIndex][8] = $byteStart;  // closeStart
+                        $nodes[$nodeIndex][9] = $byteEnd;     // closeEnd
+                        $stack = array_slice($stack, 0, $stackIndex);
+                        $depth = $stackIndex;
                         break;
                     }
                 }
@@ -148,26 +148,26 @@ final class TarsParser implements ParserInterface
                 $offset = $lastChar;
             }
 
-            $self = isset($selfs[$i][1]) && $selfs[$i][1] !== -1;
+            $selfClosing = isset($selfMarkers[$index][1]) && $selfMarkers[$index][1] !== -1;
 
             // node tuple: [0]name [1]paramsRaw [2]bbCodeRaw [3]offset [4]start
             //   [5]openEnd [6]parent [7]closed [8]closeStart [9]closeEnd [10]selfClosing
             // parameter/bbCode parsing is deferred to build() so absorbed nodes never pay for it
             $nodes[] = array(
-                $names[$i][0],
-                isset($params[$i][1]) && $params[$i][1] !== -1 ? $params[$i][0] : '',
-                isset($bbCodes[$i][1]) && $bbCodes[$i][1] !== -1 ? $bbCodes[$i][0] : null,
+                $names[$index][0],
+                isset($paramStrings[$index][1]) && $paramStrings[$index][1] !== -1 ? $paramStrings[$index][0] : '',
+                isset($bbCodes[$index][1]) && $bbCodes[$index][1] !== -1 ? $bbCodes[$index][0] : null,
                 $offset,
                 $byteStart,
                 $byteEnd,
                 $depth ? $stack[$depth - 1] : null,
-                $self,
-                $self ? $byteEnd : null,
-                $self ? $byteEnd : null,
-                $self,
+                $selfClosing,
+                $selfClosing ? $byteEnd : null,
+                $selfClosing ? $byteEnd : null,
+                $selfClosing,
             );
 
-            if(false === $self) {
+            if(false === $selfClosing) {
                 $stack[$depth++] = count($nodes) - 1;
             }
         }
@@ -176,7 +176,7 @@ final class TarsParser implements ParserInterface
     }
 
     /**
-     * @psalm-param array<int, TarsNode> $nodes
+     * @psalm-param array<int, HybridNode> $nodes
      * @param string $text
      *
      * @return ParsedShortcode[]
@@ -189,23 +189,23 @@ final class TarsParser implements ParserInterface
         // forward pass resolves this in O(1) per node instead of walking ancestors.
         /** @psalm-var array<int,bool> $absorbed */
         $absorbed = array();
-        foreach($nodes as $id => $node) {
+        foreach($nodes as $index => $node) {
             $parent = $node[6];
             if(null !== $parent && ($nodes[$parent][7] || $absorbed[$parent])) {
-                $absorbed[$id] = true;
+                $absorbed[$index] = true;
                 continue;
             }
-            $absorbed[$id] = false;
+            $absorbed[$index] = false;
 
             if($node[7]) {
                 // a closed node always has integer close offsets (set on close or self-close)
                 /** @psalm-suppress PossiblyNullOperand */
                 $content = $node[10] ? null : substr($text, $node[5], $node[8] - $node[5]);
                 /** @psalm-suppress PossiblyNullOperand */
-                $string = substr($text, $node[4], $node[9] - $node[4]);
+                $shortcodeText = substr($text, $node[4], $node[9] - $node[4]);
             } else {
                 $content = null;
-                $string = substr($text, $node[4], $node[5] - $node[4]);
+                $shortcodeText = substr($text, $node[4], $node[5] - $node[4]);
             }
 
             $parameters = '' === $node[1] ? array() : $this->parseParameters($node[1]);
@@ -214,7 +214,7 @@ final class TarsParser implements ParserInterface
             /** @psalm-suppress PossiblyFalseArgument */
             $shortcode = new Shortcode($node[0], $parameters, $content, $bbCode);
             /** @psalm-suppress PossiblyFalseArgument */
-            $shortcodes[] = new ParsedShortcode($shortcode, $string, $node[3]);
+            $shortcodes[] = new ParsedShortcode($shortcode, $shortcodeText, $node[3]);
         }
 
         return $shortcodes;
@@ -251,12 +251,12 @@ final class TarsParser implements ParserInterface
      */
     private function extractValue($value)
     {
-        $dl = $this->delimiterLength;
-        if(strlen($value) >= 2 * $dl
-            && strncmp($value, $this->delimiter, $dl) === 0
-            && substr($value, -$dl) === $this->delimiter) {
+        $length = $this->delimiterLength;
+        if(strlen($value) >= 2 * $length
+            && strncmp($value, $this->delimiter, $length) === 0
+            && substr($value, -$length) === $this->delimiter) {
             /** @psalm-suppress FalsableReturnStatement */
-            return substr($value, $dl, -$dl);
+            return substr($value, $length, -$length);
         }
 
         return $value;
