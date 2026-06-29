@@ -1,3 +1,9 @@
+# v6.2.1
+## 06/29/2026
+
+1. [](#bugfix)
+    * Fixed the `[safe-email]` shortcode producing a broken, double-wrapped link when Grav's GFM autolinker had already turned the bare address into a mailto link.
+
 # v6.2.0
 ## 06/24/2026
 
