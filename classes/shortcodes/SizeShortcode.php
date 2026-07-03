@@ -12,6 +12,7 @@ class SizeShortcode extends Shortcode
             if (is_numeric($size)) {
                 $size .= 'px';
             }
+            $size = self::escAttr($size);
 
             return '<span style="font-size: ' . $size . ';">' . $sc->getContent() . '</span>';
         });

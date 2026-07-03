@@ -8,9 +8,9 @@ class DivShortcode extends Shortcode
     public function init()
     {
         $this->shortcode->getHandlers()->add('div', static function(ShortcodeInterface $sc) {
-            $id = $sc->getParameter('id');
-            $class = $sc->getParameter('class');
-            $style = $sc->getParameter('style');
+            $id = self::escAttr($sc->getParameter('id'));
+            $class = self::escAttr($sc->getParameter('class'));
+            $style = self::escAttr($sc->getParameter('style'));
 
             $id_output = $id ? ' id="' . $id . '" ': '';
             $class_output = $class ? ' class="' . $class . '"' : '';

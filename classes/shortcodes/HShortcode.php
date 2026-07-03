@@ -36,8 +36,8 @@ class HShortcode extends Shortcode
 
     protected function header($level, ShortcodeInterface $sc)
     {
-        $id = $sc->getParameter('id');
-        $class = $sc->getParameter('class');
+        $id = self::escAttr($sc->getParameter('id'));
+        $class = self::escAttr($sc->getParameter('class'));
         $tag = 'h' . $level;
 
         $id_output = $id ? ' id="' . $id . '" ': '';

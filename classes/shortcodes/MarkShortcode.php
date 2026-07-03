@@ -9,7 +9,7 @@ class MarkShortcode extends Shortcode
     {
         $this->shortcode->getHandlers()->add('mark', function(ShortcodeInterface $sc) {
             $style = $sc->getParameter('style', $this->getBbCode($sc));
-            $class = $sc->getParameter('class', 'default');
+            $class = self::escAttr($sc->getParameter('class', 'default'));
 
             $css_class = 'class="mark-class-' . $class . '"';
 

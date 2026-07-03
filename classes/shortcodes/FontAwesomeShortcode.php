@@ -44,7 +44,7 @@ class FontAwesomeShortcode extends Shortcode
                     }
                 }
 
-                return '<i class="' . $fa_class . ' ' . $icon . '">' . $str . '</i>';
+                return '<i class="' . self::escAttr($fa_class . ' ' . $icon) . '">' . $str . '</i>';
             }
 
             return '';

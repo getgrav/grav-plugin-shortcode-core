@@ -85,6 +85,24 @@ abstract class Shortcode
 
         return $code;
     }
+
+    /**
+     * Escape a user-supplied value for safe inclusion inside an HTML attribute.
+     *
+     * Shortcode parameters bypass Grav's save-time XSS scan, which only flags a
+     * literal `<` and shortcode syntax never contains one, and shortcode output
+     * is not re-scanned at render time. Each shortcode is therefore responsible
+     * for encoding the parameter values it concatenates into markup, otherwise a
+     * value such as `x" onmouseover=alert(1)` closes the attribute and injects a
+     * live event handler. (GHSA-q5fw-vpqc-fgph)
+     *
+     * @param string|null $value
+     * @return string
+     */
+    public static function escAttr($value): string
+    {
+        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+    }
 }
 
 // Make sure we also autoload the deprecated class.
