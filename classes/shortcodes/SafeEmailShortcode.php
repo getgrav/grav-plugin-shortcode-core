@@ -47,7 +47,7 @@ class SafeEmailShortcode extends Shortcode
                     }
                 }
 
-                $output = '<i class="'. $icon_base . $icon . '"></i> ' . $output;
+                $output = '<i class="'. self::escAttr($icon_base . $icon) . '"></i> ' . $output;
             }
 
             return $output;

@@ -9,8 +9,8 @@ class FigureShortcode extends Shortcode
     public function init()
     {
         $this->shortcode->getHandlers()->add('figure', function(ShortcodeInterface $sc) {
-            $id = $sc->getParameter('id');
-            $class = $sc->getParameter('class');
+            $id = self::escAttr($sc->getParameter('id'));
+            $class = self::escAttr($sc->getParameter('class'));
             $caption = $sc->getParameter('caption');
             $page = $this->grav['page'];
 

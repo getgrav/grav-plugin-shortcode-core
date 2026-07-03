@@ -14,7 +14,7 @@ class DetailsShortcode extends Shortcode
 
             // Get classes for details
             $class = $sc->getParameter('class', $this->getBbCode($sc));
-            $classHTML = (isset($class) and $class !== $summary) ? 'class="' . $class . '"' : '';
+            $classHTML = (isset($class) and $class !== $summary) ? 'class="' . self::escAttr($class) . '"' : '';
 
             // Get content
             $content = $sc->getContent();
