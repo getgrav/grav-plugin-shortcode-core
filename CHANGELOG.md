@@ -1,8 +1,14 @@
-# v6.2.1
+# v6.2.2
 ## 07/02/2026
 
 1. [](#bugfix)
     * [security] Shortcode parameters that set an element's color, size, id, class or style are now escaped when written into the page, closing a stored cross-site scripting hole where a crafted value could break out of the attribute and run script in a visitor's or an administrator's browser ([GHSA-q5fw-vpqc-fgph](https://github.com/getgrav/grav/security/advisories/GHSA-q5fw-vpqc-fgph)).
+
+# v6.2.1
+## 06/29/2026
+
+1. [](#bugfix)
+    * Fixed the `[safe-email]` shortcode producing a broken, double-wrapped link when Grav's GFM autolinker had already turned the bare address into a mailto link.
 
 # v6.2.0
 ## 06/24/2026

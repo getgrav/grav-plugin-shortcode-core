@@ -13,8 +13,10 @@ class SafeEmailShortcode extends Shortcode
                 $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
             }
 
-            // Get shortcode content and parameters
-            $addr_str = $sc->getContent();
+            // Get shortcode content and parameters. Strip any tags Grav's GFM
+            // autolinker may have wrapped the bare email in before this handler
+            // runs, otherwise the address gets double-wrapped into a nested link.
+            $addr_str = strip_tags($sc->getContent());
             $icon = $sc->getParameter('icon', false);
             $icon_base = "fa fa-";
             $autolink = $sc->getParameter('autolink', false);
