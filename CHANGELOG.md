@@ -1,3 +1,9 @@
+# v6.2.3
+## 07/21/2026
+
+1. [](#improved)
+    * Stopped committing the bundled editor's developer build lockfile that raised dependency vulnerability alerts in projects tracking the plugin; the running site is unaffected.
+
 # v6.2.2
 ## 07/02/2026
 
