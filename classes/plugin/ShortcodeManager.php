@@ -67,9 +67,11 @@ class ShortcodeManager
      *
      * @param mixed $actionOrAsset the type of asset (JS or CSS) or, if the second parameter is omitted,
      *      a collection or an array of asset.
-     * @param string $asset the asset path in question
+     * @param string|array $asset the asset path in question, or an array of [path, options]
+     * @param array $options optional Assets options (priority, group, etc.) — equivalent to
+     *      passing the asset as a [path, options] array
      */
-    public function addAssets($actionOrAsset, $asset = null)
+    public function addAssets($actionOrAsset, $asset = null, array $options = [])
     {
         if ($asset == null) {
             if (is_array($actionOrAsset)) {
@@ -78,6 +80,9 @@ class ShortcodeManager
                 $this->assets[''] [] = $actionOrAsset;
             }
         } else {
+            if ($options && !is_array($asset)) {
+                $asset = [$asset, $options];
+            }
             if (isset($this->assets[$actionOrAsset]) && in_array($asset, $this->assets[$actionOrAsset], true)) {
                 return;
             }

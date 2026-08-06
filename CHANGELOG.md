@@ -1,3 +1,9 @@
+# v6.2.4
+## 08/06/2026
+
+1. [](#improved)
+    * Custom shortcodes can now pass asset options such as priority and group as a third argument to `addAssets()`, instead of those options being silently ignored [#133](https://github.com/getgrav/grav-plugin-shortcode-core/issues/133)
+
 # v6.2.3
 ## 07/21/2026
 
