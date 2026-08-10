@@ -10,7 +10,11 @@ class DetailsShortcode extends Shortcode
         $this->shortcode->getHandlers()->add('details', function(ShortcodeInterface $sc) {
             // Get summary/title
             $summary = $sc->getParameter('summary', $this->getBbCode($sc));
-            $summaryHTML = $summary ? '<summary>' . $summary . '</summary>' : '';
+            // Escape the summary the same way the class attribute is escaped below. It is
+            // written into the page as markup, so an unescaped `<` closes the <summary>
+            // element and the rest is parsed as page HTML. The 6.2.2 attribute sweep
+            // (GHSA-q5fw-vpqc-fgph) covered `class` and stopped one line short of this.
+            $summaryHTML = $summary ? '<summary>' . self::escAttr($summary) . '</summary>' : '';
 
             // Get classes for details
             $class = $sc->getParameter('class', $this->getBbCode($sc));
