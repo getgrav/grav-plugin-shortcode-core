@@ -1,5 +1,5 @@
 # v6.2.5
-## 08/10/2026
+## 08/11/2026
 
 1. [](#bugfix)
     * [security] The `[lorem]` shortcode's `tag` option is now restricted to a plain tag name, closing a hole where a crafted value could attach an event handler to the generated markup and run script in a visitor's or an administrator's browser ([GHSA-hvm8-wx3f-j774](https://github.com/getgrav/grav/security/advisories/GHSA-hvm8-wx3f-j774)).
