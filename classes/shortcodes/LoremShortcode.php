@@ -77,6 +77,15 @@ class LoremShortcode extends Shortcode
             $sentences = $sc->getParameter('s');
             $words = $sc->getParameter('w');
 
+            // `tag` is written straight into the output markup by output(), so anything
+            // beyond a bare tag name is an injection: tag="img src=x onerror=alert(1) "
+            // renders a live event handler. Because the stored shortcode holds no literal
+            // `<`, Grav's save-time XSS scan never sees it. Restrict it to a tag name.
+            // (GHSA-hvm8-wx3f-j774)
+            if (!is_string($paragraph_tag) || !preg_match('/^[a-z][a-z0-9]*$/i', $paragraph_tag)) {
+                $paragraph_tag = 'p';
+            }
+
             if ($words) {
                 return $this->words($words);
             }
