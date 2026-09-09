@@ -1,7 +1,7 @@
 name: Shortcode Core
 slug: shortcode-core
 type: plugin
-version: 6.2.5
+version: 6.2.6
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -97,6 +97,13 @@ form:
               help: The path to a location where you store custom shortcode PHP classes.
               placeholder: '/user/custom/shortcodes'
               size: large
+
+            exclude_default_shortcodes:
+              type: array
+              label: Excluded Default Shortcodes
+              help: 'Built-in tags to leave switched off, one per row, without brackets (for example `fa`). An excluded tag is no longer parsed, so it renders as literal text. Only applies while the default shortcodes are on.'
+              value_only: true
+              placeholder_value: 'fa'
 
             css.notice_enabled:
               type: toggle

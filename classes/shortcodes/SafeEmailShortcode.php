@@ -8,16 +8,20 @@ class SafeEmailShortcode extends Shortcode
     public function init()
     {
         $this->shortcode->getHandlers()->add('safe-email', function(ShortcodeInterface $sc) {
-            // Load assets if required
-            if ($this->config->get('plugins.shortcode-core.fontawesome.load', false)) {
-                $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
-            }
-
             // Get shortcode content and parameters. Strip any tags Grav's GFM
             // autolinker may have wrapped the bare email in before this handler
             // runs, otherwise the address gets double-wrapped into a nested link.
             $addr_str = strip_tags($sc->getContent());
             $icon = $sc->getParameter('icon', false);
+
+            // Only pull Font Awesome in when an icon was actually asked for.
+            // This used to register the stylesheet before reading the
+            // parameter, so a plain [safe-email], which is the common case,
+            // fetched a webfont it never drew (getgrav/grav#4288).
+            if ($icon && $this->config->get('plugins.shortcode-core.fontawesome.load', false)) {
+                $this->shortcode->addAssets('css', $this->config->get('plugins.shortcode-core.fontawesome.url'));
+            }
+
             $icon_base = "fa fa-";
             $autolink = $sc->getParameter('autolink', false);
             $subject = $sc->getParameter('subject', false);
