@@ -4,6 +4,10 @@ active_admin: true
 admin_pages_only: true
 parser: hybrid
 include_default_shortcodes: true
+# Individual tags from the built-in set to leave unregistered, e.g. [fa].
+# Only applies while include_default_shortcodes is on. An excluded tag is no
+# longer parsed, so it renders as literal text.
+exclude_default_shortcodes: []
 css:
   notice_enabled: true
 custom_shortcodes:
