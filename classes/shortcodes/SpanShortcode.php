@@ -16,7 +16,7 @@ class SpanShortcode extends Shortcode
             $class_output = $class ? 'class="' . $class . '"' : '';
             $style_output = $style ? 'style="' . $style . '"' : '';
 
-            return '<span ' . $id_output . ' ' . $class_output . ' ' . $style_output . '>' . $sc->getContent() . '</span>';
+            return '<span ' . $id_output . ' ' . $class_output . ' ' . $style_output . self::langAttr($sc) . '>' . $sc->getContent() . '</span>';
         });
     }
 }

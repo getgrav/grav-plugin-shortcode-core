@@ -103,6 +103,21 @@ abstract class Shortcode
     {
         return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
     }
+
+    /**
+     * The ` lang="..."` attribute for a shortcode's `lang` parameter, so a
+     * passage in another language is announced correctly by screen readers,
+     * or an empty string when the parameter isn't set.
+     *
+     * @param ShortcodeInterface $sc
+     * @return string
+     */
+    public static function langAttr(ShortcodeInterface $sc): string
+    {
+        $lang = self::escAttr($sc->getParameter('lang'));
+
+        return $lang !== '' ? ' lang="' . $lang . '"' : '';
+    }
 }
 
 // Make sure we also autoload the deprecated class.

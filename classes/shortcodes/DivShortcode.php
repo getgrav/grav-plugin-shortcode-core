@@ -16,7 +16,7 @@ class DivShortcode extends Shortcode
             $class_output = $class ? ' class="' . $class . '"' : '';
             $style_output = $style ? ' style="' . $style . '"' : '';
 
-            return '<div ' . $id_output . $class_output . $style_output . '>' . $sc->getContent() . '</div>';
+            return '<div ' . $id_output . $class_output . $style_output . self::langAttr($sc) . '>' . $sc->getContent() . '</div>';
         });
     }
 }
