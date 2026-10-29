@@ -43,6 +43,8 @@ class HShortcode extends Shortcode
         $id_output = $id ? ' id="' . $id . '" ': '';
         $class_output = $class ? ' class="' . $class . '"' : '';
 
-        return "<{$tag}{$id_output}{$class_output}>{$sc->getContent()}</{$tag}>";
+        $lang_output = self::langAttr($sc);
+
+        return "<{$tag}{$id_output}{$class_output}{$lang_output}>{$sc->getContent()}</{$tag}>";
     }
 }

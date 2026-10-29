@@ -21,7 +21,7 @@ class FigureShortcode extends Shortcode
             $class_output = $class ? 'class="' . $class . '"' : '';
             $caption_output = $caption ? '<figcaption>' . $caption . '</figcaption>' : '';
 
-            return '<figure ' . $id_output . ' ' . $class_output . '>'.$sc->getContent(). $caption_output . '</figure>';
+            return '<figure ' . $id_output . ' ' . $class_output . self::langAttr($sc) . '>'.$sc->getContent(). $caption_output . '</figure>';
         });
     }
 }

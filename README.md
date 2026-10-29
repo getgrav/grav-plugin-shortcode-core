@@ -282,6 +282,12 @@ This is **important** highlighted text
 [/span]
 ```
 
+`span`, `div`, `h1` to `h6`, `figure`, `mark` and `details` also take a `lang` attribute, so screen readers and browsers know when a passage is in another language:
+
+```
+This is English, [span lang="fr"]mais ceci est en français[/span].
+```
+
 #### Columns
 
 Take advantage of powerful CSS columns support by using this shortcode

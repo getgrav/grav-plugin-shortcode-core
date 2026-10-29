@@ -21,7 +21,9 @@ class MarkShortcode extends Shortcode
                 $content = $sc->getContent();
             }
 
-            return "<mark {$css_class} {$css_style}>{$content}</mark>";
+            $lang = self::langAttr($sc);
+
+            return "<mark {$css_class} {$css_style}{$lang}>{$content}</mark>";
         });
     }
 }

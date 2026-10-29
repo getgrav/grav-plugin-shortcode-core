@@ -24,7 +24,7 @@ class DetailsShortcode extends Shortcode
             $content = $sc->getContent();
 
             // Return the details/summary block
-            return '<details ' . $classHTML . '>' . $summaryHTML . $content . '</details>';
+            return '<details ' . $classHTML . self::langAttr($sc) . '>' . $summaryHTML . $content . '</details>';
         });
     }
 }

@@ -1,3 +1,9 @@
+# v6.2.7
+## 10/29/2026
+
+1. [](#new)
+    * The `span`, `div`, `h1` to `h6`, `figure`, `mark` and `details` shortcodes keep a `lang` attribute, so a passage in another language is announced correctly by screen readers [#134](https://github.com/getgrav/grav-plugin-shortcode-core/issues/134)
+
 # v6.2.6
 ## 09/09/2026
 
