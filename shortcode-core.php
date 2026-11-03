@@ -233,7 +233,9 @@ class ShortcodeCorePlugin extends Plugin
         // Add custom shortcodes directory if provided
         $custom_shortcodes = $this->config->get('plugins.shortcode-core.custom_shortcodes');
         if (isset($custom_shortcodes)) {
-            $this->shortcodes->registerAllShortcodes(GRAV_ROOT . $custom_shortcodes);
+            // The path is relative to the webroot, which holds user/ and differs from GRAV_ROOT when Grav's public folder is separate
+            $webroot = defined('GRAV_WEBROOT') ? GRAV_WEBROOT : GRAV_ROOT;
+            $this->shortcodes->registerAllShortcodes($webroot . $custom_shortcodes);
         }
 
         // Register config-defined shortcodes (the "shortcode builder" — no PHP class needed)
