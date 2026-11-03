@@ -1,3 +1,9 @@
+# v6.2.8
+## 11/02/2026
+
+1. [](#bugfix)
+    * Resolve the custom shortcodes path from the webroot so it works when Grav's public folder is separate from the install folder
+
 # v6.2.7
 ## 10/29/2026
 
