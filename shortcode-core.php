@@ -623,8 +623,8 @@ class ShortcodeCorePlugin extends Plugin
                     'type' => [
                         'type' => 'select',
                         'title' => 'Notice Type',
-                        'options' => ['note', 'info', 'warning', 'error'],
-                        'default' => 'note',
+                        'options' => ['info', 'note', 'tip', 'warning'],
+                        'default' => 'info',
                         'required' => true
                     ]
                 ],
