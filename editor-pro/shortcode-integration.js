@@ -107,7 +107,7 @@
             title: 'Notice Box',
             description: 'Create notice/alert boxes',
             params: { 
-                type: { type: 'select', options: ['note', 'info', 'warning', 'error'], default: 'note' }
+                type: { type: 'select', options: ['info', 'note', 'tip', 'warning'], default: 'info' }
             },
             hasContent: true,
             template: '[notice type="{{type}}"]{{content}}[/notice]'

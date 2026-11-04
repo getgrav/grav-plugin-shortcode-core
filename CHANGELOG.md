@@ -1,3 +1,9 @@
+# v6.2.8
+## 11/04/2026
+
+1. [](#improved)
+    * The notice shortcode accepts `[notice type="warning"]`, which is what Editor Pro writes, alongside the short `[notice=warning]` form, and the editor now offers the four notice types that have styles, with `info` as the default
+
 # v6.2.7
 ## 10/29/2026
 

@@ -14,7 +14,8 @@ class NoticeShortcode extends Shortcode
             }
 
             $output = $this->twig->processTemplate('shortcodes/notice.html.twig', [
-                'type' => $sc->getParameter('notice', $this->getBbCode($sc)) ?: 'info',
+                // [notice type="warning"], or the short forms [notice=warning] and [notice notice="warning"]
+                'type' => $sc->getParameter('type') ?: $sc->getParameter('notice', $this->getBbCode($sc)) ?: 'info',
                 'content' => $sc->getContent(),
             ]);
 
