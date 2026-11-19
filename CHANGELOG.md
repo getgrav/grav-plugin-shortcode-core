@@ -1,3 +1,9 @@
+# v6.2.9
+## 11/18/2026
+
+1. [](#improved)
+    * The default parser is now called `stack`, matching the upstream rename of HybridParser to StackParser in thunderer/shortcode. Configs that still say `hybrid` (or `tars`) get the same parser, and the plugin uses StackParser once the library provides it
+
 # v6.2.8
 ## 11/04/2026
 

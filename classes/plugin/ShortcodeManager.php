@@ -11,6 +11,7 @@ use Thunder\Shortcode\HandlerContainer\HandlerContainer;
 use Thunder\Shortcode\Parser\RegexParser;
 use Thunder\Shortcode\Parser\RegularParser;
 use Thunder\Shortcode\Parser\HybridParser;
+use Thunder\Shortcode\Parser\StackParser;
 use Thunder\Shortcode\Parser\WordpressParser;
 use Thunder\Shortcode\Processor\Processor;
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
@@ -386,6 +387,11 @@ class ShortcodeManager
     /**
      * Get the appropriate parser object
      *
+     * `stack` is the default. Older configs that say `hybrid` (or `tars`, its
+     * first name) get the same parser, since upstream renamed HybridParser to
+     * StackParser. Until thunderer/shortcode ships StackParser, the bundled
+     * HybridParser stands in for it.
+     *
      * @param $parser
      * @return string
      */
@@ -394,21 +400,16 @@ class ShortcodeManager
         switch($parser)
         {
             case 'regular':
-                $parser = RegularParser::class;
-                break;
+                return RegularParser::class;
             case 'regex':
-                $parser = RegexParser::class;
-                break;
+                return RegexParser::class;
             case 'wordpress':
-                $parser = WordpressParser::class;
-                break;
-            case 'tars': // legacy alias kept for configs created before the rename to Hybrid
+                return WordpressParser::class;
+            case 'stack':
             case 'hybrid':
+            case 'tars':
             default:
-                $parser = HybridParser::class;
-                break;
+                return class_exists(StackParser::class) ? StackParser::class : HybridParser::class;
         }
-
-        return $parser;
     }
 }

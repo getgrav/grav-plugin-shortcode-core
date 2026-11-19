@@ -84,9 +84,9 @@ form:
               size: medium
               classes: fancy
               label: Processor
-              help: Which built-in processor to use. Hybrid (fast and robust), Regular (robust reference), Regex (fast), WordPress (limited)
+              help: Which built-in processor to use. Stack (fast and robust), Regular (robust reference), Regex (fast), WordPress (limited)
               options:
-                  hybrid: HybridParser
+                  stack: StackParser
                   regular: RegularParser
                   regex: RegexParser
                   wordpress: WordpressParser
