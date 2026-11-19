@@ -2,7 +2,7 @@ enabled: true
 active: true
 active_admin: true
 admin_pages_only: true
-parser: hybrid
+parser: stack
 include_default_shortcodes: true
 # Individual tags from the built-in set to leave unregistered, e.g. [fa].
 # Only applies while include_default_shortcodes is on. An excluded tag is no
