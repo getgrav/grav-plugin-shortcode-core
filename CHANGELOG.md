@@ -1,3 +1,10 @@
+# v6.2.10
+## 11/22/2026
+
+1. [](#bugfix)
+    * `[mark class=blue]` now actually shows blue: the plugin ships colors for `yellow`, `orange`, `red`, `pink`, `purple`, `blue`, `green` and `gray`, loaded only when a mark uses a class (toggle **Enable Mark Color CSS** off to use your own) [#136](https://github.com/getgrav/grav-plugin-shortcode-core/issues/136)
+    * `[mark color="..."]`, which Editor Pro writes when you pick a highlight color, now applies that color instead of rendering the default highlight
+
 # v6.2.9
 ## 11/18/2026
 

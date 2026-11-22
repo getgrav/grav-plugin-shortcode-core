@@ -1,7 +1,7 @@
 name: Shortcode Core
 slug: shortcode-core
 type: plugin
-version: 6.2.9
+version: 6.2.10
 description: "This plugin provides the core functionality for shortcode plugins"
 icon: code
 author:
@@ -109,6 +109,18 @@ form:
               type: toggle
               label: Enable Notice Shortcode CSS
               help: Enable the default notice CSS by default. Disable if you want to use your own custom CSS.
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
+            css.mark_enabled:
+              type: toggle
+              label: Enable Mark Color CSS
+              help: Load the color classes used by `[mark class=blue]` (yellow, orange, red, pink, purple, blue, green and gray). Disable if you want to style the `mark-class-*` classes in your own CSS.
               highlight: 1
               default: 1
               options:

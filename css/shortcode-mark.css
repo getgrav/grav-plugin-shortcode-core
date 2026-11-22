@@ -1,0 +1,10 @@
+/* Colors for [mark class=...]. Disable via css.mark_enabled to use your own. */
+mark.mark-class-yellow { background-color: #fff3a3; color: #3d3500; }
+mark.mark-class-orange { background-color: #ffd8a8; color: #4a2500; }
+mark.mark-class-red    { background-color: #ffc9c9; color: #4a0d0d; }
+mark.mark-class-pink   { background-color: #fcc2d7; color: #4a0d26; }
+mark.mark-class-purple { background-color: #e5dbff; color: #2b1757; }
+mark.mark-class-blue   { background-color: #c5e3ff; color: #0b2c4d; }
+mark.mark-class-green  { background-color: #c3f0c8; color: #0d3b14; }
+mark.mark-class-gray,
+mark.mark-class-grey   { background-color: #e2e5e9; color: #22272e; }
