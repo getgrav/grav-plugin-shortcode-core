@@ -117,6 +117,18 @@ form:
               validate:
                 type: bool
 
+            css.mark_enabled:
+              type: toggle
+              label: Enable Mark Color CSS
+              help: Load the color classes used by `[mark class=blue]` (yellow, orange, red, pink, purple, blue, green and gray). Disable if you want to style the `mark-class-*` classes in your own CSS.
+              highlight: 1
+              default: 1
+              options:
+                1: Enabled
+                0: Disabled
+              validate:
+                type: bool
+
             fontawesome.load:
               type: toggle
               label: Load Fontawesome Library

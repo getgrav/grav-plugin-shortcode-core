@@ -442,10 +442,18 @@ The solution is simple, just use the shortcode version instead:
 This is a sample of text [mark]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
 ```
 
-You can also use the `class` option to specificy a specific a CSS class to add to the `<mark>` HTML tag (useful to color the marked output):
+You can also use the `class` option to color the marked output:
 
 ```
 This is a sample of text [mark class=blue]with this bit **highlighted** with _markdown_ syntax[/mark] and the rest just plain.
+```
+
+The plugin ships colors for `yellow`, `orange`, `red`, `pink`, `purple`, `blue`, `green` and `gray`. The class is added to the tag as `mark-class-<name>` (so `class=blue` gives `<mark class="mark-class-blue">`), which means you can add your own colors in your theme's CSS, e.g. `mark.mark-class-teal { background-color: #c3fae8; }`. Turn off **Enable Mark Color CSS** in the plugin settings if you'd rather style all of them yourself.
+
+For a one-off color, use `color` with any CSS color value:
+
+```
+This is [mark color="#c5e3ff"]highlighted in light blue[/mark].
 ```
 
 It also works great in code blocks:

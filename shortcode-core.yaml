@@ -10,6 +10,7 @@ include_default_shortcodes: true
 exclude_default_shortcodes: []
 css:
   notice_enabled: true
+  mark_enabled: true
 custom_shortcodes:
 shortcodes:
   # Two starter examples — one Twig-template-backed, one inline. Edit or remove
